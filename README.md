@@ -1,43 +1,55 @@
-# Astro Starter Kit: Minimal
+# BIBLIOTHECA
 
-```sh
-npm create astro@latest -- --template minimal
+**A high-aesthetic, Renaissance-style digital museum for your Markdown artifacts.**
+
+BIBLIOTHECA transforms your Markdown files into an immersive, curated gallery experience. Inspired by the Italian Renaissance, it uses Chiaroscuro (light/dark contrast), elegant serif typography, and rich textures to elevate simple text into a work of art.
+
+## 🎨 Aesthetic Features
+
+- **The Frame**: Double-gold borders (`border-double`) and custom shadows for a tactile, 3D effect.
+- **The Lighting**: Radial gradients simulate a museum spotlight, focusing attention on the curation.
+- **Typography**: Authentic scholarly feel using `Cinzel` for headings and `EB Garamond` paired with `Noto Serif SC` for multi-language body text.
+- **Micro-interactions**: Smooth transitions and hover effects that simulate approaching an exhibit.
+
+## 🏛️ How it Works
+
+### 1. The Gallery Hall (`/`)
+Reads Markdown files from the `./data` directory at root. Each file is treated as an "Exhibit" with its own metadata plaque.
+
+### 2. The Curator's Desk (`/curator`)
+A client-side interactive zone. Drag and drop any `.md` file (Chinese, English, etc.) to instantly view it in the museum's signature style without any server-side processing.
+
+## 🚀 Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start the gallery (localhost:4321)
+npm run dev
+
+# Build the museum for production
+npm run build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 📜 Curation Guide
 
-## 🚀 Project Structure
+Add your artifacts to the `data/` folder with YAML frontmatter:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```yaml
+---
+title: "The Nature of Intelligence"
+author: "Aristotle"
+date: "2023-10-27"
+description: "A profound exploration into the origins of thought..."
+cover: "https://example.com/cover.jpg" # Optional cover image
+---
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🛠️ Tech Stack
+- **Framework**: [Astro](https://astro.build)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com) (v4)
+- **Icons**: [Lucide](https://lucide.dev)
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+*Ars Longa, Vita Brevis.*
