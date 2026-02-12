@@ -1,0 +1,74 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "A curated collection of knowledge." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		
+		<!-- Google Fonts: Support for English (Garamond) and Chinese (Noto Serif SC) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">
+		
+		<title>{title} | Bibliotheca Zhihu</title>
+		<ViewTransitions />
+	</head>
+	<body class="min-h-screen flex flex-col items-center overflow-x-hidden">
+		
+		<!-- The Frieze (Header) -->
+		<header class="fixed top-0 w-full z-50 bg-museum-bg/95 backdrop-blur-sm border-b-2 border-museum-gold shadow-lg">
+			<nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+				<a href="/" class="group">
+					<h1 class="font-display text-2xl md:text-3xl text-museum-gold tracking-widest uppercase items-center flex gap-3 transition-transform group-hover:scale-105 duration-500">
+						<span class="text-museum-crimson text-4xl">❖</span>
+						Bibliotheca Zhihu
+						<span class="text-museum-crimson text-4xl">❖</span>
+					</h1>
+				</a>
+				<div class="hidden md:flex gap-6 font-display text-museum-paper/80 text-sm tracking-widest">
+					<a href="/" class="hover:text-museum-gold transition-colors">Gallery</a>
+					<a href="#" class="hover:text-museum-gold transition-colors">Archives</a>
+					<a href="#" class="hover:text-museum-gold transition-colors">About</a>
+				</div>
+			</nav>
+		</header>
+
+		<!-- The Spotlight (Main Content) -->
+		<main class="w-full max-w-5xl px-6 pt-32 pb-20 relative z-10 animate-fade-in">
+			<slot />
+		</main>
+
+		<!-- Footer -->
+		<footer class="w-full border-t border-museum-gold/30 mt-auto py-8 bg-black/20 text-center">
+			<p class="font-display text-museum-gold/60 text-xs tracking-[0.2em] uppercase">
+				Est. MMXIV • Curated by AI • Ars Longa, Vita Brevis
+			</p>
+		</footer>
+
+	</body>
+</html>
+
+<style>
+	/* Minimal animation for page load */
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+	.animate-fade-in {
+		animation: fadeIn 1s ease-out forwards;
+	}
+</style>

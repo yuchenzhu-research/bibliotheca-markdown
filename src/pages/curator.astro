@@ -1,0 +1,161 @@
+---
+import MuseumLayout from '../layouts/MuseumLayout.astro';
+---
+
+<MuseumLayout title="Curator's Desk" description="Digitize and view your own artifacts instantly.">
+    <div id="drop-zone-container" class="max-w-4xl mx-auto py-12">
+        <!-- The Desk (Drop Zone) -->
+        <div 
+            id="drop-zone"
+            class="
+                border-4 border-dashed border-museum-gold/30 
+                bg-museum-bg/50 
+                rounded-lg 
+                p-20 
+                text-center 
+                cursor-pointer 
+                transition-all 
+                duration-500
+                hover:border-museum-gold/60
+                hover:bg-museum-gold/5
+                group
+            "
+        >
+            <div class="pointer-events-none">
+                <div class="text-6xl mb-6 group-hover:scale-110 transition-transform duration-500">📜</div>
+                <h2 class="font-display text-3xl text-museum-gold mb-4 uppercase tracking-widest">The Curator's Desk</h2>
+                <p class="font-body text-museum-paper/60 text-lg">
+                    Drag and drop any <span class="text-museum-gold">.md</span> artifact here to display it in the gallery.
+                </p>
+                <p class="mt-4 text-xs font-display text-museum-gold/40 tracking-widest uppercase">
+                    (Supports Chinese, English, and more)
+                </p>
+                <input type="file" id="file-input" class="hidden" accept=".md" />
+            </div>
+        </div>
+
+        <!-- The Display (Hidden initially) -->
+        <article id="artifact-display" class="hidden animate-fade-in mt-12">
+            <div class="text-center mb-16">
+                <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mb-8"></div>
+                <h1 id="artifact-title" class="font-display text-5xl md:text-6xl text-museum-gold mb-6 leading-tight">Untitled Fragment</h1>
+                <div id="artifact-meta" class="flex justify-center items-center gap-4 text-sm font-display tracking-[0.2em] text-museum-paper/60 uppercase">
+                    <span id="artifact-author">Unidentified Author</span>
+                    <span class="text-museum-gold">•</span>
+                    <span id="artifact-date">Present Day</span>
+                </div>
+                <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mt-8"></div>
+            </div>
+
+            <div class="
+                prose-museum 
+                drop-cap
+                px-8 py-12 md:p-16
+                bg-museum-paper/5 
+                rounded-sm 
+                shadow-2xl 
+                backdrop-blur-sm
+                border-y border-museum-gold/10
+                relative
+            ">
+                <div class="absolute top-0 left-0 w-8 h-8 border-t border-l border-museum-gold/20"></div>
+                <div class="absolute top-0 right-0 w-8 h-8 border-t border-r border-museum-gold/20"></div>
+                <div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-museum-gold/20"></div>
+                <div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-museum-gold/20"></div>
+
+                <div id="artifact-content"></div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <button onclick="location.reload()" class="font-display text-museum-gold hover:text-museum-crimson transition-colors tracking-widest text-sm uppercase">
+                    ← Examine another artifact
+                </button>
+            </div>
+        </article>
+    </div>
+</MuseumLayout>
+
+<script>
+    import { marked } from 'marked';
+
+    const dropZone = document.getElementById('drop-zone');
+    const container = document.getElementById('drop-zone-container');
+    const display = document.getElementById('artifact-display');
+    const contentArea = document.getElementById('artifact-content');
+    const titleEl = document.getElementById('artifact-title');
+    const authorEl = document.getElementById('artifact-author');
+    const dateEl = document.getElementById('artifact-date');
+    const fileInput = document.getElementById('file-input');
+
+    // Trigger file input on click
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFile(file);
+    });
+
+    // Drag and drop handlers
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('bg-museum-gold/10', 'border-museum-gold');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('bg-museum-gold/10', 'border-museum-gold');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('bg-museum-gold/10', 'border-museum-gold');
+        const file = e.dataTransfer.files[0];
+        if (file && file.name.endsWith('.md')) {
+            handleFile(file);
+        }
+    });
+
+    async function handleFile(file) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            const rawText = e.target.result;
+            
+            // Simple Frontmatter Parser (Regex)
+            const fmRegex = /^---\s*\n([\s\S]*?)\n---/;
+            const match = rawText.match(fmRegex);
+            
+            let content = rawText;
+            let title = file.name.replace('.md', '');
+            let author = 'Curated locally';
+            let date = new Date().toLocaleDateString();
+
+            if (match) {
+                const fmContent = match[1];
+                content = rawText.replace(match[0], '').trim();
+                
+                // Extract basics from YAML-like block
+                const titleMatch = fmContent.match(/title:\s*(.*)/);
+                const authorMatch = fmContent.match(/author:\s*(.*)/);
+                const dateMatch = fmContent.match(/date:\s*(.*)/);
+                
+                if (titleMatch) title = titleMatch[1].replace(/['"]/g, '');
+                if (authorMatch) author = authorMatch[1].replace(/['"]/g, '');
+                if (dateMatch) date = dateMatch[1].replace(/['"]/g, '');
+            }
+
+            // Render Markdown
+            const html = await marked.parse(content);
+            
+            // Update UI
+            titleEl.textContent = title;
+            authorEl.textContent = author;
+            dateEl.textContent = date;
+            contentArea.innerHTML = html;
+            
+            // Toggle Views
+            dropZone.classList.add('hidden');
+            display.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        reader.readAsText(file);
+    }
+</script>

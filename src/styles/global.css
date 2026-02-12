@@ -1,0 +1,110 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-museum-bg: #1a1a1a;
+  --color-museum-gold: #d4af37;
+  --color-museum-crimson: #800020;
+  --color-museum-paper: #f4e4bc;
+  --color-museum-ink: #2c2c2c;
+
+  --font-display: 'Cinzel', serif;
+  --font-body: 'EB Garamond', 'Noto Serif SC', serif;
+
+  --shadow-frame: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px #d4af37;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-museum-bg text-museum-paper font-body antialiased;
+    background-image:
+      radial-gradient(circle at center, transparent 0%, #1a1a1a 100%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display text-museum-gold;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-museum-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-museum-gold/30 rounded-full hover:bg-museum-gold/50;
+  }
+}
+
+/* Utilities for text selection */
+::selection {
+  @apply bg-museum-crimson text-museum-paper;
+}
+
+/* Custom Prose Overrides for "Reading Desk" */
+.prose-museum {
+  @apply prose-lg prose-invert max-w-none text-museum-paper/90;
+
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-museum-gold mt-12 mb-6;
+  }
+
+  /* Paragraphs */
+  p {
+    @apply font-body leading-loose text-lg mb-6;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    @apply border-l-4 border-museum-crimson pl-6 italic text-museum-gold/80 bg-museum-crimson/5 p-4 rounded-r-lg my-8 not-italic;
+    font-family: 'EB Garamond', serif;
+  }
+
+  /* Images */
+  img {
+    @apply border-4 border-double border-museum-gold shadow-frame rounded-sm my-12 mx-auto;
+  }
+
+  /* Links */
+  a {
+    @apply text-museum-crimson no-underline border-b border-museum-crimson/50 hover:text-museum-gold hover:border-museum-gold transition-colors;
+  }
+
+  /* Lists */
+  ul>li::marker {
+    @apply text-museum-gold;
+  }
+
+  /* Code */
+  code {
+    @apply font-mono text-museum-gold bg-museum-bg/50 px-1 py-0.5 rounded border border-museum-gold/20;
+  }
+
+  pre {
+    @apply bg-black/40 border border-museum-gold/20 rounded-lg;
+  }
+}
+
+/* Drop Cap Utility */
+.drop-cap::first-letter {
+  @apply text-5xl float-left mr-3 mt-[-6px] text-museum-crimson font-display leading-none;
+}

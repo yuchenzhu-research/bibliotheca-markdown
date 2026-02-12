@@ -1,0 +1,91 @@
+---
+import MuseumLayout from '../../layouts/MuseumLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+    const dataDir = path.join(process.cwd(), 'data');
+    
+    try {
+        if (!fs.existsSync(dataDir)) return [];
+        
+        const filenames = fs.readdirSync(dataDir).filter(file => file.endsWith('.md'));
+        
+        return filenames.map(filename => {
+            const filePath = path.join(dataDir, filename);
+            const fileContent = fs.readFileSync(filePath, 'utf-8');
+            const { data, content } = matter(fileContent);
+            
+            return {
+                params: { slug: filename.replace('.md', '') },
+                props: { frontmatter: data, content }
+            };
+        });
+    } catch (e) {
+        console.error("Error generating paths:", e);
+        return [];
+    }
+}
+
+const { frontmatter, content } = Astro.props;
+const htmlContent = await marked.parse(content);
+---
+
+<MuseumLayout title={frontmatter.title} description={frontmatter.description || frontmatter.excerpt}>
+	<article class="max-w-3xl mx-auto pb-20 animate-fade-in relative">
+        
+        <!-- Header / Title Area -->
+        <header class="text-center mb-16 relative">
+            <!-- Decorative line above -->
+            <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mb-8"></div>
+            
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl text-museum-gold mb-6 drop-shadow-lg leading-tight">
+                {frontmatter.title}
+            </h1>
+            
+            <div class="flex justify-center items-center gap-4 text-sm font-display tracking-[0.2em] text-museum-paper/60 uppercase">
+                {frontmatter.author && <span>{frontmatter.author}</span>}
+                {frontmatter.author && frontmatter.date && <span class="text-museum-gold">•</span>}
+                {frontmatter.date && (
+                    <time datetime={frontmatter.date}>
+                        {new Date(frontmatter.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                )}
+            </div>
+
+            <!-- Decorative line below -->
+            <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mt-8"></div>
+        </header>
+
+        <!-- Main Content (The Manuscript) -->
+        <div class="
+            prose-museum 
+            drop-cap
+            px-8 py-12 md:p-16
+            bg-museum-paper/5 
+            rounded-sm 
+            shadow-2xl 
+            backdrop-blur-sm
+            border-y border-museum-gold/10
+            relative
+        ">
+            <!-- Corner decorations for the paper feel -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t border-l border-museum-gold/20"></div>
+            <div class="absolute top-0 right-0 w-8 h-8 border-t border-r border-museum-gold/20"></div>
+            <div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-museum-gold/20"></div>
+            <div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-museum-gold/20"></div>
+
+            <div set:html={htmlContent} />
+        </div>
+        
+        <!-- Back Navigation -->
+        <div class="mt-16 text-center">
+            <a href="/" class="inline-flex items-center gap-2 font-display text-museum-gold hover:text-museum-crimson transition-colors tracking-widest text-sm uppercase group">
+                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> Return to Gallery
+            </a>
+        </div>
+
+	</article>
+</MuseumLayout>
