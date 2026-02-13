@@ -5,6 +5,7 @@ cover: "../../assets/backprop-manuscript.png"
 tags: ["Breakthrough", "1986"]
 author: "Rumelhart, Hinton, Williams"
 date: "1986-10-08"
+text_theme: "light"
 ---
 
 > "To err is human; to propagate the error backward is how machines truly learn."

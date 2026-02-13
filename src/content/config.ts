@@ -11,6 +11,7 @@ const exhibits = defineCollection({
         cover: image().optional(),
         author: z.string().default('Anonymous Artist'),
         image: z.string().optional(), // maintaining compatibility for now
+        text_theme: z.enum(['light', 'dark']).default('dark'),
     }),
 });
 

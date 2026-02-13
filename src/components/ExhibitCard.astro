@@ -10,12 +10,27 @@ interface Props {
     description?: string;
     image?: string; // Legacy string URL
     cover?: ImageMetadata; // Optimized Astro Image
+    text_theme?: 'light' | 'dark'; // Adaptive legibility
 }
 
-const { title, date, url, description, image, tags, cover } = Astro.props;
+const { title, date, url, description, image, tags, cover, text_theme = 'dark' } = Astro.props;
 
 // Get first letter for watermark
 const firstLetter = title.charAt(0).toUpperCase();
+
+// Color Logic
+const isLightTheme = text_theme === 'light';
+const textColor = isLightTheme ? 'text-slate-900' : 'text-museum-paper';
+const hoverTextColor = isLightTheme ? 'group-hover:text-museum-crimson' : 'group-hover:text-museum-gold';
+const descColor = isLightTheme ? 'text-slate-700' : 'text-museum-paper/80';
+const plaqueBorder = isLightTheme ? 'border-slate-900/30' : 'border-museum-paper/30';
+const plaqueText = isLightTheme ? 'text-slate-900/70' : 'text-museum-paper/90';
+
+// Default Colors for non-image cards (Gold/Dark)
+const defaultTitleColor = 'text-museum-bg group-hover:text-museum-crimson';
+const defaultDescColor = 'text-museum-ink/80';
+const defaultPlaqueBorder = 'border-museum-gold/40';
+const defaultPlaqueText = 'text-museum-ink/60';
 ---
 
 <a href={url} class="group block relative perspective-1000">
@@ -59,22 +74,21 @@ const firstLetter = title.charAt(0).toUpperCase();
         <!-- Content Content -->
 		<div class="relative z-10 flex flex-col gap-4 p-8 h-full justify-end">
             <!-- Decorative Element -->
-            <!-- Decorative Element -->
             {!image && !cover && <div class="w-12 h-1 bg-museum-gold/50 mb-auto"></div>}
 
 			<!-- Title -->
-			<h2 class={`font-display text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 ${image || cover ? 'text-museum-paper group-hover:text-museum-gold drop-shadow-md' : 'text-museum-bg group-hover:text-museum-crimson'}`}>
+			<h2 class={`font-display text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 ${image || cover ? `${textColor} ${hoverTextColor} drop-shadow-md` : defaultTitleColor}`}>
 				{title}
 			</h2>
             
             {description && (
-                <p class={`font-body text-lg italic line-clamp-3 ${image || cover ? 'text-museum-paper/80' : 'text-museum-ink/80'}`}>
+                <p class={`font-body text-lg italic line-clamp-3 ${image || cover ? descColor : defaultDescColor}`}>
                     {description}
                 </p>
             )}
 
             <!-- Plaque (Metadata) -->
-            <div class={`mt-4 pt-4 border-t flex justify-between items-center text-xs tracking-[0.15em] font-display uppercase ${image || cover ? 'border-museum-paper/30 text-museum-paper/90' : 'border-museum-gold/40 text-museum-ink/60'}`}>
+            <div class={`mt-4 pt-4 border-t flex justify-between items-center text-xs tracking-[0.15em] font-display uppercase ${image || cover ? `${plaqueBorder} ${plaqueText}` : `${defaultPlaqueBorder} ${defaultPlaqueText}`}`}>
                 <span class="font-bold text-museum-gold/80">{tags && tags[0] ? tags[0] : "Artifact"}</span>
                 {date && <span>{new Date(date).getFullYear()}</span>}
             </div>

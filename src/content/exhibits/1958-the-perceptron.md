@@ -5,6 +5,7 @@ cover: "../../assets/perceptron-schematic.png"
 tags: ["Origin", "1958"]
 author: "Frank Rosenblatt"
 date: "1958-01-01"
+text_theme: "light"
 ---
 
 > "The first step toward a machine that can sense, learn, and recognize its surroundings."
