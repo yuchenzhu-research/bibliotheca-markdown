@@ -1,0 +1,102 @@
+---
+import MuseumLayout from '../../layouts/MuseumLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+    const papers = await getCollection('papers');
+    return papers.map(entry => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const paper = entry.data;
+---
+
+<MuseumLayout title={`${paper.title} | BIBLIOTHECA ACADEMICA`}>
+    <article class="max-w-5xl mx-auto pb-20 animate-fade-in relative">
+        
+        <!-- Header / Metadata -->
+        <header class="text-center mb-16 relative">
+            <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mb-8"></div>
+            
+            <h1 class="font-display text-3xl md:text-5xl text-museum-gold mb-6 drop-shadow-lg leading-tight">
+                {paper.title}
+            </h1>
+            
+            <div class="flex flex-wrap justify-center items-center gap-4 text-sm font-display tracking-[0.2em] text-museum-paper/60 uppercase mb-6">
+                <span>{paper.authors}</span>
+                <span class="text-museum-gold">•</span>
+                <time datetime={paper.date}>
+                    {new Date(paper.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+            </div>
+
+            <!-- Abstract -->
+            <div class="max-w-3xl mx-auto px-8">
+                <p class="font-body text-lg text-museum-paper/70 italic leading-relaxed">
+                    {paper.abstract}
+                </p>
+            </div>
+
+            <div class="w-1/2 h-px bg-gradient-to-r from-transparent via-museum-gold/50 to-transparent mx-auto mt-8"></div>
+        </header>
+
+        <!-- Cover Image (Inverted for dark mode) -->
+        {paper.cover && (
+            <div class="mb-12 max-w-2xl mx-auto">
+                <img 
+                    src={paper.cover} 
+                    alt={`Architecture diagram for ${paper.title}`} 
+                    class="w-full rounded-sm border border-museum-gold/20 shadow-xl paper-invert"
+                />
+            </div>
+        )}
+
+        <!-- Markdown Body Content -->
+        {entry.body && entry.body.trim().length > 0 && (
+            <div class="
+                prose-museum 
+                max-w-3xl mx-auto
+                px-8 py-12 md:p-16
+                bg-museum-paper/5 
+                rounded-sm 
+                shadow-2xl 
+                backdrop-blur-sm
+                border-y border-museum-gold/10
+                relative
+                mb-12
+            ">
+                <Content />
+            </div>
+        )}
+
+        <!-- PDF Embed -->
+        <section class="mb-16">
+            <h2 class="font-display text-xl text-museum-gold/80 tracking-widest uppercase text-center mb-6">
+                Original Manuscript
+            </h2>
+            <iframe 
+                src={paper.pdf_link} 
+                class="w-full h-[85vh] rounded-xl border border-gray-700 shadow-2xl" 
+                title={paper.title}
+            ></iframe>
+        </section>
+
+        <!-- Back Navigation -->
+        <div class="mt-16 text-center">
+            <a href="/gallery" class="inline-flex items-center gap-2 font-display text-museum-gold hover:text-museum-crimson transition-colors tracking-widest text-sm uppercase group">
+                <span class="transform group-hover:-translate-x-1 transition-transform">←</span> Return to Chronicle
+            </a>
+        </div>
+
+    </article>
+</MuseumLayout>
+
+<style>
+    .paper-invert {
+        filter: invert(1) hue-rotate(180deg) opacity(0.85);
+    }
+</style>
