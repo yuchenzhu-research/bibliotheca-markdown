@@ -3,20 +3,20 @@ import MuseumLayout from '../layouts/MuseumLayout.astro';
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 
-const galleryEntries = await getCollection('gallery');
-galleryEntries.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+const paperEntries = await getCollection('papers');
+paperEntries.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 ---
 
-<MuseumLayout title="The Archive | BIBLIOTHECA">
+<MuseumLayout title="The Chronicle | BIBLIOTHECA ACADEMICA">
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 min-h-screen">
         
         <!-- Header -->
         <header class="text-center mb-24 relative z-10">
             <h1 class="font-display text-4xl md:text-6xl text-museum-gold mb-4 tracking-wider drop-shadow-lg">
-                The Chronological Archive
+                The Chronicle
             </h1>
             <p class="font-body text-museum-paper/60 text-lg md:text-xl max-w-2xl mx-auto italic">
-                Walking through the history of machine intelligence, from the first spark to the modern era.
+                Wandering through the history of computer science, preserving the monumental manuscripts that defined our digital era.
             </p>
         </header>
 
@@ -27,7 +27,7 @@ galleryEntries.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
             <!-- Timeline Items -->
             <div class="space-y-24">
-                {galleryEntries.map((entry, index) => {
+                {paperEntries.map((paper, index) => {
                     const isEven = index % 2 === 0;
                     return (
                         <div class={`relative flex flex-col md:flex-row items-center ${isEven ? 'md:flex-row-reverse' : ''}`}>
@@ -38,25 +38,25 @@ galleryEntries.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
                             <!-- Content Block (Text) -->
                             <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 mb-8 md:mb-0">
                                 <div class={`relative p-8 border border-museum-gold/20 bg-museum-paper/5 backdrop-blur-sm rounded-sm hover:bg-museum-paper/10 transition-colors duration-300 group ${isEven ? 'text-left md:text-right' : 'text-left'}`}>
-                                    <!-- Milestone Badge -->
+                                    <!-- Date Badge -->
                                     <div class={`inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-museum-bg bg-museum-gold uppercase ${isEven ? 'md:ml-auto' : ''}`}>
-                                        {entry.data.milestone}
+                                        {paper.data.date.getFullYear()}
                                     </div>
                                     
                                     <h2 class="font-display text-2xl text-museum-paper mb-2 group-hover:text-museum-gold transition-colors">
-                                        {entry.data.title}
+                                        {paper.data.title}
                                     </h2>
                                     
                                     <div class={`text-sm text-museum-gold/60 mb-4 font-mono uppercase tracking-wider`}>
-                                        {entry.data.date.getFullYear()} • {entry.data.author.split(',')[0]} et al.
+                                        {paper.data.authors.split(',')[0]} et al.
                                     </div>
                                     
-                                    <p class="font-body text-museum-paper/70 mb-6 leading-relaxed">
-                                        {entry.data.abstract}
+                                    <p class="font-body text-museum-paper/70 mb-6 leading-relaxed line-clamp-3">
+                                        {paper.data.abstract}
                                     </p>
 
-                                    <a href={entry.data.pdf_link} target="_blank" class={`inline-flex items-center gap-2 text-sm font-bold text-museum-crimson hover:text-museum-gold transition-colors tracking-widest uppercase border-b border-transparent hover:border-museum-gold pb-1`}>
-                                        <span>Read Paper</span>
+                                    <a href={`/papers/${paper.slug}`} class={`inline-flex items-center gap-2 text-sm font-bold text-museum-crimson hover:text-museum-gold transition-colors tracking-widest uppercase border-b border-transparent hover:border-museum-gold pb-1`}>
+                                        <span>Study Milestone</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                                         </svg>
@@ -66,15 +66,17 @@ galleryEntries.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 
                             <!-- Image Block (Visual) -->
                             <div class="w-full md:w-1/2 pl-12 md:pl-0 md:px-12">
-                                <a href={entry.data.pdf_link} target="_blank" class="block relative aspect-video overflow-hidden rounded-sm border border-museum-gold/20 group hover:border-museum-gold/60 transition-colors duration-500">
-                                    <div class="absolute inset-0 bg-white z-0"></div> <!-- White background for inverted image to sit on -->
-                                    <Image 
-                                        src={entry.data.cover} 
-                                        alt={`Architecture schema for ${entry.data.title}`} 
-                                        width={800} 
-                                        height={450} 
-                                        class="w-full h-full object-contain filter invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
-                                    />
+                                <a href={`/papers/${paper.slug}`} class="block relative aspect-video overflow-hidden rounded-sm border border-museum-gold/20 group hover:border-museum-gold/60 transition-colors duration-500">
+                                    <div class="absolute inset-0 bg-white z-0"></div>
+                                    {paper.data.cover && (
+                                        <Image 
+                                            src={paper.data.cover} 
+                                            alt={`Architecture schema for ${paper.data.title}`} 
+                                            width={800} 
+                                            height={450} 
+                                            class="w-full h-full object-contain filter invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                                        />
+                                    )}
                                     <div class="absolute inset-0 bg-museum-bg/10 group-hover:bg-transparent transition-colors duration-300"></div>
                                 </a>
                             </div>

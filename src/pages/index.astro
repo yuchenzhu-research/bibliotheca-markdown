@@ -4,10 +4,10 @@ import ExhibitCard from '../components/ExhibitCard.astro';
 import { getCollection } from 'astro:content';
 
 // Fetch data from Content Collection
-const posts = await getCollection('exhibits');
+const papers = await getCollection('papers');
 
-// Sort posts by date (Oldest first for history)
-posts.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
+// Sort papers by date (Oldest first for history)
+papers.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 ---
 
 <MuseumLayout title="The Grand Gallery">
@@ -21,22 +21,20 @@ posts.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 	</section>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
-        {posts.map((post) => (
+        {papers.map((paper) => (
             <ExhibitCard 
-                title={post.data.title} 
-                author={post.data.author} 
-                date={post.data.date.toISOString()}
-                tags={post.data.tags}
-                url={`/posts/${post.slug}`}
-                description={post.data.description}
-                cover={post.data.cover}
-                image={post.data.image}
-                text_theme={post.data.text_theme}
-                layout_style={post.data.layout_style}
+                title={paper.data.title} 
+                author={paper.data.authors} 
+                date={paper.data.date.toISOString()}
+                tags={["Milestone"]}
+                url={`/papers/${paper.slug}`}
+                description={paper.data.abstract}
+                cover={paper.data.cover}
+                layout_style="split"
             />
         ))}
         
-        {posts.length === 0 && (
+        {papers.length === 0 && (
             <div class="col-span-full text-center py-20 border border-museum-gold/30 rounded bg-museum-bg/50">
                 <p class="font-display text-museum-gold text-xl">The archives are currently empty.</p>
                 <p class="font-body text-museum-paper/60 mt-2">Please decorate the ./data directory with markdown artifacts.</p>

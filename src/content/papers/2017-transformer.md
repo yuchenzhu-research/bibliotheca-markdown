@@ -4,6 +4,7 @@ authors: "Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jone
 date: "2017-06-12"
 abstract: "The dominant sequence transduction models are based on complex recurrent or convolutional neural networks. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely."
 pdf_link: "/papers/2017-transformer.pdf"
+cover: "../../assets/gallery/2017-transformer.png"
 ---
 
 ### Core Insight
