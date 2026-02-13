@@ -8,7 +8,7 @@
 [![TailwindCSS](https://img.shields.io/badge/Styling-Tailwind_CSS_4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![TypeScript](https://img.shields.io/badge/Language-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![GitHub Stars](https://img.shields.io/github/stars/yuchenzhu-research/bibliotheca-markdown?style=for-the-badge&color=success&logo=github)](https://github.com/yuchenzhu-research/bibliotheca-markdown/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/yuchenzhu-research/Bibliotheca-Academica?style=for-the-badge&color=success&logo=github)](https://github.com/yuchenzhu-research/Bibliotheca-Academica/stargazers)
 
 </div>
 
@@ -33,10 +33,10 @@ Launch the museum locally in seconds.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yuchenzhu-research/bibliotheca-markdown.git
+git clone https://github.com/yuchenzhu-research/Bibliotheca-Academica.git
 
 # Navigate to the directory
-cd bibliotheca-markdown
+cd Bibliotheca-Academica
 
 # Install dependencies
 npm install
