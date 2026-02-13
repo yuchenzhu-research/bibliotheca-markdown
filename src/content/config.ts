@@ -29,4 +29,16 @@ const gallery = defineCollection({
     }),
 });
 
-export const collections = { exhibits, gallery };
+const papers = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        authors: z.string(),
+        date: z.string(),
+        abstract: z.string(),
+        pdf_link: z.string(),
+        cover: z.string().optional(),
+    }),
+});
+
+export const collections = { exhibits, gallery, papers };
