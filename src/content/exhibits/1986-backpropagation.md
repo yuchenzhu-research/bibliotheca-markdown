@@ -1,7 +1,7 @@
 ---
 title: "The Alchemy of Error"
 description: "How machines learned to correct themselves, transforming chaotic noise into structured intelligence."
-cover: "/assets/backprop-manuscript.jpg"
+cover: "../../assets/backprop-manuscript.png"
 tags: ["Breakthrough", "1986"]
 author: "Rumelhart, Hinton, Williams"
 date: "1986-10-08"

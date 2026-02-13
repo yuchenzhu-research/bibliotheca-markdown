@@ -1,7 +1,7 @@
 ---
 title: "The Architectura Neuralis"
 description: "The modern masterwork that taught machines to weigh the significance of every word, mirroring the human mind."
-cover: "/assets/transformer-blueprints.jpg"
+cover: "../../assets/transformer-blueprints.png"
 tags: ["Modernity", "2017"]
 author: "Vaswani et al."
 date: "2017-06-12"

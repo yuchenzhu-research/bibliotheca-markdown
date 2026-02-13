@@ -29,7 +29,8 @@ posts.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
                 tags={post.data.tags}
                 url={`/posts/${post.slug}`}
                 description={post.data.description}
-                image={post.data.cover || post.data.image}
+                cover={post.data.cover}
+                image={post.data.image}
             />
         ))}
         

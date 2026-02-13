@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
 	title: string;
 	author?: string;
@@ -6,10 +8,11 @@ interface Props {
     tags?: string[];
 	url: string;
     description?: string;
-    image?: string;
+    image?: string; // Legacy string URL
+    cover?: ImageMetadata; // Optimized Astro Image
 }
 
-const { title, date, url, description, image, tags } = Astro.props;
+const { title, date, url, description, image, tags, cover } = Astro.props;
 
 // Get first letter for watermark
 const firstLetter = title.charAt(0).toUpperCase();
@@ -34,8 +37,14 @@ const firstLetter = title.charAt(0).toUpperCase();
 		<!-- Background Texture -->
 		<div class="absolute inset-0 opacity-20 bg-noise pointer-events-none mix-blend-multiply"></div>
 
-        {image ? (
+        {cover ? (
             // Image Cover Mode
+            <div class="absolute inset-0 z-0">
+                <Image src={cover} alt={title} width={800} height={600} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3]" />
+                <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>
+            </div>
+        ) : image ? (
+            // Legacy Image Mode (String URL)
             <div class="absolute inset-0 z-0">
                 <img src={image} alt={title} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 sepia-[0.3]" />
                 <div class="absolute inset-0 bg-gradient-to-t from-museum-bg/90 via-museum-bg/20 to-transparent"></div>
@@ -50,28 +59,29 @@ const firstLetter = title.charAt(0).toUpperCase();
         <!-- Content Content -->
 		<div class="relative z-10 flex flex-col gap-4 p-8 h-full justify-end">
             <!-- Decorative Element -->
-            {!image && <div class="w-12 h-1 bg-museum-gold/50 mb-auto"></div>}
+            <!-- Decorative Element -->
+            {!image && !cover && <div class="w-12 h-1 bg-museum-gold/50 mb-auto"></div>}
 
 			<!-- Title -->
-			<h2 class={`font-display text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 ${image ? 'text-museum-paper group-hover:text-museum-gold drop-shadow-md' : 'text-museum-bg group-hover:text-museum-crimson'}`}>
+			<h2 class={`font-display text-2xl md:text-3xl font-bold leading-tight transition-colors duration-300 ${image || cover ? 'text-museum-paper group-hover:text-museum-gold drop-shadow-md' : 'text-museum-bg group-hover:text-museum-crimson'}`}>
 				{title}
 			</h2>
             
             {description && (
-                <p class={`font-body text-lg italic line-clamp-3 ${image ? 'text-museum-paper/80' : 'text-museum-ink/80'}`}>
+                <p class={`font-body text-lg italic line-clamp-3 ${image || cover ? 'text-museum-paper/80' : 'text-museum-ink/80'}`}>
                     {description}
                 </p>
             )}
 
             <!-- Plaque (Metadata) -->
-            <div class={`mt-4 pt-4 border-t flex justify-between items-center text-xs tracking-[0.15em] font-display uppercase ${image ? 'border-museum-paper/30 text-museum-paper/90' : 'border-museum-gold/40 text-museum-ink/60'}`}>
+            <div class={`mt-4 pt-4 border-t flex justify-between items-center text-xs tracking-[0.15em] font-display uppercase ${image || cover ? 'border-museum-paper/30 text-museum-paper/90' : 'border-museum-gold/40 text-museum-ink/60'}`}>
                 <span class="font-bold text-museum-gold/80">{tags && tags[0] ? tags[0] : "Artifact"}</span>
                 {date && <span>{new Date(date).getFullYear()}</span>}
             </div>
 		</div>
         
         {/* Corner decorations (Only for text mode to avoid cluttering image) */}
-        {!image && (
+        {!image && !cover && (
             <>
                 <div class="absolute top-2 left-2 w-3 h-3 border-t border-l border-museum-gold/50"></div>
                 <div class="absolute top-2 right-2 w-3 h-3 border-t border-r border-museum-gold/50"></div>

@@ -1,7 +1,7 @@
 ---
 title: "The Dawn of Perception"
 description: "The first mechanical spark of biological thought: Frank Rosenblatt's blueprint for a learning machine."
-cover: "/assets/perceptron-schematic.jpg"
+cover: "../../assets/perceptron-schematic.png"
 tags: ["Origin", "1958"]
 author: "Frank Rosenblatt"
 date: "1958-01-01"
