@@ -1,36 +1,18 @@
 ---
 import MuseumLayout from '../../layouts/MuseumLayout.astro';
-import fs from 'node:fs';
-import path from 'node:path';
-import matter from 'gray-matter';
-import { marked } from 'marked';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-    const dataDir = path.join(process.cwd(), 'data');
-    
-    try {
-        if (!fs.existsSync(dataDir)) return [];
-        
-        const filenames = fs.readdirSync(dataDir).filter(file => file.endsWith('.md'));
-        
-        return filenames.map(filename => {
-            const filePath = path.join(dataDir, filename);
-            const fileContent = fs.readFileSync(filePath, 'utf-8');
-            const { data, content } = matter(fileContent);
-            
-            return {
-                params: { slug: filename.replace('.md', '') },
-                props: { frontmatter: data, content }
-            };
-        });
-    } catch (e) {
-        console.error("Error generating paths:", e);
-        return [];
-    }
+    const exhibits = await getCollection('exhibits');
+    return exhibits.map(entry => ({
+        params: { slug: entry.slug },
+        props: { entry },
+    }));
 }
 
-const { frontmatter, content } = Astro.props;
-const htmlContent = await marked.parse(content);
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const frontmatter = entry.data;
 ---
 
 <MuseumLayout title={frontmatter.title} description={frontmatter.description || frontmatter.excerpt}>
@@ -77,7 +59,7 @@ const htmlContent = await marked.parse(content);
             <div class="absolute bottom-0 left-0 w-8 h-8 border-b border-l border-museum-gold/20"></div>
             <div class="absolute bottom-0 right-0 w-8 h-8 border-b border-r border-museum-gold/20"></div>
 
-            <div set:html={htmlContent} />
+            <Content />
         </div>
         
         <!-- Back Navigation -->

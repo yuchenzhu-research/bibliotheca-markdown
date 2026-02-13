@@ -1,34 +1,13 @@
 ---
 import MuseumLayout from '../layouts/MuseumLayout.astro';
 import ExhibitCard from '../components/ExhibitCard.astro';
-import fs from 'node:fs';
-import path from 'node:path';
-import matter from 'gray-matter';
+import { getCollection } from 'astro:content';
 
-// Fetch data from local ./data directory
-const dataDir = path.join(process.cwd(), 'data');
-let posts = [];
+// Fetch data from Content Collection
+const posts = await getCollection('exhibits');
 
-try {
-    const filenames = fs.readdirSync(dataDir).filter(file => file.endsWith('.md'));
-    
-    posts = filenames.map(filename => {
-        const filePath = path.join(dataDir, filename);
-        const fileContent = fs.readFileSync(filePath, 'utf-8');
-        const { data } = matter(fileContent);
-        
-        return {
-            slug: filename.replace('.md', ''),
-            frontmatter: data
-        };
-    });
-    // Sort posts by date (Oldest first for history)
-    posts.sort((a, b) => new Date(a.frontmatter.date).getTime() - new Date(b.frontmatter.date).getTime());
-} catch (e) {
-    console.error("Could not read data directory:", e);
-    // Fallback for demo if directory is missing
-    posts = [];
-}
+// Sort posts by date (Oldest first for history)
+posts.sort((a, b) => a.data.date.getTime() - b.data.date.getTime());
 ---
 
 <MuseumLayout title="The Grand Gallery">
@@ -44,13 +23,13 @@ try {
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
         {posts.map((post) => (
             <ExhibitCard 
-                title={post.frontmatter.title || "Untitled Fragment"} 
-                author={post.frontmatter.author} 
-                date={post.frontmatter.date}
-                tags={post.frontmatter.tags}
+                title={post.data.title} 
+                author={post.data.author} 
+                date={post.data.date.toISOString()}
+                tags={post.data.tags}
                 url={`/posts/${post.slug}`}
-                description={post.frontmatter.description || post.frontmatter.excerpt}
-                image={post.frontmatter.cover || post.frontmatter.image}
+                description={post.data.description}
+                image={post.data.cover || post.data.image}
             />
         ))}
         
