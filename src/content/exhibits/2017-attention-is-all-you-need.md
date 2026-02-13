@@ -11,5 +11,5 @@ layout_style: "split"
 
 > "Attention is the currency of intelligence. In its presence, context becomes eternal."
 
-### Curator's Note
+### Core Insight
 The Transformer completely abandoned past linear constraints. It introduced the "Self-Attention Mechanism," allowing machines to observe the whole simultaneously. It is the soul of contemporary Large Language Models and the grandest hall in our digital museum. It marks our formal entry into the Enlightenment era of Artificial General Intelligence.
