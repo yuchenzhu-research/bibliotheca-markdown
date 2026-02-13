@@ -22,6 +22,8 @@ try {
             frontmatter: data
         };
     });
+    // Sort posts by date (Oldest first for history)
+    posts.sort((a, b) => new Date(a.frontmatter.date).getTime() - new Date(b.frontmatter.date).getTime());
 } catch (e) {
     console.error("Could not read data directory:", e);
     // Fallback for demo if directory is missing
@@ -45,6 +47,7 @@ try {
                 title={post.frontmatter.title || "Untitled Fragment"} 
                 author={post.frontmatter.author} 
                 date={post.frontmatter.date}
+                tags={post.frontmatter.tags}
                 url={`/posts/${post.slug}`}
                 description={post.frontmatter.description || post.frontmatter.excerpt}
                 image={post.frontmatter.cover || post.frontmatter.image}
