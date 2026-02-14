@@ -1,7 +1,6 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import {
   AletImageCard,
-  FeaturedDocument,
   HorizontalScrollSection,
 } from "@/components/archive/AletImageCard";
 import { ArrowRight, ChevronRight } from "lucide-react";
@@ -14,23 +13,8 @@ export default function Home() {
 
       {/* ===== Horizontal Scroll Section - Featured Works ===== */}
       <HorizontalScrollSection>
-        {/* Featured Document - Large hero card */}
-        <div className="flex-none w-[85vw] md:w-[70vw] lg:w-[900px]">
-          <FeaturedDocument
-            title="Principia Mathematica"
-            description="A foundational text on the laws of motion and universal gravitation. Published in 1687, this work laid the foundation for classical mechanics."
-            year="1687"
-            author="Isaac Newton"
-            imageUrl="/archive/newton.jpg"
-            category="Featured"
-            pageNumber="17"
-            className="min-h-[65vh]"
-            focalPoint="50% 20%" // Moved face down
-          />
-        </div>
-
         {/* Image cards with floating text elements - Alet style */}
-        <div className="flex-none w-[85vw] md:w-[400px]">
+        <div className="flex-none w-[550px]">
           <AletImageCard
             title="The Vitruvian Man"
             description="A study of the proportions of the human body."
@@ -39,17 +23,16 @@ export default function Home() {
             imageUrl="/archive/davinci.jpg"
             floatingTexts={{
               topLeft: "Renaissance",
-              topRight: "02",
               bottomLeft: "Florence",
               bottomRight: "Proportion",
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="90% 35%" // Moved left significantly
+            focalPoint="100% 35%"
           />
         </div>
 
-        <div className="flex-none w-[85vw] md:w-[400px]">
+        <div className="flex-none w-[550px]">
           <AletImageCard
             title="De Revolutionibus"
             description="On the Revolutions of the Heavenly Spheres."
@@ -58,17 +41,16 @@ export default function Home() {
             imageUrl="/archive/copernicus.jpg"
             floatingTexts={{
               topLeft: "Astronomy",
-              topRight: "06",
               centerLeft: "Heliocentrism",
               bottomRight: "Poland",
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="75% 35%" // Moved left
+            focalPoint="95% 35%"
           />
         </div>
 
-        <div className="flex-none w-[85vw] md:w-[475px]"> { /* Widened to adjust crop - user requested "shrink" */}
+        <div className="flex-none w-[550px]">
           <AletImageCard
             title="The Republic"
             description="A Socratic dialogue concerning justice."
@@ -77,32 +59,12 @@ export default function Home() {
             imageUrl="/archive/plato.jpg"
             floatingTexts={{
               topLeft: "Philosophy",
-              topRight: "05",
               centerLeft: "Idealism",
               bottomRight: "Athens",
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="50% 15%" // Moved down/adjusted
-          />
-        </div>
-
-        <div className="flex-none w-[85vw] md:w-[475px]"> { /* Widened to adjust crop - user requested "shrink" and move down */}
-          <AletImageCard
-            title="Elements of Geometry"
-            description="The most successful textbook ever written."
-            year="300 BC"
-            author="Euclid"
-            imageUrl="/archive/euclid.jpg"
-            floatingTexts={{
-              topLeft: "Mathematics",
-              topRight: "04",
-              centerLeft: "Axiomatic",
-              bottomRight: "Alexandria",
-            }}
-            aspectRatio="video"
-            className="h-[65vh]"
-            focalPoint="50% 15%" // Moved down to see face
+            focalPoint="50% 15%"
           />
         </div>
       </HorizontalScrollSection>
@@ -145,7 +107,7 @@ export default function Home() {
                 imageUrl={doc.imageUrl}
                 floatingTexts={
                   index === 0
-                    ? { topLeft: doc.category, topRight: String(index + 1) }
+                    ? { topLeft: doc.category }
                     : { topLeft: doc.category }
                 }
                 aspectRatio="square"
@@ -168,10 +130,8 @@ export default function Home() {
       {/* ===== Manifesto Section - Editorial Style ===== */}
       <section className="container mx-auto px-4 py-20 border-t border-foreground/5">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Left: Page Number / Decorative */}
+          {/* Left: Decorative */}
           <div className="hidden lg:block lg:col-span-2">
-            <span className="text-page-number block">09</span>
-            <div className="w-px h-16 bg-foreground/20 ml-8 mt-6" />
           </div>
 
           {/* Center: Manifesto Content */}

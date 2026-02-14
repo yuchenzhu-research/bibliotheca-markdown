@@ -94,7 +94,7 @@ export function HeroSection() {
                   className="w-full h-full bg-cover bg-center transition-transform duration-[3s] ease-out group-hover:scale-105"
                   style={{
                     backgroundImage: 'url("/archive/newton.jpg")',
-                    objectPosition: '50% 20%',
+                    backgroundPosition: '50% 10%',
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-transparent to-transparent mix-blend-multiply" />
@@ -116,13 +116,7 @@ export function HeroSection() {
 
                 {/* Bottom: Page number decoration */}
                 <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between">
-                  <span className="font-sans text-xs tracking-widest text-white/60 uppercase">
-                    Featured Document
-                  </span>
-                  <span className="font-sans text-4xl font-light tracking-tighter text-white/20">
-                    01
-                  </span>
-                </div>
+                                  </div>
               </div>
 
               {/* Subtle border */}
@@ -146,7 +140,7 @@ export function HeroSection() {
           </span>
 
           <span className="font-sans text-xs tracking-[0.3em] text-muted-foreground/30 uppercase">
-            bibliotheca-academica.com
+            bibliotheca-academica
           </span>
 
           <span className="hidden md:block font-sans text-xs tracking-widest text-muted-foreground/40 uppercase">
