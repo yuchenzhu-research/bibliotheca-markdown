@@ -27,14 +27,14 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
             <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             {/* Image Section (Top Half) */}
-            <div className="relative h-48 w-full overflow-hidden">
+            <div className="relative h-64 w-full overflow-hidden">
                 <Image
                     src={document.imageUrl}
                     alt={document.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent" />
 
                 <div className="absolute top-4 left-4">
                     <Badge variant="outline" className="bg-zinc-950/50 backdrop-blur-sm border-white/10 text-xs font-medium uppercase tracking-widest text-white/80">
