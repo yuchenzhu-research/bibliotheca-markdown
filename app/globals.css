@@ -8,8 +8,17 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair-display);
+  --font-sans: var(--font-inter);          /* UI elements: nav, buttons, tags */
+  --font-serif: var(--font-playfair-display); /* Headings and body content */
+
+  /* Extended radius for large cards (Apple Design) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);  /* 18px when radius=10px */
+  --radius-3xl: calc(var(--radius) + 16px); /* 26px when radius=10px */
+  --radius-4xl: calc(var(--radius) + 24px); /* 34px when radius=10px */
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -53,11 +62,11 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 1rem;  /* Increased base radius for Apple feel */
 
-  /* Alive Black: #08090a -> HSL 210 11% 4% */
-  --background: 210 11% 4%;
-  --foreground: 0 0% 98%;
+  /* Light Mode - Museum White */
+  --background: oklch(0.98 0.002 260);
+  --foreground: oklch(0.15 0.015 260);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
@@ -137,5 +146,36 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Typography base for 8px grid alignment */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+/* Apple Design Utility Classes */
+@layer utilities {
+  /* Glassmorphism - Apple style */
+  .glass-apple {
+    @apply bg-[rgba(1,1,1,0.8)] backdrop-blur-md border border-slate-800/50;
+  }
+
+  .glass-apple-light {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Hover scale effect */
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-scale-sm {
+    @apply transition-transform duration-300 hover:scale-102;
   }
 }

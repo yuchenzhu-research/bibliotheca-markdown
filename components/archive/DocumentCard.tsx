@@ -27,16 +27,17 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
 
     return (
         <motion.div
-            whileHover={{ scale: 1.02 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className={cn(
-                "group relative flex flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50 backdrop-blur-md transition-all duration-300 hover:border-white/20 hover:shadow-2xl hover:shadow-primary/10",
+                // Apple Design Card: Large radius, subtle border, glassmorphism
+                "group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800/50 bg-[rgba(1,1,1,0.7)] backdrop-blur-md transition-all duration-500 hover:border-slate-700/70 hover:shadow-2xl hover:shadow-primary/5",
                 className
             )}
             onClick={onClick}
         >
-            {/* Background Glow Overlay */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            {/* Inner glow effect */}
+            <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             {/* Image Section (Top Half) */}
             <div className="relative h-64 w-full overflow-hidden">
@@ -50,7 +51,7 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
                         transform: `scale(${imageScale})`
                     }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(1,1,1,0.9)] via-transparent to-transparent pointer-events-none" />
 
                 {/* Curator's Toolkit v2 (Dev Only) */}
                 {isDev && (
@@ -96,28 +97,35 @@ export function DocumentCard({ document, className, onClick }: DocumentCardProps
                 )}
 
                 <div className="absolute top-4 left-4 pointer-events-none z-10">
-                    <Badge variant="outline" className="bg-zinc-950/50 backdrop-blur-sm border-white/10 text-xs font-medium uppercase tracking-widest text-white/80">
+                    <Badge
+                        variant="outline"
+                        className="bg-black/40 backdrop-blur-md border-white/10 text-xs font-medium uppercase tracking-wider text-white/90"
+                    >
                         {document.category}
                     </Badge>
                 </div>
             </div>
 
-            {/* Content Section */}
-            <div className="flex flex-col gap-3 p-6">
+            {/* Content Section - Enhanced spacing (8px grid aligned) */}
+            <div className="flex flex-col gap-4 p-7">
+                {/* Metadata row */}
                 <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
+                    <span className="text-xs font-sans font-medium text-muted-foreground/80 uppercase tracking-wider">
                         {document.year}
                     </span>
-                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
+                    <div className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                    <span className="text-xs font-sans font-medium text-muted-foreground/80 uppercase tracking-wider">
                         {document.author}
                     </span>
                 </div>
 
-                <h3 className="font-serif text-2xl font-medium text-foreground group-hover:text-primary transition-colors">
+                {/* Title - Cinzel font for academic feel */}
+                <h3 className="font-serif text-2xl font-normal text-foreground transition-colors duration-300 group-hover:text-white/95">
                     {document.title}
                 </h3>
 
-                <p className="text-sm text-muted-foreground line-clamp-2">
+                {/* Description - Elegant serif */}
+                <p className="font-serif text-sm leading-relaxed text-muted-foreground/80 line-clamp-2">
                     {document.description}
                 </p>
             </div>
