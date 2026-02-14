@@ -68,7 +68,7 @@ export function DocumentPreviewModal({
 
                             <div className="space-y-4">
                                 <h4 className="text-sm font-medium text-foreground uppercase tracking-widest border-b border-white/10 pb-2">
-                                    Curator's Insight
+                                    Marginalia
                                 </h4>
                                 <div className="text-sm space-y-4">
                                     {document.academicContext ? (
