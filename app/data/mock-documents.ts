@@ -15,7 +15,7 @@ export const documents: Document[] = [
         title: "The Vitruvian Man",
         category: "Art",
         description: "A study of the proportions of the human body, linking art and science.",
-        imageUrl: "/archive/vitruvian.jpg",
+        imageUrl: "/archive/davinci.jpg",
         year: "1490",
         author: "Leonardo da Vinci",
     },
