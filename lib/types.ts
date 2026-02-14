@@ -8,4 +8,5 @@ export interface Document {
     author: string;
     focalY?: number;
     imageScale?: number;
+    academicContext?: string;
 }

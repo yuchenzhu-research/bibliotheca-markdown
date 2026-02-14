@@ -70,15 +70,22 @@ export function DocumentPreviewModal({
                                 <h4 className="text-sm font-medium text-foreground uppercase tracking-widest border-b border-white/10 pb-2">
                                     Academic Context
                                 </h4>
-                                <p>
-                                    This document represents a pivotal moment in {document.category.toLowerCase()}.
-                                    Its preservation is crucial for understanding the intellectual development of the era.
-                                    Scholars reference this work for its groundbreaking approach to the subject matter.
-                                </p>
-                                <p>
-                                    The digital restoration process has revealed details previously obscured by time,
-                                    allowing for a deeper analysis of the original manuscript's intent and craftsmanship.
-                                </p>
+                                <div className="text-sm space-y-4">
+                                    {document.academicContext ? (
+                                        <p>{document.academicContext}</p>
+                                    ) : (
+                                        <>
+                                            <p>
+                                                This document represents a pivotal moment in {document.category.toLowerCase()}.
+                                                Its preservation is crucial for understanding the intellectual development of the era.
+                                            </p>
+                                            <p>
+                                                The digital restoration process has revealed details previously obscured by time,
+                                                allowing for a deeper analysis of the original manuscript's intent and craftsmanship.
+                                            </p>
+                                        </>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4 pt-4">
