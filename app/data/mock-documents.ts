@@ -1,0 +1,58 @@
+import { Document } from "@/lib/types";
+
+export const documents: Document[] = [
+    {
+        id: "1",
+        title: "Principia Mathematica",
+        category: "Technology",
+        description: "The foundational text on the laws of motion and universal gravitation.",
+        imageUrl: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=800&q=80",
+        year: "1687",
+        author: "Isaac Newton",
+    },
+    {
+        id: "2",
+        title: "The Vitruvian Man",
+        category: "Art",
+        description: "A study of the proportions of the human body, linking art and science.",
+        imageUrl: "https://images.unsplash.com/photo-1519681393798-2f13f143d45c?auto=format&fit=crop&w=800&q=80",
+        year: "1490",
+        author: "Leonardo da Vinci",
+    },
+    {
+        id: "3",
+        title: "Dialogue Concerning the Two Chief World Systems",
+        category: "Philosophy",
+        description: "Comparing the Copernican system with the traditional Ptolemaic system.",
+        imageUrl: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=800&q=80",
+        year: "1632",
+        author: "Galileo Galilei",
+    },
+    {
+        id: "4",
+        title: "Elements of Geometry",
+        category: "Technology",
+        description: "A mathematical treatise consisting of 13 books attributed to Euclid.",
+        imageUrl: "https://images.unsplash.com/photo-1509475826633-5af138a07f3d?auto=format&fit=crop&w=800&q=80",
+        year: "300 BC",
+        author: "Euclid",
+    },
+    {
+        id: "5",
+        title: "The Republic",
+        category: "Philosophy",
+        description: "A Socratic dialogue concerning justice and the order of a city-state.",
+        imageUrl: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=800&q=80",
+        year: "375 BC",
+        author: "Plato",
+    },
+    {
+        id: "6",
+        title: "De Revolutionibus",
+        category: "Technology",
+        description: "On the Revolutions of the Heavenly Spheres, placing the Sun at the center.",
+        imageUrl: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=800&q=80",
+        year: "1543",
+        author: "Nicolaus Copernicus",
+    },
+];
