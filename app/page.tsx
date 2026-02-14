@@ -25,6 +25,7 @@ export default function Home() {
             category="Featured"
             pageNumber="17"
             className="min-h-[65vh]"
+            focalPoint="50% 35%" // Adjusted to center face
           />
         </div>
 
@@ -44,6 +45,7 @@ export default function Home() {
             }}
             aspectRatio="video"
             className="h-[65vh]"
+            focalPoint="50% 30%" // Centered on face
           />
         </div>
 
@@ -62,6 +64,7 @@ export default function Home() {
             }}
             aspectRatio="video"
             className="h-[65vh]"
+            focalPoint="55% 40%" // Adjusted for Copernicus
           />
         </div>
 
@@ -80,6 +83,7 @@ export default function Home() {
             }}
             aspectRatio="video"
             className="h-[65vh]"
+            focalPoint="60% 35%" // Adjusted for Plato
           />
         </div>
 
@@ -98,6 +102,7 @@ export default function Home() {
             }}
             aspectRatio="video"
             className="h-[65vh]"
+            focalPoint="50% 50%" // Default center
           />
         </div>
       </HorizontalScrollSection>
@@ -145,6 +150,7 @@ export default function Home() {
                 }
                 aspectRatio="square"
                 className="h-full w-full border-none"
+                focalPoint={doc.focalPoint} // Use dynamic focal point from data
               />
             </div>
           ))}

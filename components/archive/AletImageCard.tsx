@@ -22,6 +22,7 @@ interface AletImageCardProps {
   };
   className?: string;
   aspectRatio?: "square" | "video" | "portrait" | "auto";
+  focalPoint?: string; // e.g., "50% 20%" for centering faces
 }
 
 export function AletImageCard({
@@ -34,6 +35,7 @@ export function AletImageCard({
   floatingTexts,
   className,
   aspectRatio = "video",
+  focalPoint,
 }: AletImageCardProps) {
   const aspectRatioClasses = {
     square: "aspect-square",
@@ -58,6 +60,7 @@ export function AletImageCard({
           fill
           className="object-cover transition-transform duration-[1.5s] cubic-bezier(0.2, 0, 0.2, 1) group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{ objectPosition: focalPoint || "center" }}
         />
         {/* Subtle overlay */}
         <div className="absolute inset-0 bg-black/5 transition-opacity duration-700 group-hover:opacity-0" />
@@ -158,6 +161,7 @@ interface FeaturedDocumentProps {
   category?: string;
   pageNumber?: string;
   className?: string;
+  focalPoint?: string;
 }
 
 export function FeaturedDocument({
@@ -169,6 +173,7 @@ export function FeaturedDocument({
   category,
   pageNumber,
   className,
+  focalPoint,
 }: FeaturedDocumentProps) {
   return (
     <div
@@ -185,6 +190,7 @@ export function FeaturedDocument({
           fill
           className="object-cover image-hover-zoom"
           priority
+          style={{ objectPosition: focalPoint || "center" }}
         />
       </div>
 

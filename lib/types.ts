@@ -8,6 +8,7 @@ export interface Document {
     author: string;
     focalY?: number;
     imageScale?: number;
+    focalPoint?: string; // e.g., "50% 20%" for centering faces
     academicContext?: string;
     tags?: string[];
 }
