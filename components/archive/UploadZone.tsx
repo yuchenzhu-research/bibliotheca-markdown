@@ -49,7 +49,8 @@ export function UploadZone({ onFileSelect, className }: UploadZoneProps) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-3xl border-2 border-dashed border-slate-800/50 bg-[rgba(1,1,1,0.4)] backdrop-blur-sm transition-all duration-300",
+        // Light theme: white/slate-100 background
+        "relative overflow-hidden rounded-3xl border-2 border-dashed border-slate-200/60 bg-white/50 backdrop-blur-sm transition-all duration-300",
         isDragging && "border-primary/50 bg-primary/5",
         className
       )}
@@ -77,10 +78,10 @@ export function UploadZone({ onFileSelect, className }: UploadZoneProps) {
           {uploadedFiles.map((file, index) => (
             <div
               key={`${file.name}-${index}`}
-              className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10"
+              className="flex items-center gap-3 p-3 rounded-xl bg-white/80 border border-slate-200/50 shadow-sm"
             >
               <FileText className="h-5 w-5 text-muted-foreground/60 flex-shrink-0" />
-              <span className="font-sans text-sm text-muted-foreground/80 flex-1 truncate">
+              <span className="font-sans text-sm text-foreground/80 flex-1 truncate">
                 {file.name}
               </span>
               <span className="font-sans text-xs text-muted-foreground/50">
@@ -91,7 +92,7 @@ export function UploadZone({ onFileSelect, className }: UploadZoneProps) {
                   e.stopPropagation();
                   removeFile(index);
                 }}
-                className="p-1 rounded-lg hover:bg-white/10 transition-colors"
+                className="p-1 rounded-lg hover:bg-slate-100 transition-colors"
               >
                 <X className="h-4 w-4 text-muted-foreground/60" />
               </button>
@@ -113,7 +114,7 @@ export function UploadZone({ onFileSelect, className }: UploadZoneProps) {
         <div className="flex flex-col items-center justify-center py-12 text-center px-6">
           <div
             className={cn(
-              "h-16 w-16 rounded-2xl bg-white/5 flex items-center justify-center mb-4 transition-all duration-300",
+              "h-16 w-16 rounded-2xl bg-slate-100 flex items-center justify-center mb-4 transition-all duration-300",
               isDragging && "bg-primary/10 scale-110"
             )}
           >

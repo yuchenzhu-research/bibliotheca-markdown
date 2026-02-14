@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
@@ -32,35 +32,30 @@ export default function RootLayout({
           playfair.variable
         )}
       >
-        {/* Layer 0: Void (Base Background) */}
+        {/* Layer 0: Warm Beige Background - Alet style */}
         <div className="fixed inset-0 -z-50 bg-background" />
 
-        {/* Layer 1: Dot Grid with 24px spacing (8px grid aligned) */}
+        {/* Layer 1: Subtle texture overlay */}
         <div
-          className="fixed inset-0 -z-40 opacity-[0.15]"
+          className="fixed inset-0 -z-40 opacity-20"
           style={{
-            backgroundImage: `radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 1px, transparent 1px)`,
-            backgroundSize: '24px 24px',
-            maskImage: 'radial-gradient(ellipse 100% 100% at center, black 40%, transparent 100%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at center, black 40%, transparent 100%)'
+            backgroundImage: `radial-gradient(circle at center, rgba(61, 52, 40, 0.03) 1px, transparent 1px)`,
+            backgroundSize: '20px 20px',
           }}
         />
 
-        {/* Layer 2: Enhanced Radial Gradients (Atmosphere) */}
+        {/* Layer 2: Very subtle warm glow - minimal */}
         <div
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-30 h-[1200px] w-[1200px] rounded-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-500/[0.08] via-background to-transparent blur-[100px]"
+          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 -z-30 h-[100vh] w-[100vw] rounded-full bg-foreground/2 blur-[150px]"
         />
-        <div
-          className="fixed right-0 top-0 -z-30 h-[600px] w-[600px] translate-x-1/3 -translate-y-1/4 rounded-full bg-blue-600/5 blur-[100px]"
-        />
-
-        {/* Layer 3: Analog Grain (Texture) */}
-        <div className="fixed inset-0 -z-10 opacity-[0.025] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("/noise.svg")' }} />
 
         {/* Main Content */}
         <div className="relative">
           {children}
         </div>
+
+        {/* Noise texture overlay (optional) */}
+        <div className="fixed inset-0 -z-10 opacity-[0.008] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("/noise.svg")' }} />
       </body>
     </html>
   );

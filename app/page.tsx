@@ -1,80 +1,240 @@
 import { HeroSection } from "@/components/home/HeroSection";
-import { DocumentCard } from "@/components/archive/DocumentCard";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { BentoCard } from "@/components/ui/bento-card";
-import { UploadZone } from "@/components/archive/UploadZone";
+import {
+  AletImageCard,
+  FeaturedDocument,
+  HorizontalScrollSection,
+} from "@/components/archive/AletImageCard";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { documents } from "@/app/data/mock-documents";
-import { BookOpen, Microscope, Palette } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-foreground selection:bg-primary/20 pb-20">
+    <main className="min-h-screen bg-warm-paper selection:bg-primary/20">
       <HeroSection />
 
-      {/* Bento Grid Section */}
-      <section className="container mx-auto px-4">
-        <BentoGrid className="auto-rows-auto">
-          {/* Row 1: Upload Zone + Manifesto */}
-          <BentoGridItem span="double">
-            <UploadZone className="h-full min-h-[280px]" />
-          </BentoGridItem>
+      {/* ===== Horizontal Scroll Section - Featured Works ===== */}
+      <HorizontalScrollSection>
+        {/* Featured Document - Large hero card */}
+        <div className="flex-none w-[85vw] md:w-[70vw] lg:w-[900px]">
+          <FeaturedDocument
+            title="Principia Mathematica"
+            description="A foundational text on the laws of motion and universal gravitation. Published in 1687, this work laid the foundation for classical mechanics."
+            year="1687"
+            author="Isaac Newton"
+            imageUrl="/archive/newton.jpg"
+            category="Featured"
+            pageNumber="17"
+            className="min-h-[65vh]"
+          />
+        </div>
 
-          <BentoGridItem span="single">
-            <BentoCard className="h-full flex flex-col justify-center">
-              <h3 className="font-serif text-2xl mb-4">Manifesto</h3>
-              <p className="font-sans text-sm text-muted-foreground/70 leading-relaxed">
-                Preserving human knowledge through digital craftsmanship.
-                Each document tells a story of discovery, insight, and the
-                relentless pursuit of understanding.
-              </p>
-            </BentoCard>
-          </BentoGridItem>
+        {/* Image cards with floating text elements - Alet style */}
+        <div className="flex-none w-[85vw] md:w-[400px]">
+          <AletImageCard
+            title="The Vitruvian Man"
+            description="A study of the proportions of the human body."
+            year="1490"
+            author="Leonardo da Vinci"
+            imageUrl="/archive/davinci.jpg"
+            floatingTexts={{
+              topLeft: "Renaissance",
+              topRight: "02",
+              bottomLeft: "Florence",
+              bottomRight: "Proportion",
+            }}
+            aspectRatio="video"
+            className="h-[65vh]"
+          />
+        </div>
 
-          {/* Row 2: Categories */}
-          <BentoGridItem span="single">
-            <BentoCard className="h-full flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <BookOpen className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h4 className="font-serif text-lg">Philosophy</h4>
-                <p className="font-sans text-xs text-muted-foreground/50">24 documents</p>
-              </div>
-            </BentoCard>
-          </BentoGridItem>
+        <div className="flex-none w-[85vw] md:w-[400px]">
+          <AletImageCard
+            title="De Revolutionibus"
+            description="On the Revolutions of the Heavenly Spheres."
+            year="1543"
+            author="Nicolaus Copernicus"
+            imageUrl="/archive/copernicus.jpg"
+            floatingTexts={{
+              topLeft: "Astronomy",
+              topRight: "06",
+              centerLeft: "Heliocentrism",
+              bottomRight: "Poland",
+            }}
+            aspectRatio="video"
+            className="h-[65vh]"
+          />
+        </div>
 
-          <BentoGridItem span="single">
-            <BentoCard className="h-full flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-blue-500/10 flex items-center justify-center flex-shrink-0">
-                <Microscope className="h-6 w-6 text-blue-500" />
-              </div>
-              <div>
-                <h4 className="font-serif text-lg">Science</h4>
-                <p className="font-sans text-xs text-muted-foreground/50">18 documents</p>
-              </div>
-            </BentoCard>
-          </BentoGridItem>
+        <div className="flex-none w-[85vw] md:w-[400px]">
+          <AletImageCard
+            title="The Republic"
+            description="A Socratic dialogue concerning justice."
+            year="375 BC"
+            author="Plato"
+            imageUrl="/archive/plato.jpg"
+            floatingTexts={{
+              topLeft: "Philosophy",
+              topRight: "05",
+              centerLeft: "Idealism",
+              bottomRight: "Athens",
+            }}
+            aspectRatio="video"
+            className="h-[65vh]"
+          />
+        </div>
 
-          <BentoGridItem span="single">
-            <BentoCard className="h-full flex items-center gap-4">
-              <div className="h-12 w-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                <Palette className="h-6 w-6 text-amber-500" />
-              </div>
-              <div>
-                <h4 className="font-serif text-lg">Art</h4>
-                <p className="font-sans text-xs text-muted-foreground/50">12 documents</p>
-              </div>
-            </BentoCard>
-          </BentoGridItem>
+        <div className="flex-none w-[85vw] md:w-[400px]">
+          <AletImageCard
+            title="Elements of Geometry"
+            description="The most successful textbook ever written."
+            year="300 BC"
+            author="Euclid"
+            imageUrl="/archive/euclid.jpg"
+            floatingTexts={{
+              topLeft: "Mathematics",
+              topRight: "04",
+              centerLeft: "Axiomatic",
+              bottomRight: "Alexandria",
+            }}
+            aspectRatio="video"
+            className="h-[65vh]"
+          />
+        </div>
+      </HorizontalScrollSection>
 
-          {/* Row 3: Latest Documents */}
-          {documents.slice(0, 4).map((doc) => (
-            <BentoGridItem key={doc.id} span="single">
-              <DocumentCard document={doc} className="h-full" />
-            </BentoGridItem>
+      {/* ===== Archive Grid Section - Minimal Style ===== */}
+      <section className="container mx-auto px-4 py-20">
+        {/* Section Header - Alet style */}
+        <div className="mb-16">
+          <div className="flex items-end justify-between">
+            <div>
+              <span className="text-decorative text-muted-foreground/60 block mb-3">
+                Complete Collection
+              </span>
+              <h2 className="font-epic-serif text-4xl md:text-5xl text-foreground font-light">
+                Browse Archive
+              </h2>
+            </div>
+
+            <button className="hidden md:flex items-center gap-3 px-6 py-3 border border-foreground/20 hover:border-foreground/40 transition-colors duration-300">
+              <span className="font-sans text-sm tracking-widest uppercase">
+                View All
+              </span>
+              <ArrowRight className="w-4 h-4 opacity-60" />
+            </button>
+          </div>
+        </div>
+
+        {/* Document Grid - Bento style but cleaner */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground/5 border border-foreground/5">
+          {documents.slice(0, 6).map((doc, index) => (
+            <div
+              key={doc.id}
+              className="group relative aspect-square overflow-hidden bg-card"
+            >
+              <AletImageCard
+                title={doc.title}
+                description={doc.description}
+                year={doc.year}
+                author={doc.author}
+                imageUrl={doc.imageUrl}
+                floatingTexts={
+                  index === 0
+                    ? { topLeft: doc.category, topRight: String(index + 1) }
+                    : { topLeft: doc.category }
+                }
+                aspectRatio="square"
+                className="h-full w-full border-none"
+              />
+            </div>
           ))}
-        </BentoGrid>
+        </div>
+
+        {/* Mobile "View All" button */}
+        <button className="md:hidden w-full mt-8 flex items-center justify-center gap-3 px-6 py-4 border border-foreground/20">
+          <span className="font-sans text-sm tracking-widest uppercase">
+            View All Documents
+          </span>
+          <ArrowRight className="w-4 h-4 opacity-60" />
+        </button>
       </section>
+
+      {/* ===== Manifesto Section - Editorial Style ===== */}
+      <section className="container mx-auto px-4 py-20 border-t border-foreground/5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Left: Page Number / Decorative */}
+          <div className="hidden lg:block lg:col-span-2">
+            <span className="text-page-number block">09</span>
+            <div className="w-px h-16 bg-foreground/20 ml-8 mt-6" />
+          </div>
+
+          {/* Center: Manifesto Content */}
+          <div className="lg:col-span-6">
+            <span className="text-decorative text-muted-foreground/60 block mb-6">
+              Our Mission
+            </span>
+            <h3 className="font-epic-serif text-3xl md:text-4xl text-foreground font-light leading-tight mb-8">
+              Preserving human knowledge through digital craftsmanship
+            </h3>
+            <p className="font-elegant-sans text-lg text-muted-foreground/80 leading-relaxed mb-6">
+              Each document tells a story of discovery, insight, and the
+              relentless pursuit of understanding. We believe that knowledge
+              should be accessible, beautiful, and enduring.
+            </p>
+            <button className="group flex items-center gap-3 mt-8">
+              <span className="font-sans text-sm tracking-widest uppercase">
+                Read More
+              </span>
+              <ChevronRight className="w-4 h-4 opacity-60 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+
+          {/* Right: Vertical decorative elements */}
+          <div className="hidden lg:block lg:col-span-4 relative">
+            <div className="absolute top-0 right-0">
+              <span className="font-sans text-xs tracking-[0.3em] text-muted-foreground/40 uppercase writing-mode-vertical">
+                Bibliotheca Academica
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Footer - Simple & Minimal ===== */}
+      <footer className="container mx-auto px-4 py-12 border-t border-foreground/5">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <span className="font-serif text-xl text-foreground">
+              Bibliotheca Academica
+            </span>
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="font-sans text-sm text-muted-foreground/60">
+              Since 2024
+            </span>
+          </div>
+
+          <nav className="flex items-center gap-8">
+            <a
+              href="#"
+              className="font-sans text-sm text-muted-foreground/60 hover:text-foreground transition-colors"
+            >
+              Archive
+            </a>
+            <a
+              href="#"
+              className="font-sans text-sm text-muted-foreground/60 hover:text-foreground transition-colors"
+            >
+              About
+            </a>
+            <a
+              href="#"
+              className="font-sans text-sm text-muted-foreground/60 hover:text-foreground transition-colors"
+            >
+              Contact
+            </a>
+          </nav>
+        </div>
+      </footer>
     </main>
   );
 }

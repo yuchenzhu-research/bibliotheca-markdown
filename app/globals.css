@@ -8,18 +8,15 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);          /* UI elements: nav, buttons, tags */
-  --font-serif: var(--font-playfair-display); /* Headings and body content */
 
-  /* Extended radius for large cards (Apple Design) */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);  /* 18px when radius=10px */
-  --radius-3xl: calc(var(--radius) + 16px); /* 26px when radius=10px */
-  --radius-4xl: calc(var(--radius) + 24px); /* 34px when radius=10px */
+  /* Font definitions */
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair-display);
 
+  /* ===== Extended Radius ===== */
+  --radius: 0.75rem;
+
+  /* ===== Sidebar Colors ===== */
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -29,12 +26,14 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
 
+  /* ===== Chart Colors ===== */
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
 
+  /* ===== UI Colors ===== */
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -51,131 +50,237 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
 }
 
+/* ===== Alet-Inspired Light Theme ===== */
 :root {
-  --radius: 1rem;  /* Increased base radius for Apple feel */
+  --radius: 0.75rem;
 
-  /* Light Mode - Museum White */
-  --background: oklch(0.98 0.002 260);
-  --foreground: oklch(0.15 0.015 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0.028 261.692);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.13 0.028 261.692);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.961 0.003 264.214);
-  --secondary-foreground: oklch(0.13 0.028 261.692);
-  --muted: oklch(0.961 0.003 264.214);
-  --muted-foreground: oklch(0.461 0.023 264.214);
-  --accent: oklch(0.961 0.003 264.214);
-  --accent-foreground: oklch(0.13 0.028 261.692);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.916 0.006 264.214);
-  --input: oklch(0.916 0.006 264.214);
-  --ring: oklch(0.13 0.028 261.692);
+  /* Warm Beige Background - 更饱和的暖米色，类似 Alet 网站 */
+  --background: oklch(0.96 0.012 70);      /* #f5f0e8 Warm Sandy Beige */
+  --foreground: oklch(0.25 0.02 30);       /* #3d3428 Warm Dark Brown */
 
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* Cards - Slightly lighter than background */
+  --card: oklch(0.98 0.008 70);
+  --card-foreground: oklch(0.25 0.02 30);
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  /* Popover */
+  --popover: oklch(0.98 0.005 70);
+  --popover-foreground: oklch(0.25 0.02 30);
+
+  /* Primary - Muted Red accent (Alet style) */
+  --primary: oklch(0.55 0.18 20);          /* Muted Warm Red */
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* Secondary */
+  --secondary: oklch(0.92 0.015 70);
+  --secondary-foreground: oklch(0.30 0.02 30);
+
+  /* Muted */
+  --muted: oklch(0.90 0.015 70);
+  --muted-foreground: oklch(0.45 0.02 30);
+
+  /* Accent */
+  --accent: oklch(0.88 0.025 70);
+  --accent-foreground: oklch(0.25 0.02 30);
+
+  /* Destructive */
+  --destructive: oklch(0.55 0.22 25);
+
+  /* Border */
+  --border: oklch(0.85 0.02 70);
+  --input: oklch(0.85 0.02 70);
+  --ring: oklch(0.55 0.18 20);
+
+  /* Charts */
+  --chart-1: oklch(0.55 0.18 20);
+  --chart-2: oklch(0.45 0.08 280);
+  --chart-3: oklch(0.55 0.12 200);
+  --chart-4: oklch(0.50 0.10 150);
+  --chart-5: oklch(0.60 0.14 60);
+
+  /* Sidebar */
+  --sidebar: oklch(0.96 0.012 70);
+  --sidebar-foreground: oklch(0.25 0.02 30);
+  --sidebar-primary: oklch(0.55 0.18 20);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.90 0.018 70);
+  --sidebar-accent-foreground: oklch(0.25 0.02 30);
+  --sidebar-border: oklch(0.85 0.02 70);
+  --sidebar-ring: oklch(0.55 0.18 20);
 }
 
-.dark {
-  /* Deep Dark Zinc-950 Mode */
-  --background: oklch(0.10 0.01 260);
-  /* Deep Zinc-950 equivalent */
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.12 0.01 260);
-  /* Slightly lighter than bg */
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.12 0.01 260);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.13 0.028 261.692);
-  --secondary: oklch(0.20 0.01 260);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.20 0.01 260);
-  --muted-foreground: oklch(0.65 0.01 260);
-  --accent: oklch(0.20 0.01 260);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --border: oklch(0.20 0.01 260);
-  --input: oklch(0.20 0.01 260);
-  --ring: oklch(0.85 0 0);
-
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-
-  --sidebar: oklch(0.12 0.01 260);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.20 0.01 260);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.20 0.01 260);
-  --sidebar-ring: oklch(0.44 0 0);
-}
-
+/* ===== Base Styles ===== */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "kern" 1, "liga" 1;
+    letter-spacing: -0.01em;
   }
 
-  /* Typography base for 8px grid alignment */
+  /* Elegant serif headings */
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif tracking-tight;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  /* Small decorative text */
+  .text-decorative {
+    @apply font-sans text-xs uppercase tracking-widest;
+    letter-spacing: 0.15em;
+  }
+
+  /* Page number style */
+  .text-page-number {
+    @apply font-sans text-6xl font-light tracking-tighter opacity-15;
   }
 }
 
-/* Apple Design Utility Classes */
+/* ===== Alet-Style Utility Classes ===== */
 @layer utilities {
-  /* Glassmorphism - Apple style */
-  .glass-apple {
-    @apply bg-[rgba(1,1,1,0.8)] backdrop-blur-md border border-slate-800/50;
+  /* Warm paper texture background */
+  .bg-warm-paper {
+    background:
+      linear-gradient(180deg, oklch(0.96 0.012 70) 0%, oklch(0.94 0.015 70) 100%);
   }
 
-  .glass-apple-light {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  /* Subtle texture overlay */
+  .bg-texture-subtle {
+    background-image:
+      radial-gradient(ellipse at top, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
   }
 
-  /* Smooth transitions */
-  .transition-smooth {
-    @apply transition-all duration-300 ease-out;
+  /* Floating decorative text */
+  .floating-text {
+    @apply absolute font-sans text-xs uppercase tracking-[0.2em] opacity-50;
+    writing-mode: vertical-rl;
   }
 
-  /* Hover scale effect */
-  .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
+  /* Red accent circle/signature style */
+  .red-accent {
+    @apply inline-flex items-center justify-center rounded-full;
+    background: oklch(0.55 0.18 20);
+    color: oklch(0.99 0 0);
   }
 
-  .hover-scale-sm {
-    @apply transition-transform duration-300 hover:scale-102;
+  /* Minimal card - Alet style */
+  .card-minimal {
+    @apply bg-transparent border-none;
+  }
+
+  /* Image card with overlay */
+  .image-card-wrapper {
+    @apply relative overflow-hidden;
+  }
+
+  .image-card-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent;
+  }
+
+  /* Elegant border - very minimal */
+  .border-elegant {
+    border: 1px solid rgba(61, 52, 40, 0.08);
+  }
+
+  /* ===== Typography Styles ===== */
+  .font-epic-serif {
+    font-family: var(--font-playfair-display), Georgia, serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -0.03em;
+  }
+
+  .font-elegant-sans {
+    font-family: var(--font-inter), system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+  }
+
+  /* ===== Scroll Snap Container (for horizontal scroll) ===== */
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .scroll-snap-x > * {
+    scroll-snap-align: start;
+  }
+
+  /* ===== Hide scrollbar but keep functionality ===== */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ===== Smooth Image Hover ===== */
+  .image-hover-zoom {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  .image-hover-zoom:hover {
+    transform: scale(1.05);
+  }
+
+  /* ===== Minimal Button - Alet Style ===== */
+  .btn-minimal {
+    @apply inline-flex items-center justify-center px-6 py-3 font-sans text-sm tracking-widest uppercase transition-all duration-300;
+    background: transparent;
+    border: 1px solid rgba(61, 52, 40, 0.2);
+  }
+
+  .btn-minimal:hover {
+    background: rgba(61, 52, 40, 0.05);
+    border-color: rgba(61, 52, 40, 0.3);
+  }
+
+  /* ===== Red Circle Decoration ===== */
+  .decoration-red-circle {
+    @apply relative;
+  }
+
+  .decoration-red-circle::before {
+    content: '';
+    @apply absolute w-3 h-3 rounded-full;
+    background: oklch(0.55 0.18 20);
+    top: 0;
+    left: -1.5rem;
+  }
+
+  /* ===== Page Number Decoration ===== */
+  .page-number-decoration {
+    @apply relative flex items-center gap-4;
+  }
+
+  .page-number-decoration::after {
+    content: '';
+    @apply h-px bg-foreground/20;
+    flex: 1;
+  }
+}
+
+/* ===== Smooth Page Transitions ===== */
+@layer utilities {
+  .page-transition {
+    animation: page-enter 0.6s ease-out;
+  }
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

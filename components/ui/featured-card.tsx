@@ -29,7 +29,8 @@ export function FeaturedCard({
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={cn(
-        "group relative overflow-hidden rounded-3xl border border-slate-800/50 bg-[rgba(1,1,1,0.7)] backdrop-blur-xl",
+        // Light theme: white background
+        "group relative overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 backdrop-blur-xl shadow-lg shadow-blue-100/30",
         className
       )}
     >
@@ -43,8 +44,8 @@ export function FeaturedCard({
         />
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[rgba(1,1,1,0.95)] via-[rgba(1,1,1,0.4)] to-transparent" />
+      {/* Light Theme: Warm Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[rgba(30,30,30,0.85)] via-[rgba(30,30,30,0.3)] to-transparent" />
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -59,17 +60,17 @@ export function FeaturedCard({
           {title}
         </h3>
 
-        <p className="font-sans text-sm text-muted-foreground/80 mb-3 line-clamp-2">
+        <p className="font-sans text-sm text-white/70 mb-3 line-clamp-2">
           {description}
         </p>
 
-        <p className="font-sans text-xs text-muted-foreground/60">
+        <p className="font-sans text-xs text-white/50">
           {year} · {author}
         </p>
       </div>
 
-      {/* Subtle inner glow on hover */}
-      <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      {/* Subtle inner glow on hover - light theme */}
+      <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-blue-200/20 to-amber-100/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
     </motion.div>
   );
 }

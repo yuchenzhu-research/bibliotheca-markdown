@@ -3,70 +3,145 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FeaturedCard } from "@/components/ui/featured-card";
 
 export function HeroSection() {
   return (
-    <section className="container mx-auto px-4 py-20 md:py-28">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        {/* Left: Typography */}
-        <div className="lg:col-span-7">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <span className="inline-block rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-sans font-medium uppercase tracking-widest text-muted-foreground/70 backdrop-blur-sm mb-6">
-              Digital Renaissance Archive
-            </span>
+    <section className="relative min-h-screen flex items-center">
+      <div className="container mx-auto px-4 pt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          {/* Left: Typography - Epic, minimal style */}
+          <div className="lg:col-span-5 relative">
+            {/* Floating decorative text - top left */}
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="absolute -top-8 left-0 font-sans text-xs tracking-[0.25em] text-muted-foreground/50 uppercase"
+            >
+              Est. MMXXIV
+            </motion.span>
 
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-foreground mb-6">
-              Bibliotheca
-              <span className="block text-white/60">Academica</span>
-            </h1>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+            >
+              <span className="inline-block rounded-full border border-foreground/20 px-4 py-1.5 text-xs font-sans font-light uppercase tracking-[0.2em] text-muted-foreground/60 mb-8">
+                Digital Renaissance
+              </span>
 
-            <p className="font-serif text-lg md:text-xl text-muted-foreground/80 max-w-xl leading-relaxed mb-8">
-              Curating the intersection of history and technology.
-              A comprehensive digital archive for the modern scholar.
-            </p>
+              <h1 className="font-epic-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tighter text-foreground leading-[0.95] mb-8">
+                Bibliotheca
+                <span className="block text-primary/80 mt-2">Academica</span>
+              </h1>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="h-12 px-8 text-base font-medium"
-              >
-                Explore Collection
-              </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                className="h-12 px-8 text-base font-medium group"
-              >
-                Learn More
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
+              <div className="w-12 h-px bg-foreground/20 mb-8" />
+
+              <p className="font-elegant-sans text-lg md:text-xl text-muted-foreground/70 leading-relaxed max-w-md mb-10">
+                Curating the intersection of history and technology.
+                A comprehensive digital archive for the modern scholar.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="btn-minimal h-12 px-8">
+                  Explore Collection
+                </button>
+                <button className="btn-minimal h-12 px-8 group">
+                  <span>Learn More</span>
+                  <ArrowRight className="ml-2 h-4 w-4 opacity-50 group-hover:translate-x-1 transition-all" />
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Vertical decorative text - left edge */}
+            <div className="hidden lg:block absolute -left-8 top-1/2 -translate-y-1/2 -translate-x-full">
+              <span className="writing-mode-vertical font-sans text-xs tracking-[0.3em] text-muted-foreground/30 uppercase rotate-180">
+                scroll to explore
+              </span>
             </div>
-          </motion.div>
+          </div>
+
+          {/* Right: Featured image with floating elements */}
+          <div className="lg:col-span-7 relative">
+            {/* Red accent circle - minimal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
+              className="absolute -top-4 right-8 z-20"
+            >
+              <div className="w-3 h-3 rounded-full bg-primary" />
+            </motion.div>
+
+            {/* Featured card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="relative aspect-[16/10] overflow-hidden"
+            >
+              {/* Image */}
+              <div className="absolute inset-0">
+                <div
+                  className="w-full h-full bg-cover bg-center"
+                  style={{
+                    backgroundImage: 'url("/archive/newton.jpg")',
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 via-foreground/10 to-transparent" />
+              </div>
+
+              {/* Floating text elements */}
+              <div className="absolute inset-0">
+                {/* Top right: "08/25" style */}
+                <span className="absolute top-6 right-8 font-sans text-xs tracking-[0.2em] text-white/70 uppercase">
+                  1687
+                </span>
+
+                {/* Right edge: Vertical decorative text */}
+                <span className="absolute right-6 top-1/2 -translate-y-1/2 font-sans text-xs tracking-[0.25em] text-white/50 writing-mode-vertical">
+                  Isaac Newton
+                </span>
+
+                {/* Bottom: Page number decoration */}
+                <div className="absolute bottom-8 left-8 right-8 flex items-center justify-between">
+                  <span className="font-sans text-xs tracking-widest text-white/60 uppercase">
+                    Featured Document
+                  </span>
+                  <span className="font-sans text-4xl font-light tracking-tighter text-white/20">
+                    01
+                  </span>
+                </div>
+              </div>
+
+              {/* Subtle border */}
+              <div className="absolute inset-0 border border-white/10" />
+            </motion.div>
+
+            {/* Decorative line */}
+            <div className="absolute bottom-0 left-0 w-32 h-px bg-foreground/20" />
+          </div>
         </div>
 
-        {/* Right: Featured Card (Bento Style) */}
-        <div className="lg:col-span-5">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          >
-            <FeaturedCard
-              title="Principia Mathematica"
-              description="The foundational text on the laws of motion and universal gravitation."
-              year="1687"
-              author="Isaac Newton"
-              imageUrl="/archive/newton.jpg"
-              category="Featured"
-              className="aspect-[4/3] md:aspect-[16/10] md:min-h-[320px]"
-            />
-          </motion.div>
-        </div>
+        {/* Bottom: Minimal navigation/dates */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="absolute bottom-8 left-4 right-4 flex items-center justify-between"
+        >
+          <span className="hidden md:block font-sans text-xs tracking-widest text-muted-foreground/40 uppercase">
+            Athens · Rome · Florence
+          </span>
+
+          <span className="font-sans text-xs tracking-[0.3em] text-muted-foreground/30 uppercase">
+            bibliotheca-academica.com
+          </span>
+
+          <span className="hidden md:block font-sans text-xs tracking-widest text-muted-foreground/40 uppercase">
+            Volume I
+          </span>
+        </motion.div>
       </div>
     </section>
   );
