@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { CustomCursor } from "@/components/ui/CustomCursor";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,7 +34,9 @@ export default function RootLayout({
           playfair.variable
         )}
       >
+        <CustomCursor />
         {/* Layer 0: Warm Beige Background - Alet style */}
+
         <div className="fixed inset-0 -z-50 bg-background" />
 
         {/* Layer 1: Subtle texture overlay */}

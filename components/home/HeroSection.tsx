@@ -43,13 +43,21 @@ export function HeroSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-minimal h-12 px-8">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-minimal h-12 px-8"
+                >
                   Explore Collection
-                </button>
-                <button className="btn-minimal h-12 px-8 group">
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="btn-minimal h-12 px-8 group"
+                >
                   <span>Learn More</span>
                   <ArrowRight className="ml-2 h-4 w-4 opacity-50 group-hover:translate-x-1 transition-all" />
-                </button>
+                </motion.button>
               </div>
             </motion.div>
 
@@ -83,12 +91,15 @@ export function HeroSection() {
               {/* Image */}
               <div className="absolute inset-0">
                 <div
-                  className="w-full h-full bg-cover bg-center"
+                  className="w-full h-full bg-cover bg-center transition-transform duration-[3s] ease-out group-hover:scale-105"
                   style={{
                     backgroundImage: 'url("/archive/newton.jpg")',
+                    objectPosition: '50% 20%',
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-foreground/30 via-foreground/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-transparent to-transparent mix-blend-multiply" />
+                {/* Scanline Effect */}
+                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_2px,3px_100%] opacity-20" />
               </div>
 
               {/* Floating text elements */}
