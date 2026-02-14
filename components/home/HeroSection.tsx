@@ -18,7 +18,7 @@ export function HeroSection() {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="absolute -top-8 left-0 font-sans text-xs tracking-[0.25em] text-muted-foreground/50 uppercase"
             >
-              Est. MMXXIV
+              Est. MMXXVI
             </motion.span>
 
             <motion.div

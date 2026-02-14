@@ -255,8 +255,12 @@ interface HorizontalScrollSectionProps {
   className?: string;
   showScrollIndicator?: boolean;
 }
-
-
+/* Horizontal Scroll Section Container */
+interface HorizontalScrollSectionProps {
+  children: React.ReactNode;
+  className?: string;
+  showScrollIndicator?: boolean;
+}
 
 export function HorizontalScrollSection({
   children,
@@ -268,28 +272,46 @@ export function HorizontalScrollSection({
     target: targetRef,
   });
 
-  // Calculate horizontal translation based on scroll progress
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
+  // ========== Phase 1: Entry (0% - 12.5%) - Title fades out ==========
+  const entryOpacity = useTransform(scrollYProgress, [0, 0.125], [1, 0]);
+
+  // ========== Phase 2: Horizontal Scroll (12.5% - 62.5%) - Cards slide in ==========
+  // Cards start from right (30%) and move to final position (-60%)
+  const x = useTransform(scrollYProgress, [0.125, 0.625], ["30%", "-60%"], {
+    easing: "easeOut",
+  });
+
+  // Card scale effect: 0.95 -> 1.0 during horizontal scroll
+  const cardScale = useTransform(scrollYProgress, [0.125, 0.625], [0.95, 1]);
+
+  // ========== Phase 3: Exit (62.5% - 75%) - Title fades in ==========
+  const exitOpacity = useTransform(scrollYProgress, [0.625, 0.75], [0, 1]);
+
+  // Combined header opacity (entry + exit phases)
+  const headerOpacity = useTransform(scrollYProgress,
+    [0, 0.125, 0.625, 0.75],
+    [1, 0, 0, 1]
+  );
 
   return (
     <section
       ref={targetRef}
-      className={cn("relative h-[300vh] bg-warm-paper py-0", className)}
+      className={cn("relative h-[400vh] bg-warm-paper py-0", className)}
     >
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-        {/* Section header */}
-        <div className="container mx-auto px-4 mb-16 w-full">
+        {/* Section header - fades in/out based on scroll phase */}
+        <motion.div
+          style={{ opacity: headerOpacity }}
+          className="container mx-auto px-4 mb-16 w-full"
+        >
           <div className="flex items-end justify-between">
             <div className="space-y-4">
-              <motion.div
-                style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
-                className="flex items-center gap-3"
-              >
+              <div className="flex items-center gap-3">
                 <div className="w-10 h-px bg-primary/40" />
                 <span className="text-display-xs text-primary font-elegant-sans tracking-[0.3em] uppercase">
                   Archive Collection
                 </span>
-              </motion.div>
+              </div>
               <h2 className="font-epic-serif text-6xl md:text-8xl text-foreground font-light leading-[1]">
                 Selected <br />
                 <span className="italic pl-16 md:pl-32">Works</span>
@@ -297,25 +319,22 @@ export function HorizontalScrollSection({
             </div>
 
             {showScrollIndicator && (
-              <motion.div
-                style={{ opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]) }}
-                className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40"
-              >
+              <div className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40">
                 <div className="flex items-center gap-4">
                   <span>Scroll to explore</span>
                   <span className="w-24 h-px bg-foreground/10" />
                   <span className="animate-side-to-side text-lg">→</span>
                 </div>
-                <span className="font-mono text-[10px] uppercase">/ 1687—2024</span>
-              </motion.div>
+                <span className="font-mono text-[10px] uppercase">/ 1687—2026</span>
+              </div>
             )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Horizontal scroll container (motion) */}
+        {/* Horizontal scroll container with scale effect */}
         <motion.div
-          style={{ x }}
-          className="flex gap-16 md:gap-24 px-[10vw] items-center"
+          style={{ x, scale: cardScale }}
+          className="flex gap-16 md:gap-24 px-[10vw] items-center will-change-transform"
         >
           {children}
           {/* Spacer at the end for consistent scrolling */}
@@ -325,11 +344,6 @@ export function HorizontalScrollSection({
         {/* Floating background decorative letter - Alet style */}
         <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.03] pointer-events-none select-none">
           <span className="font-epic-serif text-[40rem] leading-none">A</span>
-        </div>
-
-        {/* Subtle floor line */}
-        <div className="container mx-auto px-4 mt-20 w-full">
-          <div className="h-px w-full bg-foreground/5" />
         </div>
       </div>
     </section>

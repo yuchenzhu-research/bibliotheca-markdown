@@ -14,24 +14,26 @@ export default function Home() {
       {/* ===== Horizontal Scroll Section - Featured Works ===== */}
       <HorizontalScrollSection>
         {/* Image cards with floating text elements - Alet style */}
+        {/* Euclid - 300 BC (oldest) */}
         <div className="flex-none w-[550px]">
           <AletImageCard
-            title="The Vitruvian Man"
-            description="A study of the proportions of the human body."
-            year="1490"
-            author="Leonardo da Vinci"
-            imageUrl="/archive/davinci.jpg"
+            title="Elements of Geometry"
+            description="The most successful textbook ever written."
+            year="300 BC"
+            author="Euclid"
+            imageUrl="/archive/euclid.jpg"
             floatingTexts={{
-              topLeft: "Renaissance",
-              bottomLeft: "Florence",
-              bottomRight: "Proportion",
+              topLeft: "Mathematics",
+              centerLeft: "Axiomatic",
+              bottomRight: "Alexandria",
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="100% 35%"
+            focalPoint="50% 15%"
           />
         </div>
 
+        {/* Copernicus - 1543 */}
         <div className="flex-none w-[550px]">
           <AletImageCard
             title="De Revolutionibus"
@@ -46,25 +48,26 @@ export default function Home() {
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="95% 35%"
+            focalPoint="75% 35%"
           />
         </div>
 
+        {/* Galileo - 1632 (newest) */}
         <div className="flex-none w-[550px]">
           <AletImageCard
-            title="The Republic"
-            description="A Socratic dialogue concerning justice."
-            year="375 BC"
-            author="Plato"
-            imageUrl="/archive/plato.jpg"
+            title="Dialogue Concerning the Two Chief World Systems"
+            description="Comparing the Copernican system with the Ptolemaic system."
+            year="1632"
+            author="Galileo Galilei"
+            imageUrl="/archive/galileo.jpg"
             floatingTexts={{
               topLeft: "Philosophy",
-              centerLeft: "Idealism",
-              bottomRight: "Athens",
+              centerLeft: "Kinematics",
+              bottomRight: "Florence",
             }}
             aspectRatio="video"
             className="h-[65vh]"
-            focalPoint="50% 15%"
+            focalPoint="50% 40%"
           />
         </div>
       </HorizontalScrollSection>
@@ -175,7 +178,7 @@ export default function Home() {
             </span>
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="font-sans text-sm text-muted-foreground/60">
-              Since 2024
+              Since 2026
             </span>
           </div>
 
