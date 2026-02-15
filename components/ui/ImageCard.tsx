@@ -99,19 +99,19 @@ export function ImageCard({
 
             <div className={cn(
                 "absolute inset-0 flex flex-col justify-end z-30 pointer-events-none",
-                isSmall ? "p-8" : "p-12 md:p-16"
+                isSmall ? "p-10" : "p-12 md:p-16"
             )}>
                 <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100 h-full flex flex-col justify-end">
-                    <div className={isSmall ? "mb-6" : "mb-10"}>
+                    <div className={isSmall ? "mb-8" : "mb-10"}>
                         <span className={cn(
                             "font-sans tracking-[0.4em] text-primary/90 font-medium uppercase block border-l-2 border-primary pl-4",
-                            isSmall ? "text-[9px] mb-2" : "text-[11px] mb-4"
+                            isSmall ? "text-[11px] mb-4" : "text-[11px] mb-4"
                         )}>
                             Archive Entry
                         </span>
                         <h3 className={cn(
                             "font-epic-serif text-white font-light leading-[1.05] drop-shadow-sm",
-                            isSmall ? "text-2xl md:text-3xl mb-4 max-w-sm" : "text-4xl md:text-6xl mb-8 max-w-2xl"
+                            isSmall ? "text-3xl md:text-4xl mb-6 max-w-sm" : "text-4xl md:text-6xl mb-8 max-w-2xl"
                         )}>
                             {title}
                         </h3>
@@ -122,7 +122,7 @@ export function ImageCard({
                         <div className="relative">
                             <p className={cn(
                                 "font-elegant-sans text-white/50 leading-relaxed max-w-xl line-clamp-3 italic font-light",
-                                isSmall ? "text-xs md:text-sm" : "text-sm md:text-lg"
+                                isSmall ? "text-sm md:text-base" : "text-sm md:text-lg"
                             )}>
                                 — {description}
                             </p>
