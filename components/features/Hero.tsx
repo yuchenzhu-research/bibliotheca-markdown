@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-export function Hero() {
+export function Hero({ onAppendClick }: { onAppendClick?: () => void }) {
     return (
         <section className="relative min-h-screen flex items-center">
             <div className="container mx-auto px-4 pt-20">
@@ -44,6 +44,14 @@ export function Hero() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     className="btn-minimal h-12 px-8"
+                                    onClick={onAppendClick}
+                                >
+                                    Append Moment
+                                </motion.button>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className="btn-minimal h-12 px-8 group"
                                     onClick={() => {
                                         window.scrollTo({
                                             top: window.innerHeight,
@@ -51,14 +59,7 @@ export function Hero() {
                                         });
                                     }}
                                 >
-                                    Explore Collection
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="btn-minimal h-12 px-8 group"
-                                >
-                                    <span>Learn More</span>
+                                    <span>Explore Archive</span>
                                     <ArrowRight className="ml-2 h-4 w-4 opacity-50 group-hover:translate-x-1 transition-all" />
                                 </motion.button>
                             </div>

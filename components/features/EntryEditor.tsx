@@ -46,7 +46,7 @@ const AutoResizeTextarea = ({
     );
 };
 
-export function EntryEditor() {
+export function EntryEditor({ onClose }: { onClose?: () => void }) {
     // --- State ---
     const [image, setImage] = useState<string | null>(null);
     const [title, setTitle] = useState('');
@@ -98,7 +98,18 @@ export function EntryEditor() {
     // --- Phase 1: Image Uploader (Visual Anchor) ---
     if (!image) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-warm-paper p-6">
+            <div className="min-h-screen flex items-center justify-center bg-warm-paper p-6 relative">
+                {/* Global Close Button for Overlay */}
+                {onClose && (
+                    <button
+                        onClick={onClose}
+                        className="absolute top-8 left-8 p-3 bg-foreground/5 hover:bg-foreground/10 rounded-full transition-colors z-50 group"
+                        title="Close Editor"
+                    >
+                        <X className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+                    </button>
+                )}
+
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -138,6 +149,16 @@ export function EntryEditor() {
     // --- Phase 2: Edit in Place (Template Editor) ---
     return (
         <div className="relative min-h-screen bg-background selection:bg-primary/20">
+            {/* Global Close Button for Overlay */}
+            {onClose && (
+                <button
+                    onClick={onClose}
+                    className="fixed top-8 left-8 p-3 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md z-[60] transition-all hover:scale-110"
+                    title="Close Editor"
+                >
+                    <X className="w-5 h-5" />
+                </button>
+            )}
             {/* Hero Section (Editable Title) */}
             <header className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden group">
                 {/* Background Image */}
