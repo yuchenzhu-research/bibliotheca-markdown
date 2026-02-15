@@ -29,33 +29,42 @@ export function HorizontalScrollSection({
         }
     });
 
-    // RESTORED: Logic from previous version
-    // Phase 1: Entry (0% - 12.5%) - Title fades out
+    // Phase 1: Symmetric Buffers
+    // 0 -> 0.2: Entry Freeze (First card stays centered)
+    // 0.2 -> 0.8: Smooth Horizontal Scroll
+    // 0.8 -> 1.0: Exit Freeze (Last card stays centered)
+
+    // Header Opacity: Fades out completely before horizontal move starts
     const headerOpacity = useTransform(scrollYProgress,
-        [0, 0.125, 0.625, 0.75],
+        [0, 0.1, 0.9, 1],
         [1, 0, 0, 1]
     );
 
-    // Phase 2: Horizontal Scroll (12.5% - 62.5%) - Cards slide in
-    // Tuned for exactly 3 cards worth of content
-    const xRaw = useTransform(scrollYProgress, [0.125, 0.8], ['10%', '-65%']);
+    // Horizontal Translation (X axis)
+    // Starting with an offset to give "breathing room" on the left
+    const xRaw = useTransform(
+        scrollYProgress,
+        [0, 0.2, 0.8, 1],
+        ['15%', '15%', '-65%', '-65%']
+    );
+
     const x = useSpring(xRaw, {
-        damping: 20,
-        stiffness: 90,
+        damping: 30, // Increased damping for more "inertia" and control
+        stiffness: 80,
         mass: 1,
     });
 
-    // Card scale effect
-    const cardScaleRaw = useTransform(scrollYProgress, [0.125, 0.625], [0.95, 1]);
+    // Card scale effect: Subtle zoom as we approach center
+    const cardScaleRaw = useTransform(scrollYProgress, [0.2, 0.5, 0.8], [0.98, 1, 0.98]);
     const cardScale = useSpring(cardScaleRaw, {
-        damping: 20,
-        stiffness: 300,
+        damping: 25,
+        stiffness: 200,
     });
 
     return (
         <section
             ref={targetRef}
-            className={cn('relative h-[400vh] py-0', className)} // Removed bg-warm-paper to let parent handle bg
+            className={cn('relative h-[600vh] py-0', className)} // Increased to 600vh for more "freeze" time
         >
             <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
                 {/* Section header - RESTORED: Dark text colors */}
@@ -101,8 +110,8 @@ export function HorizontalScrollSection({
                     <div className="flex-none w-[10vw]" />
                 </motion.div>
 
-                {/* Floating background letter - RESTORED: Dark subtle opacity */}
-                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.03] pointer-events-none select-none text-foreground">
+                {/* Floating background letter - RESTORED: Extremely subtle opacity to avoid text collision */}
+                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.015] pointer-events-none select-none text-foreground">
                     <span className="font-epic-serif text-[20rem] md:text-[40rem] leading-none">A</span>
                 </div>
             </div>

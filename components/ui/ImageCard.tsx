@@ -93,17 +93,20 @@ export function ImageCard({
                 </div>
             )}
 
-            <div className="absolute inset-0 p-8 flex flex-col justify-end z-30 pointer-events-none">
+            <div className="absolute inset-0 p-10 md:p-12 flex flex-col justify-end z-30 pointer-events-none">
                 <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100">
-                    <span className="font-sans text-[10px] tracking-[0.3em] text-primary uppercase block mb-2">
-                        Viewing Entry
-                    </span>
-                    <h3 className="font-epic-serif text-3xl md:text-4xl text-white font-light leading-tight mb-3">
-                        {title}
-                    </h3>
-                    <div className="h-px w-0 bg-white/30 group-hover:w-full transition-all duration-1000 ease-out mb-4" />
+                    <div className="mb-6">
+                        <span className="font-sans text-[10px] tracking-[0.3em] text-primary uppercase block mb-3">
+                            Viewing Entry
+                        </span>
+                        <h3 className="font-epic-serif text-3xl md:text-5xl text-white font-light leading-[1.1] mb-4 max-w-lg">
+                            {title}
+                        </h3>
+                        <div className="h-px w-0 bg-white/20 group-hover:w-full transition-all duration-1000 ease-out" />
+                    </div>
+
                     {description && (
-                        <p className="font-elegant-sans text-sm text-white/70 leading-relaxed max-w-sm line-clamp-2 italic">
+                        <p className="font-elegant-sans text-sm md:text-base text-white/60 leading-relaxed max-w-md line-clamp-3 italic font-light">
                             — {description}
                         </p>
                     )}
