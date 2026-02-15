@@ -43,7 +43,7 @@ export default function Home() {
         */}
         <HorizontalScrollSection onScrollProgress={setScrollProgress}>
           {documents.slice(0, 3).map((doc) => (
-            <div key={doc.id} className="flex-none w-[80vw] md:w-[60vw] lg:w-[45vw] max-w-4xl">
+            <div key={doc.id} className="flex-none w-[80vw] md:w-[60vw] lg:w-[45vw] max-w-4xl h-[65vh]">
               <ImageCard
                 title={doc.title}
                 description={doc.description}
@@ -55,9 +55,8 @@ export default function Home() {
                   centerLeft: doc.author.split(' ')[0],
                   bottomRight: doc.year,
                 }}
-                aspectRatio="video"
-                // RESTORED: Slightly smaller height to fit comfortably with headers
-                className="h-[50vh] md:h-[65vh] shadow-xl border-elegant"
+                aspectRatio="portrait" // 统一肖像比例
+                className="h-full w-full shadow-2xl border-elegant rounded-sm"
                 focalPoint={doc.focalPoint}
               />
             </div>
