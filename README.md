@@ -1,6 +1,6 @@
 # Bibliotheca Academica
 
-![Digital Renaissance](public/docs/screenshots/hero.png)
+![Digital Renaissance](/public/docs/screenshots/hero.png)
 
 > **"Curating the intersection of history and technology. A comprehensive digital archive for the modern scholar."**
 
@@ -20,11 +20,11 @@ In an age of information overload, we believe that **context is king**. Standard
 An infinite, horizontal scroll through history. Each artifact is presented as a high-fidelity card, breathing with subtle parallax effects.
 
 ### The Narrative (Detail Experience)
-![Detail View](public/docs/screenshots/detail.png)
+![Detail View](/public/docs/screenshots/detail.png)
 Clicking any artifact opens a seamless overlay—no page reloads, no context switching. Users can deep dive into the **Moment in Time**, explore **Figures**, and read the **Narrative** in a distraction-free environment.
 
 ### Append Moment (Curator Editor)
-![Editor Overlay](public/docs/screenshots/editor.png)
+![Editor Overlay](/public/docs/screenshots/editor.png)
 The crown jewel of the platform. We replaced the traditional "Create New" form with **"Append Moment"**.
 1.  **Visual Anchor**: Start by dragging an artifact image onto the canvas.
 2.  **Edit in Place**: The image becomes your background. You type directly onto the page—editing the title, figure, and narrative exactly where they will appear.
