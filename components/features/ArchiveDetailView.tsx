@@ -9,18 +9,18 @@ import { MarkdownView } from '@/components/features/MarkdownView';
 import { ImageView } from '@/components/features/ImageView';
 
 interface ArchiveDetailViewProps {
-    document: Document;
+    document: Document; // Keep interface as is for now or rename it too
     onClose: () => void;
 }
 
-export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps) {
+export function ArchiveDetailView({ document: data, onClose }: ArchiveDetailViewProps) {
     // Body scroll locking when overlay is active
     useEffect(() => {
-        const originalStyle = window.getComputedStyle(document.body).overflow;
-        document.body.style.overflow = 'hidden';
+        const originalStyle = window.getComputedStyle(window.document.body).overflow;
+        window.document.body.style.overflow = 'hidden';
 
         return () => {
-            document.body.style.overflow = originalStyle;
+            window.document.body.style.overflow = originalStyle;
         };
     }, []);
 
@@ -42,7 +42,7 @@ export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps)
                     <span className="font-sans text-xs tracking-widest uppercase">Back to Archive</span>
                 </button>
                 <div className="hidden md:block font-sans text-xs tracking-[0.2em] text-muted-foreground/30 uppercase">
-                    Bibliotheca Academica / Item {document.id.padStart(3, '0')}
+                    Bibliotheca Academica / Item {data.id.padStart(3, '0')}
                 </div>
                 <button
                     onClick={onClose}
@@ -56,12 +56,12 @@ export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps)
             <header className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
-                        src={document.imageUrl}
-                        alt={document.title}
+                        src={data.imageUrl}
+                        alt={data.title}
                         fill
                         className="object-cover"
                         priority
-                        style={{ objectPosition: document.focalPoint || 'center' }}
+                        style={{ objectPosition: data.focalPoint || 'center' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 </div>
@@ -75,17 +75,17 @@ export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps)
                     >
                         <div className="flex items-center gap-4 mb-6">
                             <span className="px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-[10px] uppercase tracking-widest text-primary font-medium">
-                                {document.category}
+                                {data.category}
                             </span>
                             <span className="font-mono text-xs text-muted-foreground">
-                                {document.year}
+                                {data.year}
                             </span>
                         </div>
                         <h1 className="font-epic-serif text-5xl md:text-7xl lg:text-8xl text-white font-light leading-[0.95] mb-6 drop-shadow-lg">
-                            {document.title}
+                            {data.title}
                         </h1>
                         <p className="font-elegant-sans text-lg md:text-xl text-white/80 italic font-light max-w-2xl">
-                            — {document.description}
+                            — {data.description}
                         </p>
                     </motion.div>
                 </div>
@@ -97,10 +97,10 @@ export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps)
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
             >
-                {document.type === 'markdown' ? (
-                    <MarkdownView document={document} />
+                {data.type === 'markdown' ? (
+                    <MarkdownView document={data} />
                 ) : (
-                    <ImageView document={document} />
+                    <ImageView document={data} />
                 )}
             </motion.div>
         </motion.div>
