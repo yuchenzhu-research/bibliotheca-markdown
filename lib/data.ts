@@ -23,27 +23,7 @@ export const documents: Document[] = [
         resources: [
             { title: "Cambridge Digital Library: Newton's Papers", type: "External Link" },
             { title: "The Royal Society Archive", type: "Archive Source" }
-        ],
-        type: 'markdown',
-        content: `
-# Philosophiæ Naturalis Principia Mathematica
-
-## Introduction
-The **Principia** states Newton's laws of motion, forming the foundation of classical mechanics; Newton's law of universal gravitation; and a derivation of Kepler's laws of planetary motion (which Kepler first obtained empirically).
-
-## The Laws of Motion
-1. **First Law**: In an inertial frame of reference, an object either remains at rest or continues to move at a constant velocity, unless acted upon by a force.
-2. **Second Law**: In an inertial frame of reference, the vector sum of the forces F on an object is equal to the mass m of that object multiplied by the acceleration a of the object: F = ma.
-3. **Third Law**: When one body exerts a force on a second body, the second body simultaneously exerts a force equal in magnitude and opposite in direction on the first body.
-
-## Universal Gravitation
-Newton's law of universal gravitation is usually stated as that every particle attracts every other particle in the universe with a force that is directly proportional to the product of their masses and inversely proportional to the square of the distance between them.
-
-> "I have not as yet been able to discover the reason for these properties of gravity from phenomena, and I do not feign hypotheses." (_Hypotheses non fingo_)
-
-## Legacy
-The *Principia* is considered one of the most important works in the history of science. The French mathematical physicist Alexis Clairaut assessed it in 1747: "The famous book of *Mathematical Principles of Natural Philosophy* marked the epoch of a great revolution in physics. The method followed by its illustrious author Sir Newton... spread the light of mathematics on a science which up to then had remained in the darkness of conjectures and hypotheses."
-        `
+        ]
     },
     {
         id: "2",
