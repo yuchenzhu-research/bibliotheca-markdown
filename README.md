@@ -1,6 +1,6 @@
 # Bibliotheca Academica
 
-![Digital Renaissance](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/hero_v2_1771170832187.png)
+![Digital Renaissance](public/docs/screenshots/hero.png)
 
 > **"Curating the intersection of history and technology. A comprehensive digital archive for the modern scholar."**
 
@@ -20,11 +20,11 @@ In an age of information overload, we believe that **context is king**. Standard
 An infinite, horizontal scroll through history. Each artifact is presented as a high-fidelity card, breathing with subtle parallax effects.
 
 ### The Narrative (Detail Experience)
-![Detail View](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/detail_view_v2_1771170914107.png)
+![Detail View](public/docs/screenshots/detail.png)
 Clicking any artifact opens a seamless overlay—no page reloads, no context switching. Users can deep dive into the **Moment in Time**, explore **Figures**, and read the **Narrative** in a distraction-free environment.
 
 ### Append Moment (Curator Editor)
-![Editor Overlay](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/editor_upload_v2_1771171038039.png)
+![Editor Overlay](public/docs/screenshots/editor.png)
 The crown jewel of the platform. We replaced the traditional "Create New" form with **"Append Moment"**.
 1.  **Visual Anchor**: Start by dragging an artifact image onto the canvas.
 2.  **Edit in Place**: The image becomes your background. You type directly onto the page—editing the title, figure, and narrative exactly where they will appear.
