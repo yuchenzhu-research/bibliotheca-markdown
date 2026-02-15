@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { ArrowRight } from 'lucide-react';
 
 interface ImageCardProps {
     title: string;
