@@ -104,10 +104,11 @@ export function ImageCard({
                 <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100 h-full flex flex-col justify-end">
                     <div className={isSmall ? "mb-8" : "mb-10"}>
                         <span className={cn(
-                            "font-sans tracking-[0.4em] text-primary/90 font-medium uppercase block border-l-2 border-primary pl-4",
+                            "font-sans tracking-[0.4em] text-primary/90 font-medium uppercase flex items-center gap-3 border-l-2 border-primary pl-4 group-hover:pl-6 transition-all duration-300",
                             isSmall ? "text-[11px] mb-4" : "text-[11px] mb-4"
                         )}>
                             Archive Entry
+                            <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                         </span>
                         <h3 className={cn(
                             "font-epic-serif text-white font-light leading-[1.05] drop-shadow-sm",

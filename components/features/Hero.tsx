@@ -44,6 +44,12 @@ export function Hero() {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     className="btn-minimal h-12 px-8"
+                                    onClick={() => {
+                                        window.scrollTo({
+                                            top: window.innerHeight,
+                                            behavior: 'smooth'
+                                        });
+                                    }}
                                 >
                                     Explore Collection
                                 </motion.button>
@@ -116,7 +122,7 @@ export function Hero() {
                     className="absolute bottom-8 left-4 right-4 flex items-center justify-between"
                 >
                     <span className="hidden md:block font-sans text-xs tracking-widest text-muted-foreground/40 uppercase">
-                        Athens · Rome · Florence
+                        Past · Present · Future
                     </span>
                     <span className="font-sans text-xs tracking-[0.3em] text-muted-foreground/30 uppercase">
                         bibliotheca-academica
