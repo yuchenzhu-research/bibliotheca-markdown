@@ -37,7 +37,7 @@ export function MarkdownView({ document }: MarkdownViewProps) {
                     </h3>
                     <div className="space-y-4">
                         <div>
-                            <span className="text-xs text-muted-foreground block uppercase tracking-wider mb-1">Author</span>
+                            <span className="text-xs text-muted-foreground block uppercase tracking-wider mb-1">Figure</span>
                             <span className="text-sm font-medium">{document.author}</span>
                         </div>
                         <div>

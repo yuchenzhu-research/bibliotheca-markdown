@@ -21,7 +21,7 @@ export function ImageView({ document }: ImageViewProps) {
             >
                 <div>
                     <h3 className="font-sans text-xs tracking-widest text-muted-foreground uppercase mb-4 border-l-2 border-primary pl-4">
-                        Author
+                        Figure
                     </h3>
                     <p className="font-epic-serif text-2xl text-foreground">
                         {document.author}
@@ -30,7 +30,7 @@ export function ImageView({ document }: ImageViewProps) {
 
                 <div>
                     <h3 className="font-sans text-xs tracking-widest text-muted-foreground uppercase mb-4 border-l-2 border-primary pl-4">
-                        Key Concepts
+                        Keywords
                     </h3>
                     <div className="flex flex-wrap gap-2">
                         {document.tags?.map((tag) => (
@@ -95,7 +95,7 @@ export function ImageView({ document }: ImageViewProps) {
                 <section>
                     <h2 className="flex items-center gap-3 font-epic-serif text-3xl md:text-4xl text-foreground mb-8">
                         <Clock className="w-6 h-6 text-primary/60" />
-                        Historical Context
+                        Moment in Time
                     </h2>
                     <div className="prose prose-lg prose-invert text-muted-foreground font-elegant-sans font-light leading-relaxed">
                         <p>{document.academicContext}</p>
@@ -106,7 +106,7 @@ export function ImageView({ document }: ImageViewProps) {
                 <section>
                     <h2 className="flex items-center gap-3 font-epic-serif text-3xl md:text-4xl text-foreground mb-8">
                         <BookOpen className="w-6 h-6 text-primary/60" />
-                        Artifact Analysis
+                        The Narrative
                     </h2>
                     <div className="prose prose-lg prose-invert text-muted-foreground font-elegant-sans font-light leading-relaxed space-y-6">
                         <p>{document.longDescription || document.description}</p>
