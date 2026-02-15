@@ -1,7 +1,7 @@
 <div align="center">
   <strong>
-    <a href="README.md">English</a> | 
-    <a href="README_zh-CN.md">简体中文</a> | 
+    <a href="README_en.md">English</a> | 
+    <a href="README.md">简体中文</a> | 
     <a href="README_zh-TW.md">繁体中文</a> | 
     <a href="README_la.md">Latin</a> | 
     <a href="README_ja.md">日本語</a> | 

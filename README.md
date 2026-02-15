@@ -1,7 +1,7 @@
 <div align="center">
   <h1 align="center">🌿 Digital Garden | Bibliotheca Vitae</h1>
   <p align="center">
-    <em>"A digital sanctuary to curate the artifacts of your life."</em>
+    <em>策展生命之灵，筑造数字圣所</em>
   </p>
 
   <p align="center">
@@ -14,8 +14,8 @@
 
   <p align="center">
     <strong>
-      <a href="README.md">English</a> | 
-      <a href="README_zh-CN.md">简体中文</a> | 
+      简体中文 | 
+      <a href="README_en.md">English</a> | 
       <a href="README_zh-TW.md">繁体中文</a> | 
       <a href="README_la.md">Latin</a> | 
       <a href="README_ja.md">日本語</a> | 
@@ -26,34 +26,33 @@
 </div>
 <br/>
 
-
-**Digital Garden** (Project: **Bibliotheca Vitae**) 并非一个简单的个人博客，它是一个**沉浸式生命档案馆**。它融合了 15 世纪的手抄本美学与 21 世纪的顶级 Web 技术，旨在将平庸的数据录入转化为一场优雅的策展艺术。
+**Digital Garden** (项目代号：**Bibliotheca Vitae**) 并非传统的个人博客，它是一座**沉浸式生命档案馆**。此处，15 世纪手抄本的古典魂灵与 21 世纪的尖端 Web 技术交叠错位，将平庸的文件存取升华为一场关于生命痕迹的精致策展。
 
 ## 🏛️ 项目愿景：生命叙事 (Living Narrative)
 
-在信息碎片化的时代，我们相信**脉络（Context）即灵魂**。传统的数据库将历史视为表格中的行，而 **Bibliotheca Vitae** 将每一次记录视为一个 **Moment in Time** —— 一个值得被深度感知的视觉与文字载体。
+在碎片化的数码时代，脉络即灵魂。**Bibliotheca Vitae** 摒弃了冷峻的行列式数据库思维，将每一次记录镌刻为 **Moment in Time** —— 一个受物理律驱动、值得被深度感知的视觉与文字实体。
 
-* **沉浸感 (Immersion)**：基于物理规律的交互动效，赋予数字对象真实的重量感与存在感。
-* **极致美学 (Aesthetics)**：古典字体 (`Cinzel`, `EB Garamond`) 与现代极简主义的碰撞，营造博物馆级别的阅读体验。
-* **策展人体验 (Curator Experience)**：我们没有“表单”，只有“画布”。
+* **感官沉浸**：藉由物理仿真动效，赋予数字资产以真实的质量与存在感。
+* **古典美学**：古典字体 `Cinzel`, `EB Garamond` 与现代极简主义在此交织，重构博物馆级别的阅读体验。
+* **策展礼致**：摈弃传统的“表单”逻辑，还归以“画布”的创作自由。
 
 ## ✨ 核心特性
 
 ### 🖼️ 动态画廊 (The Gallery)
-采用 Apple 风格的 **Sticky Horizontal Scroll**，让用户在横向滚动的历史长河中穿梭。每一张档案卡片都带有细腻的视差效果。
+受 Apple 极简主义启发的横向视差卷轴。用户能于时光长河中游弋，感知每一张卡片呼吸般的动态张力。
 
 ### 📖 深度叙事 (The Narrative Experience)
-点击任何条目即可开启无缝遮罩层（Overlay）。用户可以深入探索 **Moment in Time**，感知其中的 **Figure** (人物)，并阅读属于那一刻的 **The Narrative**。
+轻触条目，即可唤起无缝的深层遮罩。在此，你将探寻 **Moment in Time** 背后交织的 **Figure** (人物) 与随笔 **The Narrative**。
 
 ### 🖋️ 瞬间追加 (Append Moment Editor)
-这是本项目的核心：**“照片优先”的编辑器**。
-1.  **视觉锚点**：直接将照片拖入画布作为背景。
-2.  **原位编辑**：直接在页面上打字——在最终呈现的位置编辑标题、人物和叙事。
-3.  **双模式粒子**：集成 Alet-style 粒子解构效果，支持 **Linear** (线性拉伸) 与 **Random** (随机碎裂) 两种视觉模式。
+本项目的工程核心：“视觉先行”的一站式编辑器。
+1.  **视觉锚点**：拖入影像，即刻将其化为创作基底。
+2.  **原位镌刻**：直接在预览位置敲击文字，省去一切多余的表单跳转。
+3.  **粒子之变**：集成 Alet-style 粒子系统，支持 **Linear** (线性拉伸) 与 **Random** (随机碎裂) 两种解构模式。
 
 ## 🛠️ 技术底座 (Tech Stack)
 
-本项目采用 **单页应用 (SPA)** 架构开发：
+基于 **单页应用 (SPA)** 架构，为未来的 Electron 原生化做准备：
 
 -   **核心**: Next.js 15 (App Router), React 19, TypeScript
 -   **动效**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
@@ -63,9 +62,9 @@
 ## 🚀 快速开始
 
 1.  克隆仓库。
-2.  安装依赖：`npm install`
-3.  启动开发服务器：`npm run dev`
-4.  访问地址：`https://bibliotheca-vitae.vercel.app` (Production) 或 `http://localhost:3000` (Local)。
+2.  执行 `npm install` 安装依赖。
+3.  通过 `npm run dev` 启动本地开发环境。
+4.  访问地址：`https://bibliotheca-vitae.vercel.app` (生产环境) 或 `http://localhost:3000` (本地环境)。
 
 ---
 *Est. MMXXVI · Digital Garden | Bibliotheca Vitae · Ars Longa, Vita Brevis.*
