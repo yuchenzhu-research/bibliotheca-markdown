@@ -89,7 +89,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
               <span className="font-serif text-xl text-foreground">
-                Bibliotheca Academica
+                Bibliotheca Vitae
               </span>
               <span className="w-2 h-2 rounded-full bg-primary" />
               <span className="font-sans text-sm">

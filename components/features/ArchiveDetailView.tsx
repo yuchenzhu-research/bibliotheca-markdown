@@ -42,7 +42,7 @@ export function ArchiveDetailView({ document: data, onClose }: ArchiveDetailView
                     <span className="font-sans text-xs tracking-widest uppercase">Back to Archive</span>
                 </button>
                 <div className="hidden md:block font-sans text-xs tracking-[0.2em] text-muted-foreground/30 uppercase">
-                    Bibliotheca Academica / Item {data.id.padStart(3, '0')}
+                    Bibliotheca Vitae / Item {data.id.padStart(3, '0')}
                 </div>
                 <button
                     onClick={onClose}

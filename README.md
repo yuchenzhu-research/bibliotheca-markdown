@@ -1,57 +1,46 @@
-# Bibliotheca Academica
+# 🌿 Digital Garden | Bibliotheca Vitae
 
-![Digital Renaissance](/public/docs/screenshots/hero.png)
+> **"A digital sanctuary to curate the artifacts of your life with Renaissance elegance."**
 
-> **"Curating the intersection of history and technology. A comprehensive digital archive for the modern scholar."**
+**Digital Garden** (Project: **Bibliotheca Vitae**) 并非一个简单的个人博客，它是一个**沉浸式生命档案馆**。它融合了 15 世纪的手抄本美学与 21 世纪的顶级 Web 技术，旨在将平庸的数据录入转化为一场优雅的策展艺术。
 
-**Bibliotheca Academica** is not just a digital archive; it is a **Digital Renaissance** platform designed to transform the mundane act of data entry into an immersive art of curation. Built with modern web technologies but crafted with a classical soul, it bridges the gap between the static archives of the past and the fluid, interactive experiences of the future.
+## 🏛️ 项目愿景：生命叙事 (Living Narrative)
 
-## The Philosophy: Visual First
+在信息碎片化的时代，我们相信**脉络（Context）即灵魂**。传统的数据库将历史视为表格中的行，而 **Bibliotheca Vitae** 将每一次记录视为一个 **Moment in Time** —— 一个值得被深度感知的视觉与文字载体。
 
-In an age of information overload, we believe that **context is king**. Standard databases treat history as rows in a table. Bibliotheca Academica treats every entry as a **Moment in Time**—a visual, textual, and interconnected artifact that deserves to be experienced, not just indexed.
+* **沉浸感 (Immersion)**：基于物理规律的交互动效，赋予数字对象真实的重量感与存在感。
+* **极致美学 (Aesthetics)**：古典字体 (`Cinzel`, `EB Garamond`) 与现代极简主义的碰撞，营造博物馆级别的阅读体验。
+* **策展人体验 (Curator Experience)**：我们没有“表单”，只有“画布”。
 
-*   **Immersion**: Every interaction is fluid, featuring physics-based animations that give weight and presence to digital objects.
-*   **Aesthetics**: Influenced by classical typography (`Cinzel`, `EB Garamond`) and modern minimalism (`Geist Sans`), creating a reading environment that respects the content.
-*   **Curator Experience**: We don't have "forms". We have canvases.
+## ✨ 核心特性
 
-## Key Features
+### 🖼️ 动态画廊 (The Gallery)
+采用 Apple 风格的 **Sticky Horizontal Scroll**，让用户在横向滚动的历史长河中穿梭。每一张档案卡片都带有细腻的视差效果。
 
-### The Gallery (Archive View)
-An infinite, horizontal scroll through history. Each artifact is presented as a high-fidelity card, breathing with subtle parallax effects.
+### 📖 深度叙事 (The Narrative Experience)
+点击任何条目即可开启无缝遮罩层（Overlay）。用户可以深入探索 **Moment in Time**，感知其中的 **Figure** (人物)，并阅读属于那一刻的 **The Narrative**。
 
-### The Narrative (Detail Experience)
-![Detail View](/public/docs/screenshots/detail.png)
-Clicking any artifact opens a seamless overlay—no page reloads, no context switching. Users can deep dive into the **Moment in Time**, explore **Figures**, and read the **Narrative** in a distraction-free environment.
+### 🖋️ 瞬间追加 (Append Moment Editor)
+这是本项目的核心：**“照片优先”的编辑器**。
+1.  **视觉锚点**：直接将照片拖入画布作为背景。
+2.  **原位编辑**：直接在页面上打字——在最终呈现的位置编辑标题、人物和叙事。
+3.  **双模式粒子**：集成 Alet-style 粒子解构效果，支持 **Linear** (线性拉伸) 与 **Random** (随机碎裂) 两种视觉模式。
 
-### Append Moment (Curator Editor)
-![Editor Overlay](/public/docs/screenshots/editor.png)
-The crown jewel of the platform. We replaced the traditional "Create New" form with **"Append Moment"**.
-1.  **Visual Anchor**: Start by dragging an artifact image onto the canvas.
-2.  **Edit in Place**: The image becomes your background. You type directly onto the page—editing the title, figure, and narrative exactly where they will appear.
-3.  **Seamless Integration**: The editor lives as a high-performance overlay, accessible instantly from the home feed.
+## 🛠️ 技术底座 (Tech Stack)
 
-## Technology Stack
+本项目采用 **单页应用 (SPA)** 架构开发：
 
-This project is engineered as a **Single Page Application (SPA)** with potential for Electron desktop packaging.
+-   **核心**: Next.js 15 (App Router), React 19, TypeScript
+-   **动效**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
+-   **视觉**: Tailwind CSS v4 (Oklch), Lucide Icons
+-   **图形**: React Three Fiber / Drei (WebGL 粒子系统)
 
--   **Core**: Next.js 15 (App Router), React 19, TypeScript
--   **Styling**: Tailwind CSS v4, Oklch Color Space
--   **Motion**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
--   **3D Elements**: React Three Fiber / Drei
--   **Architecture**: Overlay-based routing, local state persistence (planned)
+## 🚀 快速开始
 
-## Getting Started
-
-1.  Clone the repository.
-2.  Install dependencies:
-    ```bash
-    npm install
-    ```
-3.  Run the development server:
-    ```bash
-    npm run dev
-    ```
-4.  Open `http://localhost:4321` to begin curating.
+1.  克隆仓库。
+2.  安装依赖：`npm install`
+3.  启动开发服务器：`npm run dev`
+4.  访问地址：`https://bibliotheca-vitae.vercel.app` (Production) 或 `http://localhost:3000` (Local)。
 
 ---
-*Est. MMXXVI · Bibliotheca Academica*
+*Est. MMXXVI · Digital Garden | Bibliotheca Vitae · Ars Longa, Vita Brevis.*

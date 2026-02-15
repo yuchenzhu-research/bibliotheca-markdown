@@ -29,7 +29,7 @@ export function Hero({ onAppendClick }: { onAppendClick?: () => void }) {
 
                             <h1 className="font-epic-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tighter text-foreground leading-[0.95] mb-8">
                                 Bibliotheca
-                                <span className="block text-primary/80 mt-2">Academica</span>
+                                <span className="block text-primary/80 mt-2">Vitae</span>
                             </h1>
 
                             <div className="w-12 h-px bg-foreground/20 mb-8" />
@@ -126,7 +126,7 @@ export function Hero({ onAppendClick }: { onAppendClick?: () => void }) {
                         Past · Present · Future
                     </span>
                     <span className="font-sans text-xs tracking-[0.3em] text-muted-foreground/30 uppercase">
-                        bibliotheca-academica
+                        bibliotheca-vitae
                     </span>
                     <span className="hidden md:block font-sans text-xs tracking-widest text-muted-foreground/40 uppercase">
                         Volume I
