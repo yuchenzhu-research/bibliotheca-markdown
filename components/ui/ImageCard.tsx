@@ -17,6 +17,7 @@ interface ImageCardProps {
     className?: string;
     aspectRatio?: 'square' | 'video' | 'portrait' | 'auto';
     focalPoint?: string;
+    size?: 'default' | 'small'; // 新增 size 变体来控制文字比例
 }
 
 export function ImageCard({
@@ -29,6 +30,7 @@ export function ImageCard({
     className,
     aspectRatio = 'video',
     focalPoint,
+    size = 'default',
 }: ImageCardProps) {
     const aspectRatioClasses = {
         square: 'aspect-square',
@@ -36,6 +38,8 @@ export function ImageCard({
         portrait: 'aspect-[3/4]',
         auto: 'aspect-auto',
     };
+
+    const isSmall = size === 'small';
 
     return (
         <div
@@ -51,7 +55,7 @@ export function ImageCard({
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-[1.5s] cubic-bezier(0.2, 0, 0.2, 1) group-hover:scale-110"
-                    sizes="800px" // 适当增加 sizes 以确保清晰度
+                    sizes={isSmall ? "400px" : "800px"}
                     style={{ objectPosition: focalPoint || 'center' }}
                 />
                 <div className="absolute inset-0 bg-black/5 transition-opacity duration-700 group-hover:opacity-0" />
@@ -62,9 +66,9 @@ export function ImageCard({
             {floatingTexts && (
                 <div className="absolute inset-0 z-20 pointer-events-none">
                     {floatingTexts.topLeft && (
-                        <div className="absolute top-8 left-8 flex items-center gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            <span className="font-sans text-[10px] font-medium tracking-[0.3em] text-white/90 uppercase">
+                        <div className="absolute top-6 left-6 flex items-center gap-3">
+                            <div className="w-1 h-1 rounded-full bg-primary" />
+                            <span className="font-sans text-[9px] font-medium tracking-[0.2em] text-white/90 uppercase">
                                 {floatingTexts.topLeft}
                             </span>
                         </div>
@@ -72,20 +76,20 @@ export function ImageCard({
 
                     {floatingTexts.centerLeft && (
                         <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
-                            <div className="w-px h-12 bg-white/20" />
-                            <span className="font-sans text-[9px] uppercase tracking-[0.4em] text-white/40 writing-mode-vertical py-2">
+                            <div className="w-px h-8 bg-white/20" />
+                            <span className="font-sans text-[8px] uppercase tracking-[0.4em] text-white/40 writing-mode-vertical py-2">
                                 {floatingTexts.centerLeft}
                             </span>
-                            <div className="w-px h-12 bg-white/20" />
+                            <div className="w-px h-8 bg-white/20" />
                         </div>
                     )}
 
                     {floatingTexts.bottomRight && (
-                        <div className="absolute bottom-10 right-10 flex flex-col items-end">
-                            <span className="font-sans text-[9px] tracking-[0.3em] text-white/50 uppercase mb-1">
+                        <div className="absolute bottom-6 right-6 flex flex-col items-end">
+                            <span className="font-sans text-[8px] tracking-[0.3em] text-white/50 uppercase mb-0.5">
                                 Ref.
                             </span>
-                            <span className="font-mono text-[10px] tracking-widest text-white/80 uppercase">
+                            <span className="font-mono text-[9px] tracking-widest text-white/80 uppercase">
                                 {floatingTexts.bottomRight}
                             </span>
                         </div>
@@ -93,13 +97,22 @@ export function ImageCard({
                 </div>
             )}
 
-            <div className="absolute inset-0 p-12 md:p-16 flex flex-col justify-end z-30 pointer-events-none">
+            <div className={cn(
+                "absolute inset-0 flex flex-col justify-end z-30 pointer-events-none",
+                isSmall ? "p-8" : "p-12 md:p-16"
+            )}>
                 <div className="translate-y-4 opacity-0 transition-all duration-700 delay-100 group-hover:translate-y-0 group-hover:opacity-100 h-full flex flex-col justify-end">
-                    <div className="mb-10">
-                        <span className="font-sans text-[11px] tracking-[0.4em] text-primary/90 font-medium uppercase block mb-4 border-l-2 border-primary pl-4">
+                    <div className={isSmall ? "mb-6" : "mb-10"}>
+                        <span className={cn(
+                            "font-sans tracking-[0.4em] text-primary/90 font-medium uppercase block border-l-2 border-primary pl-4",
+                            isSmall ? "text-[9px] mb-2" : "text-[11px] mb-4"
+                        )}>
                             Archive Entry
                         </span>
-                        <h3 className="font-epic-serif text-4xl md:text-6xl text-white font-light leading-[1.05] mb-8 max-w-2xl drop-shadow-sm">
+                        <h3 className={cn(
+                            "font-epic-serif text-white font-light leading-[1.05] drop-shadow-sm",
+                            isSmall ? "text-2xl md:text-3xl mb-4 max-w-sm" : "text-4xl md:text-6xl mb-8 max-w-2xl"
+                        )}>
                             {title}
                         </h3>
                         <div className="h-px w-0 bg-white/10 group-hover:w-full transition-all duration-1000 ease-out" />
@@ -107,10 +120,13 @@ export function ImageCard({
 
                     {description && (
                         <div className="relative">
-                            <p className="font-elegant-sans text-sm md:text-lg text-white/50 leading-relaxed max-w-xl line-clamp-3 italic font-light">
+                            <p className={cn(
+                                "font-elegant-sans text-white/50 leading-relaxed max-w-xl line-clamp-3 italic font-light",
+                                isSmall ? "text-xs md:text-sm" : "text-sm md:text-lg"
+                            )}>
                                 — {description}
                             </p>
-                            <div className="absolute -left-8 top-0 bottom-0 w-px bg-white/5" />
+                            <div className="absolute -left-6 top-0 bottom-0 w-px bg-white/5" />
                         </div>
                     )}
                 </div>

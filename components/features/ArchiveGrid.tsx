@@ -26,7 +26,7 @@ export function ArchiveGrid() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground/5 border border-foreground/5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/5 border border-foreground/5">
                 {documents.slice(0, 6).map((doc) => (
                     <div
                         key={doc.id}
@@ -40,6 +40,7 @@ export function ArchiveGrid() {
                             imageUrl={doc.imageUrl}
                             floatingTexts={{ topLeft: doc.category }}
                             aspectRatio="square"
+                            size="small" // 对应小尺寸网格优化文字比例
                             className="h-full w-full border-none"
                             focalPoint={doc.focalPoint}
                         />
