@@ -1,18 +1,70 @@
 <div align="center">
-  <strong>
-    <a href="README.md">English</a> | 
-    <a href="README_zh-CN.md">简体中文</a> | 
-    <a href="README_zh-TW.md">繁体中文</a> | 
-    <a href="README_la.md">Latin</a> | 
-    <a href="README_ja.md">日本語</a> | 
-    <a href="README_ko.md">한국어</a> | 
-    <a href="README_es.md">Español</a>
-  </strong>
+  <h1 align="center">🌿 Digital Garden | Bibliotheca Vitae</h1>
+  <p align="center">
+    <em>삶의 조각들을 큐레이팅하는 디지털 성소</em>
+  </p>
+
+  <p align="center">
+    <img src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-708090?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/framework-Next.js%2015-000000?style=flat-square&logo=next.js" alt="Framework" />
+    <img src="https://img.shields.io/badge/built%20with-Tailwind%20CSS%20v4-38B2AC?style=flat-square&logo=tailwind-css" alt="Tailwind CSS" />
+    <img src="https://img.shields.io/badge/animation-Framer%20Motion-E10098?style=flat-square&logo=framer" alt="Framer Motion" />
+    <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License" />
+  </p>
+
+  <p align="center">
+    <strong>
+      <a href="README.md">English</a> | 
+      <a href="README_zh-CN.md">简体中文</a> | 
+      <a href="README_zh-TW.md">繁体中文</a> | 
+      <a href="README_la.md">Latin</a> | 
+      <a href="README_ja.md">日本語</a> | 
+      한국어 | 
+      <a href="README_es.md">Español</a>
+    </strong>
+  </p>
 </div>
 <br/>
 
-# 🌿 Digital Garden | Bibliotheca Vitae (한국어)
+**Bibliotheca Vitae**는 단순한 블로그를 초월합니다. 이곳은 15세기 필사본의 미학과 21세기 공학이 만나는 디지털 정원이며, 평범한 데이터를 큐레이팅된 삶의 서사로 승화시킵니다.
 
-> **"A digital sanctuary to curate the artifacts of your life with Renaissance elegance."**
+## 🏛️ 비전: 살아있는 서사
 
-*Content coming soon...*
+파편화된 정보의 시대에 맥락은 곧 영혼입니다. 전통적인 데이터베이스가 역사를 표의 행으로 취급한다면, Bibliotheca Vitae는 모든 기록을 **Moment in Time**으로 봅니다. 이는 물리 법칙에 의해 인도되며 깊이 있게 지각되어야 할 시각적, 텍스트적 그릇입니다.
+
+*   **몰입감**: 물리학 기반의 인터랙티브 모션이 디지털 객체에 진정한 무게와 존재감을 부여합니다.
+*   **미학**: Cinzel과 EB Garamond 같은 고전 타이포그래피가 현대적 미니멀리즘과 만나 박물관 수준의 독서 경험을 창조합니다.
+*   **큐레이터 경험**: 우리는 입력 양식을 캔버스로 대체합니다.
+
+## ✨ 핵심 기능
+
+### 🖼️ 갤러리 The Gallery
+Apple 스타일의 스티키 가로 스크롤을 통해 사용자는 역사의 긴 강을 가로지를 수 있습니다. 각 아카이브 카드에는 섬세한 시차 효과가 적용되어 있습니다.
+
+### 📖 서사적 경험 The Narrative Experience
+항목을 클릭하면 매끄러운 오버레이가 열립니다. 사용자는 **Moment in Time**을 탐험하고, 관련된 **Figure**를 인지하며, 그 순간에 속한 **The Narrative**를 읽을 수 있습니다.
+
+### 🖋️ 순간 추가 에디터 Append Moment Editor
+이 프로젝트의 핵심은 비주얼 우선 에디터입니다.
+1.  **시각적 앵커**: 사진을 캔버스에 직접 드래그하여 배경으로 삼습니다.
+2.  **즉석 편집**: 페이지에서 직접 타이핑하세요. 제목, 인물, 서사가 실제로 표시될 바로 그 위치에서 편집됩니다.
+3.  **듀얼 모드 파티클**: Alet 스타일의 입자 해체 효과가 통합되어 **Linear** 선형 및 **Random** 무작위 시각 모드를 지원합니다.
+
+## 🛠️ 기술 스택
+
+미래의 네이티브 포팅을 대비한 **SPA** 아키텍처:
+
+-   **Core**: Next.js 15 App Router, React 19, TypeScript
+-   **Motion**: Framer Motion, GSAP, React Lenis Smooth Scroll
+-   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
+-   **Graphics**: React Three Fiber / Drei WebGL Particle System
+
+## 🚀 빠른 시작
+
+1.  저장소 클론.
+2.  의존성 설치: `npm install`
+3.  개발 서버 시작: `npm run dev`
+4.  방문: `https://bibliotheca-vitae.vercel.app` 또는 `http://localhost:4321`.
+
+---
+*Est. MMXXVI · Digital Garden | Bibliotheca Vitae · Ars Longa, Vita Brevis.*

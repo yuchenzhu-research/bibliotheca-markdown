@@ -26,45 +26,45 @@
 </div>
 <br/>
 
-**Digital Garden** (Project: **Bibliotheca Vitae**) is not a simple personal blog; it is an **immersive life archive**. It merges 15th-century manuscript aesthetics with 21st-century web technology, aiming to transform mundane data entry into an elegant art of curation.
+**Bibliotheca Vitae** transcends the concept of a blog. It is a Digital Garden where 15th-century manuscript aesthetics merge with 21st-century engineering, elevating raw data into a curated narrative.
 
 ## 🏛️ Vision: Living Narrative
 
-In an age of fragmented information, we believe that **Context is the Soul**. Traditional databases treat history as rows in a table, whereas **Bibliotheca Vitae** views every record as a **Moment in Time** — a visual and textual vessel worthy of deep perception.
+In an age of fragmented information, Context is the Soul. Traditional databases treat history as rows in a table, whereas Bibliotheca Vitae views every record as a **Moment in Time**, a visual and textual vessel worthy of deep perception.
 
 * **Immersion**: Physics-based interactive motion gives digital objects a true sense of weight and presence.
-* **Aesthetics**: Classical typography (`Cinzel`, `EB Garamond`) meets modern minimalism to create a museum-grade reading experience.
-* **Curator Experience**: We don't have "forms"; we only have a "canvas."
+* **Aesthetics**: Classical typography like Cinzel and EB Garamond meets modern minimalism to create a museum-grade reading experience.
+* **Curator Experience**: We replace forms with a canvas.
 
 ## ✨ Core Features
 
 ### 🖼️ The Gallery
-An Apple-style **Sticky Horizontal Scroll** allows users to traverse the long river of history. Each archive card features subtle parallax effects.
+An Apple-style Sticky Horizontal Scroll allows users to traverse the long river of history. Each archive card features subtle parallax effects.
 
 ### 📖 The Narrative Experience
 Clicking any entry opens a seamless overlay. Users can explore the **Moment in Time**, perceive the **Figure** involved, and read **The Narrative** belonging to that instant.
 
 ### 🖋️ Append Moment Editor
-The heart of the project: a **"Visual-First" Editor**.
+The heart of the project is a Visual-First Editor.
 1.  **Visual Anchor**: Drag photos directly onto the canvas as a background.
 2.  **In-place Editing**: Type directly on the page—edit titles, figures, and narratives exactly where they will appear.
 3.  **Dual-Mode Particles**: Integrated Alet-style particle deconstruction with **Linear** and **Random** visual modes.
 
 ## 🛠️ Tech Stack
 
-Built as a **Single Page Application (SPA)**:
+Built as a **Single Page Application** for future native portability:
 
--   **Core**: Next.js 15 (App Router), React 19, TypeScript
--   **Motion**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
--   **Visual**: Tailwind CSS v4 (Oklch), Lucide Icons
--   **Graphics**: React Three Fiber / Drei (WebGL Particle System)
+-   **Core**: Next.js 15 App Router, React 19, TypeScript
+-   **Motion**: Framer Motion, GSAP, React Lenis
+-   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
+-   **Graphics**: React Three Fiber / Drei WebGL Particle System
 
 ## 🚀 Quick Start
 
 1.  Clone the repository.
 2.  Install dependencies: `npm install`
 3.  Start development server: `npm run dev`
-4.  Visit: `https://bibliotheca-vitae.vercel.app` (Production) or `http://localhost:3000` (Local).
+4.  Visit: `https://bibliotheca-vitae.vercel.app` or `http://localhost:4321`.
 
 ---
 *Est. MMXXVI · Digital Garden | Bibliotheca Vitae · Ars Longa, Vita Brevis.*

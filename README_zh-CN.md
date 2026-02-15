@@ -26,45 +26,45 @@
 </div>
 <br/>
 
-**Digital Garden** (项目代号：**Bibliotheca Vitae**) 并非传统的个人博客，它是一座**沉浸式生命档案馆**。此处，15 世纪手抄本的古典魂灵与 21 世纪的尖端 Web 技术交叠错位，将平庸的文件存取升华为一场关于生命痕迹的精致策展。
+**Bibliotheca Vitae** 超越了博客的定义。这是一座数字花园，15 世纪手抄本美学与 21 世纪工程技艺在此交汇，将原始数据升华为被策展的生命叙事。
 
-## 🏛️ 项目愿景：生命叙事 (Living Narrative)
+## 🏛️ 项目愿景：生命叙事
 
-在碎片化的数码时代，脉络即灵魂。**Bibliotheca Vitae** 摒弃了冷峻的行列式数据库思维，将每一次记录镌刻为 **Moment in Time** —— 一个受物理律驱动、值得被深度感知的视觉与文字实体。
+在碎片化的数码时代，脉络即灵魂。Bibliotheca Vitae 摒弃冷峻的行列式数据库思维，将每一次记录镌刻为 **Moment in Time**，一个受物理律驱动、值得被深度感知的视觉与文字实体。
 
 * **感官沉浸**：藉由物理仿真动效，赋予数字资产以真实的质量与存在感。
-* **古典美学**：古典字体 `Cinzel`, `EB Garamond` 与现代极简主义在此交织，重构博物馆级别的阅读体验。
-* **策展礼致**：摈弃传统的“表单”逻辑，还归以“画布”的创作自由。
+* **古典美学**：古典字体 Cinzel 与 EB Garamond 在此同现代极简主义交织，重构博物馆级别的阅读体验。
+* **策展礼致**：摈弃传统的表单逻辑，还归以画布的创作自由。
 
 ## ✨ 核心特性
 
-### 🖼️ 动态画廊 (The Gallery)
+### 🖼️ 动态画廊 The Gallery
 受 Apple 极简主义启发的横向视差卷轴。用户能于时光长河中游弋，感知每一张卡片呼吸般的动态张力。
 
-### 📖 深度叙事 (The Narrative Experience)
-轻触条目，即可唤起无缝的深层遮罩。在此，你将探寻 **Moment in Time** 背后交织的 **Figure** (人物) 与随笔 **The Narrative**。
+### 📖 深度叙事 The Narrative Experience
+轻触条目，即可唤起无缝的深层遮罩。在此，你将探寻 **Moment in Time** 背后交织的 **Figure** 关键人物与随笔 **The Narrative**。
 
-### 🖋️ 瞬间追加 (Append Moment Editor)
-本项目的工程核心：“视觉先行”的一站式编辑器。
+### 🖋️ 瞬间追加 Append Moment Editor
+本项目的工程核心是视觉先行的一站式编辑器。
 1.  **视觉锚点**：拖入影像，即刻将其化为创作基底。
 2.  **原位镌刻**：直接在预览位置敲击文字，省去一切多余的表单跳转。
-3.  **粒子之变**：集成 Alet-style 粒子系统，支持 **Linear** (线性拉伸) 与 **Random** (随机碎裂) 两种解构模式。
+3.  **粒子之变**：集成 Alet-style 粒子系统，支持 **Linear** 线性拉伸与 **Random** 随机碎裂两种解构模式。
 
-## 🛠️ 技术底座 (Tech Stack)
+## 🛠️ 技术底座 Tech Stack
 
-基于 **单页应用 (SPA)** 架构，为未来的 Electron 原生化做准备：
+基于单页应用 SPA 架构，为未来的 Electron 原生化做准备：
 
--   **核心**: Next.js 15 (App Router), React 19, TypeScript
--   **动效**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
--   **视觉**: Tailwind CSS v4 (Oklch), Lucide Icons
--   **图形**: React Three Fiber / Drei (WebGL 粒子系统)
+-   **核心**: Next.js 15 App Router, React 19, TypeScript
+-   **动效**: Framer Motion, GSAP, React Lenis Smooth Scroll
+-   **视觉**: Tailwind CSS v4 Oklch, Lucide Icons
+-   **图形**: React Three Fiber / Drei WebGL Particle System
 
 ## 🚀 快速开始
 
 1.  克隆仓库。
 2.  执行 `npm install` 安装依赖。
 3.  通过 `npm run dev` 启动本地开发环境。
-4.  访问地址：`https://bibliotheca-vitae.vercel.app` (生产环境) 或 `http://localhost:3000` (本地环境)。
+4.  访问地址：`https://bibliotheca-vitae.vercel.app` 或 `http://localhost:4321`。
 
 ---
 *Est. MMXXVI · Digital Garden | Bibliotheca Vitae · Ars Longa, Vita Brevis.*
