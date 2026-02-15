@@ -14,6 +14,16 @@ export const documents: Document[] = [
         focalPoint: "50% 20%",
         academicContext: "Newton's work replaced the indeterminate qualitative explanations of physics with a quantitative, mathematical approach. By unifying terrestrial and celestial mechanics under a single set of laws, he laid the framework for the Enlightenment's view of a predictable, 'clockwork' universe. This document is the cornerstone of classical physics.",
         tags: ["Classical Mechanics", "Calculus", "Enlightenment", "Alchemy"],
+        longDescription: "Philosophiæ Naturalis Principia Mathematica (Mathematical Principles of Natural Philosophy) states Newton's laws of motion, forming the foundation of classical mechanics; Newton's law of universal gravitation; and a derivation of Kepler's laws of planetary motion. It is considered one of the most important works in the history of science.",
+        concepts: [
+            { title: "Universal Gravitation", description: "Every point mass attracts every other point mass by a force acting along the line intersecting the two points." },
+            { title: "Laws of Motion", description: "Three physical laws that, together, laid the foundation for classical mechanics." },
+            { title: "Calculus", description: "The mathematical study of continuous change, developed by Newton (and Leibniz) to describe these physical laws." }
+        ],
+        resources: [
+            { title: "Cambridge Digital Library: Newton's Papers", type: "External Link" },
+            { title: "The Royal Society Archive", type: "Archive Source" }
+        ]
     },
     {
         id: "2",
@@ -28,6 +38,16 @@ export const documents: Document[] = [
         focalPoint: "90% 35%",
         academicContext: "Da Vinci's illustration perfectly embodies the Renaissance concept of 'Man as the measure of all things.' Beyond its artistic merit, it reflects an early anatomical rigor and a philosophical belief in the divine symmetry of nature, bridging the gap between artistic expression and scientific observation.",
         tags: ["Polymath", "Anatomy", "Engineering", "Golden Ratio"],
+        longDescription: "The Vitruvian Man (Italian: Le proporzioni del corpo umano secondo Vitruvio), is a drawing made by the Italian polymath Leonardo da Vinci in about 1490. It is accompanied by notes based on the work of the architect Vitruvius.",
+        concepts: [
+            { title: "Anthropometry", description: "The scientific study of the measurements and proportions of the human body." },
+            { title: "Golden Ratio", description: "A mathematical ratio commonly found in nature and design, often associated with beauty and harmony." },
+            { title: "Renaissance Humanism", description: "An intellectual movement that focused on human potential and achievements." }
+        ],
+        resources: [
+            { title: "Gallerie dell'Accademia, Venice", type: "Museum Collection" },
+            { title: "Leonardo's Notebooks", type: "Primary Source" }
+        ]
     },
     {
         id: "3",
@@ -42,6 +62,16 @@ export const documents: Document[] = [
         focalPoint: "50% 40%",
         academicContext: "This text famously led to Galileo's trial for heresy. It is a masterpiece of scientific persuasion, using dialogue to dismantle the Earth-centric model. It represents the historic transition from dogma-based natural philosophy to empirical, observation-led science.",
         tags: ["Observational Astronomy", "Kinematics", "Heliocentrism", "Inquisition"],
+        longDescription: "Dialogue Concerning the Two Chief World Systems (Dialogo sopra i due massimi sistemi del mondo) compares the Copernican system with the traditional Ptolemaic system. It was published in Italian and dedicated to the Grand Duke of Tuscany.",
+        concepts: [
+            { title: "Heliocentrism", description: "The astronomical model in which the Earth and planets revolve around the Sun." },
+            { title: "Relativity", description: "Galilean relativity states that the laws of motion are the same in all inertial frames." },
+            { title: "Empiricism", description: "The theory that all knowledge is derived from sense-experience." }
+        ],
+        resources: [
+            { title: "Vatican Secret Archives", type: "Historical Record" },
+            { title: "Museo Galileo, Florence", type: "Museum" }
+        ]
     },
     {
         id: "4",

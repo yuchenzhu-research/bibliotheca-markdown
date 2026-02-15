@@ -103,7 +103,7 @@ export function HorizontalScrollSection({
                                         <span className="w-24 h-px bg-foreground/10" />
                                         <span className="animate-side-to-side text-lg">→</span>
                                     </div>
-                                    <span className="font-mono text-[10px] uppercase">/ Origins — Eternity</span>
+                                    <span className="font-mono text-[10px] uppercase">/ Timeless Archive</span>
                                 </div>
                             )}
                         </div>
