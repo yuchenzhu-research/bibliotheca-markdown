@@ -18,8 +18,12 @@ export function HorizontalScrollSection({
     onScrollProgress,
 }: HorizontalScrollSectionProps) {
     const targetRef = useRef<HTMLDivElement>(null);
+    // 垂直视觉中心触发逻辑 (v4)：
+    // offset: ["start center", "end center"]
+    // 意味着当 Section 顶部到达屏幕中心时开始计数 (0)，底部离开中心时结束 (1)
     const { scrollYProgress } = useScroll({
         target: targetRef,
+        offset: ["start center", "end center"]
     });
 
     // Notify parent of scroll progress for particle effects
@@ -29,12 +33,13 @@ export function HorizontalScrollSection({
         }
     });
 
-    // 物理精确居中逻辑：
-    // 第一张卡片中心点对齐屏幕中心：
-    // 起始 X = 50vw - (5vw + 45vw/2) = 22.5vw
-    // 结束 X（第三张居中）：
-    // 第三张中心位置 = 5vw (左边距) + 45vw (图1) + 6vw (间距) + 45vw (图2) + 6vw (间距) + 22.5vw (图3中心) = 129.5vw
-    // 目标 X = 50vw - 129.5vw = -79.5vw
+    // 空间感布局 (v4)：
+    // 30% 留白对称布局：
+    // 起始 X = 30vw (左侧留白 30%)
+    // 结束 X = 100vw - 30vw - (3张卡片总宽 + 2个间距)
+    // 卡片宽 45vw, 间距 6vw (approx. for 6rem)
+    // 总宽 = 45*3 + 6*2 = 135 + 12 = 147vw
+    // 结束 X = 70vw - 147vw = -77vw
 
     // Header Opacity: 只在定格入场和离场时显示，位移期间消失
     const headerOpacity = useTransform(scrollYProgress,
@@ -43,20 +48,24 @@ export function HorizontalScrollSection({
     );
 
     // X 轴物理位移
+    // 0 -> 0.2: 垂直居中入场，卡片静止在左侧 30vw
+    // 0.2 -> 0.8: 横向平滑移动
+    // 0.8 -> 1.0: 卡片静止在右侧 30vw，等待垂直离场
     const xRaw = useTransform(
         scrollYProgress,
-        [0, 0.25, 0.75, 1], // 对称锁定区间：0.25前后的锁定
-        ['22.5vw', '22.5vw', '-79.5vw', '-79.5vw']
+        [0, 0.2, 0.8, 1], // 对称锁定区间
+        ['30vw', '30vw', '-77vw', '-77vw']
     );
 
+    // 稍微调高 stiffness 以响应更快的"中位触发"节奏
     const x = useSpring(xRaw, {
         damping: 40,
-        stiffness: 70,
+        stiffness: 90,
         mass: 1,
     });
 
     // 缩放：在中心时最大，进入和退出锁定区时微调
-    const cardScaleRaw = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0.95, 0.95, 1, 0.95, 0.95]);
+    const cardScaleRaw = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.95, 0.95, 1, 0.95, 0.95]);
     const cardScale = useSpring(cardScaleRaw, {
         damping: 25,
         stiffness: 150,
