@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, X } from 'lucide-react';
@@ -14,12 +14,23 @@ interface ArchiveDetailViewProps {
 }
 
 export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps) {
+    // Body scroll locking when overlay is active
+    useEffect(() => {
+        const originalStyle = window.getComputedStyle(document.body).overflow;
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = originalStyle;
+        };
+    }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] bg-background overflow-y-auto selection:bg-primary/20"
+            data-lenis-prevent // Prevent Lenis from hijacking scroll on this element
         >
             {/* Navigation */}
             <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none">
