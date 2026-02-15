@@ -13,7 +13,7 @@
 
 # 🌿 Digital Garden | Bibliotheca Vitae
 
-> **"A digital sanctuary to curate the artifacts of your life with Renaissance elegance."**
+> **"一座用文艺复兴式的优雅，策展你生命切片的数字圣所。"**
 
 **Digital Garden** (Project: **Bibliotheca Vitae**) 并非一个简单的个人博客，它是一个**沉浸式生命档案馆**。它融合了 15 世纪的手抄本美学与 21 世纪的顶级 Web 技术，旨在将平庸的数据录入转化为一场优雅的策展艺术。
 
