@@ -277,9 +277,7 @@ export function HorizontalScrollSection({
 
   // ========== Phase 2: Horizontal Scroll (12.5% - 62.5%) - Cards slide in ==========
   // Cards start from right (30%) and move to final position (-60%)
-  const x = useTransform(scrollYProgress, [0.125, 0.625], ["30%", "-60%"], {
-    easing: "easeOut",
-  });
+  const x = useTransform(scrollYProgress, [0.125, 0.625], ["30%", "-60%"]);
 
   // Card scale effect: 0.95 -> 1.0 during horizontal scroll
   const cardScale = useTransform(scrollYProgress, [0.125, 0.625], [0.95, 1]);
@@ -333,7 +331,7 @@ export function HorizontalScrollSection({
 
         {/* Horizontal scroll container with scale effect */}
         <motion.div
-          style={{ x, scale: cardScale }}
+          style={{ x: x as any, scale: cardScale as any }}
           className="flex gap-16 md:gap-24 px-[10vw] items-center will-change-transform"
         >
           {children}
