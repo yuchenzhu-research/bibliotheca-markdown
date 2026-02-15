@@ -47,25 +47,25 @@ export function HorizontalScrollSection({
         [1, 1, 0, 0, 1, 1]
     );
 
-    // X 轴物理位移
-    // 0 -> 0.2: 垂直居中入场，卡片静止在左侧 30vw
-    // 0.2 -> 0.8: 横向平滑移动
-    // 0.8 -> 1.0: 卡片静止在右侧 30vw，等待垂直离场
+    // X 轴物理位移 (v5.1)：
+    // 0 -> 0.1: 入场定格 (牛顿居中锁定)
+    // 0.1 -> 0.9: 漫长的平滑横移
+    // 0.9 -> 1.0: 离场定格 (伽利略居中锁定)
     const xRaw = useTransform(
         scrollYProgress,
-        [0, 0.2, 0.8, 1], // 对称锁定区间
+        [0, 0.1, 0.9, 1],
         ['30vw', '30vw', '-77vw', '-77vw']
     );
 
-    // 稍微调高 stiffness 以响应更快的"中位触发"节奏
+    // 物理特性：减小质量 (mass) 使其对滚动更敏感，增加 stiffness
     const x = useSpring(xRaw, {
-        damping: 40,
-        stiffness: 90,
-        mass: 1,
+        damping: 35,
+        stiffness: 100,
+        mass: 0.8,
     });
 
-    // 缩放：在中心时最大，进入和退出锁定区时微调
-    const cardScaleRaw = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0.95, 0.95, 1, 0.95, 0.95]);
+    // 缩放：在 0.5 处（第二张卡片居中）时达到最大，增加动感
+    const cardScaleRaw = useTransform(scrollYProgress, [0, 0.5, 1], [0.97, 1, 0.97]);
     const cardScale = useSpring(cardScaleRaw, {
         damping: 25,
         stiffness: 150,
