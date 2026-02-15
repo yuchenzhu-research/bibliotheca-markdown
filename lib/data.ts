@@ -86,6 +86,16 @@ export const documents: Document[] = [
         focalPoint: "50% 15%",
         academicContext: "Often cited as the most successful and influential textbook ever written. Euclid established the axiomatic method, proving complex theorems from simple, self-evident assumptions. For over two millennia, it defined the logical structure of human reason and mathematical thought.",
         tags: ["Geometry", "Axiomatic Logic", "Alexandria", "Mathematics"],
+        longDescription: "Euclid's Elements is a mathematical and geometric treatise consisting of 13 books written in Alexandria, Ptolemaic Egypt, c. 300 BC. It is a collection of definitions, postulates, propositions (theorems and constructions), and mathematical proofs of the propositions.",
+        concepts: [
+            { title: "Axiomatic System", description: "A system of logic based on a set of axioms or postulates from which theorems are derived." },
+            { title: "Euclidean Geometry", description: "The study of plane and solid figures on the basis of axioms and theorems employed by Euclid." },
+            { title: "Mathematical Rigor", description: "The practice of creating and verifying mathematical proofs with strict adherence to logic." }
+        ],
+        resources: [
+            { title: "The Euclid Project", type: "Digital Archive" },
+            { title: "Clay Mathematics Institute", type: "Research Center" }
+        ]
     },
     {
         id: "5",
@@ -100,6 +110,16 @@ export const documents: Document[] = [
         focalPoint: "50% 15%",
         academicContext: "Plato's Republic is the definitive text on political philosophy. Through the allegory of the cave and the theory of forms, it explores the nature of truth, the definition of justice, and the ideal structure of society, influencing every major political theorist in Western history.",
         tags: ["Idealism", "Dialectic", "Political Philosophy", "Athens"],
+        longDescription: "The Republic (Greek: Politeia) is a Socratic dialogue, authored by Plato around 375 BC, concerning justice (dikaiosyne), the order and character of the just city-state, and the just man.",
+        concepts: [
+            { title: "Theory of Forms", description: "The non-physical essences of all things, of which objects and matter in the physical world are merely imitations." },
+            { title: "Allegory of the Cave", description: "A presentation of the distinction between the physical world of appearances and the intellectual world of truth." },
+            { title: "Philosopher King", description: "A ruler who possesses a love of knowledge, as well as intelligence, reliability, and a willingness to live a simple life." }
+        ],
+        resources: [
+            { title: "Perseus Digital Library", type: "Text Archive" },
+            { title: "Stanford Encyclopedia of Philosophy", type: "Academic Resource" }
+        ]
     },
     {
         id: "6",
@@ -114,5 +134,15 @@ export const documents: Document[] = [
         focalPoint: "75% 35%",
         academicContext: "Published on his deathbed, Copernicus's work initiated the 'Copernican Revolution.' By mathematically demonstrating the heliocentric model, he challenged both the religious and scientific establishment, fundamentally altering humanity's perceived place in the cosmos.",
         tags: ["Cosmology", "Paradigm Shift", "Renaissance", "Astronomy"],
+        longDescription: "De revolutionibus orbium coelestium (On the Revolutions of the Heavenly Spheres) is the seminal work on the heliocentric theory of the astronomer Nicolaus Copernicus (1473–1543) of the Polish Renaissance.",
+        concepts: [
+            { title: "Copernican Revolution", description: "The paradigm shift from the Ptolemaic model of the heavens, which described the cosmos as having Earth stationary at the center of the universe, to the heliocentric model with the Sun at the center of the Solar System." },
+            { title: "Orbital Mechanics", description: "The application of ballistics and celestial mechanics to the practical problems concerning the motion of rockets and other spacecraft." },
+            { title: "Renaissance Science", description: "The period of scientific history during the Renaissance." }
+        ],
+        resources: [
+            { title: "Copernicus Center", type: "Research Institute" },
+            { title: "NASA History Division", type: "Government Archive" }
+        ]
     },
 ];

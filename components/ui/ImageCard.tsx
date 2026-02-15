@@ -4,7 +4,10 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ArrowRight } from 'lucide-react';
 
+import Link from 'next/link';
+
 interface ImageCardProps {
+    id: string; // 新增 id 用于跳转
     title: string;
     description?: string;
     year?: string;
@@ -18,10 +21,11 @@ interface ImageCardProps {
     className?: string;
     aspectRatio?: 'square' | 'video' | 'portrait' | 'auto';
     focalPoint?: string;
-    size?: 'default' | 'small'; // 新增 size 变体来控制文字比例
+    size?: 'default' | 'small';
 }
 
 export function ImageCard({
+    id,
     title,
     description,
     year,
@@ -43,9 +47,10 @@ export function ImageCard({
     const isSmall = size === 'small';
 
     return (
-        <div
+        <Link
+            href={`/archive/${id}`}
             className={cn(
-                'group relative overflow-hidden bg-warm-paper border-elegant flex-none scroll-snap-align-start',
+                'group relative overflow-hidden bg-warm-paper border-elegant flex-none scroll-snap-align-start block cursor-pointer', //Added block and cursor-pointer
                 aspectRatioClasses[aspectRatio],
                 className
             )}
