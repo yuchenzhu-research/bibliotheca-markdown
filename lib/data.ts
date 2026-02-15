@@ -21,8 +21,8 @@ export const documents: Document[] = [
             { title: "Calculus", description: "The mathematical study of continuous change, developed by Newton (and Leibniz) to describe these physical laws." }
         ],
         resources: [
-            { title: "Cambridge Digital Library: Newton's Papers", type: "External Link" },
-            { title: "The Royal Society Archive", type: "Archive Source" }
+            { title: "Cambridge Digital Library: Newton's Papers", type: "External Link", url: "https://cudl.lib.cam.ac.uk/collections/newtonpapers" },
+            { title: "The Royal Society Archive", type: "Archive Source", url: "https://royalsociety.org/collections/archives-and-manuscripts/" }
         ]
     },
     {
@@ -45,8 +45,8 @@ export const documents: Document[] = [
             { title: "Renaissance Humanism", description: "An intellectual movement that focused on human potential and achievements." }
         ],
         resources: [
-            { title: "Gallerie dell'Accademia, Venice", type: "Museum Collection" },
-            { title: "Leonardo's Notebooks", type: "Primary Source" }
+            { title: "Gallerie dell'Accademia, Venice", type: "Museum Collection", url: "https://www.gallerieaccademia.it/en/study-proportions-human-body-known-vitruvian-man" },
+            { title: "Leonardo's Notebooks", type: "Primary Source", url: "https://www.bl.uk/collection-items/leonardo-da-vinci-notebook" }
         ]
     },
     {
@@ -69,8 +69,8 @@ export const documents: Document[] = [
             { title: "Empiricism", description: "The theory that all knowledge is derived from sense-experience." }
         ],
         resources: [
-            { title: "Vatican Secret Archives", type: "Historical Record" },
-            { title: "Museo Galileo, Florence", type: "Museum" }
+            { title: "Vatican Apostolic Archive", type: "Historical Record", url: "https://www.archivioapostolicovaticano.va/" },
+            { title: "Museo Galileo, Florence", type: "Museum", url: "https://www.museogalileo.it/en/" }
         ]
     },
     {
@@ -93,8 +93,8 @@ export const documents: Document[] = [
             { title: "Mathematical Rigor", description: "The practice of creating and verifying mathematical proofs with strict adherence to logic." }
         ],
         resources: [
-            { title: "The Euclid Project", type: "Digital Archive" },
-            { title: "Clay Mathematics Institute", type: "Research Center" }
+            { title: "The Euclid Project", type: "Digital Archive", url: "http://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:1999.01.0086" },
+            { title: "Clay Mathematics Institute", type: "Research Center", url: "https://www.claymath.org/library/historical/euclid/" }
         ]
     },
     {
@@ -117,8 +117,8 @@ export const documents: Document[] = [
             { title: "Philosopher King", description: "A ruler who possesses a love of knowledge, as well as intelligence, reliability, and a willingness to live a simple life." }
         ],
         resources: [
-            { title: "Perseus Digital Library", type: "Text Archive" },
-            { title: "Stanford Encyclopedia of Philosophy", type: "Academic Resource" }
+            { title: "Perseus Digital Library", type: "Text Archive", url: "http://www.perseus.tufts.edu/hopper/text?doc=Plat.+Rep.+1" },
+            { title: "Stanford Encyclopedia of Philosophy", type: "Academic Resource", url: "https://plato.stanford.edu/entries/plato/" }
         ]
     },
     {
@@ -141,8 +141,8 @@ export const documents: Document[] = [
             { title: "Renaissance Science", description: "The period of scientific history during the Renaissance." }
         ],
         resources: [
-            { title: "Copernicus Center", type: "Research Institute" },
-            { title: "NASA History Division", type: "Government Archive" }
+            { title: "Copernicus Center", type: "Research Institute", url: "https://www.copernicus.eu/en" },
+            { title: "NASA History", type: "Government Archive", url: "https://www.nasa.gov/history/" }
         ]
     },
 ];

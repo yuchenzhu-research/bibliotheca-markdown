@@ -47,8 +47,8 @@ export function ImageView({ document }: ImageViewProps) {
                             Archive Resources
                         </h3>
                         <ul className="space-y-4">
-                            {document.resources.map((resource, idx) => (
-                                <li key={idx} className="group cursor-pointer">
+                            {document.resources.map((resource, idx) => {
+                                const Content = (
                                     <div className="flex items-start justify-between">
                                         <div>
                                             <p className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
@@ -60,8 +60,25 @@ export function ImageView({ document }: ImageViewProps) {
                                         </div>
                                         <ArrowUpRight className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                                     </div>
-                                </li>
-                            ))}
+                                );
+
+                                return (
+                                    <li key={idx} className="group cursor-pointer">
+                                        {resource.url ? (
+                                            <a
+                                                href={resource.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="block"
+                                            >
+                                                {Content}
+                                            </a>
+                                        ) : (
+                                            Content
+                                        )}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 )}
