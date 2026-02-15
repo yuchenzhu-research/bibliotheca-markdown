@@ -21,4 +21,6 @@ export interface Document {
         type: string;
         url?: string;
     }[];
+    type?: 'image' | 'markdown';
+    content?: string;
 }
