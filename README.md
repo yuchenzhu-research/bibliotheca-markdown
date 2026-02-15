@@ -1,42 +1,57 @@
 # Bibliotheca Academica
 
-**Digital Renaissance meets Modern SPA Architecture.**
+![Digital Renaissance](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/hero_v2_1771170832187.png)
 
-A high-end digital archive refactored into a futuristic, Single Page Application (SPA). Designed for scholars and researchers with a focus on immersive aesthetics and speed.
+> **"Curating the intersection of history and technology. A comprehensive digital archive for the modern scholar."**
 
-## ✨ Features
-- **Digital Renaissance Aesthetic**: A fusion of historical serif typography and modern dark-mode UI.
-- **Glassmorphism**: Sophisticated blur effects and glowing border interactions.
-- **Bento Grid Layout**: Structured, responsive discovery system for archival materials.
-- **Instant Preview**: Context-aware document browsing without page transitions.
-- **Framer Motion**: Smooth, cinematic entrance and interactive animations.
+**Bibliotheca Academica** is not just a digital archive; it is a **Digital Renaissance** platform designed to transform the mundane act of data entry into an immersive art of curation. Built with modern web technologies but crafted with a classical soul, it bridges the gap between the static archives of the past and the fluid, interactive experiences of the future.
 
-## 🛠 Tech Stack
-- **Framework**: Next.js 14+ (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Components**: shadcn/ui
-- **Icons**: Lucide React
-- **Animation**: Framer Motion
+## The Philosophy: Visual First
 
-## 🚀 Getting Started
+In an age of information overload, we believe that **context is king**. Standard databases treat history as rows in a table. Bibliotheca Academica treats every entry as a **Moment in Time**—a visual, textual, and interconnected artifact that deserves to be experienced, not just indexed.
 
-First, run the development server:
+*   **Immersion**: Every interaction is fluid, featuring physics-based animations that give weight and presence to digital objects.
+*   **Aesthetics**: Influenced by classical typography (`Cinzel`, `EB Garamond`) and modern minimalism (`Geist Sans`), creating a reading environment that respects the content.
+*   **Curator Experience**: We don't have "forms". We have canvases.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Key Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### The Gallery (Archive View)
+An infinite, horizontal scroll through history. Each artifact is presented as a high-fidelity card, breathing with subtle parallax effects.
 
-## 🏛 Archive Structure
-The core gallery logic is located in `components/archive/ArchiveGallery.tsx`, which manages the state between the visual grid and the detailed preview modal.
+### The Narrative (Detail Experience)
+![Detail View](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/detail_view_v2_1771170914107.png)
+Clicking any artifact opens a seamless overlay—no page reloads, no context switching. Users can deep dive into the **Moment in Time**, explore **Figures**, and read the **Narrative** in a distraction-free environment.
+
+### Append Moment (Curator Editor)
+![Editor Overlay](/Users/yuchenzhu/.gemini/antigravity/brain/d39a0ec6-3e17-407a-8242-0e51e7101aba/editor_upload_v2_1771171038039.png)
+The crown jewel of the platform. We replaced the traditional "Create New" form with **"Append Moment"**.
+1.  **Visual Anchor**: Start by dragging an artifact image onto the canvas.
+2.  **Edit in Place**: The image becomes your background. You type directly onto the page—editing the title, figure, and narrative exactly where they will appear.
+3.  **Seamless Integration**: The editor lives as a high-performance overlay, accessible instantly from the home feed.
+
+## Technology Stack
+
+This project is engineered as a **Single Page Application (SPA)** with potential for Electron desktop packaging.
+
+-   **Core**: Next.js 15 (App Router), React 19, TypeScript
+-   **Styling**: Tailwind CSS v4, Oklch Color Space
+-   **Motion**: Framer Motion, GSAP, React Lenis (Smooth Scroll)
+-   **3D Elements**: React Three Fiber / Drei
+-   **Architecture**: Overlay-based routing, local state persistence (planned)
+
+## Getting Started
+
+1.  Clone the repository.
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Run the development server:
+    ```bash
+    npm run dev
+    ```
+4.  Open `http://localhost:4321` to begin curating.
 
 ---
-*Created with focus on speed, aesthetics, and academic rigor.*
+*Est. MMXXVI · Bibliotheca Academica*
