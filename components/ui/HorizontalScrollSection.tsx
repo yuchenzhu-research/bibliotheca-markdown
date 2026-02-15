@@ -77,13 +77,13 @@ export function HorizontalScrollSection({
             className={cn('relative h-[800vh] py-0', className)} // 更长的滚动区间以获得更稳的吸附感
         >
             <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
-                {/* Section header - 使用绝对定位以免挤压卡片的 Y 轴居中 */}
+                {/* Section header - 位置上移，腾出空间 */}
                 <motion.div
                     style={{ opacity: headerOpacity }}
-                    className="absolute top-[12vh] left-0 w-full z-10 pointer-events-none"
+                    className="absolute top-[8vh] left-0 w-full z-10 pointer-events-none"
                 >
                     <div className="container mx-auto px-4">
-                        <div className="flex items-end justify-between">
+                        <div className="flex items-start justify-between">
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-px bg-primary/40" />
@@ -98,7 +98,7 @@ export function HorizontalScrollSection({
                             </div>
 
                             {showScrollIndicator && (
-                                <div className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40">
+                                <div className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40 mt-4">
                                     <div className="flex items-center gap-4">
                                         <span>Scroll to explore</span>
                                         <span className="w-24 h-px bg-foreground/10" />
@@ -111,13 +111,15 @@ export function HorizontalScrollSection({
                     </div>
                 </motion.div>
 
-                {/* Horizontal scroll container - 撑满屏幕高度并垂直居中 */}
-                <motion.div
-                    style={{ x, scale: cardScale }}
-                    className="flex gap-[6vw] items-center will-change-transform h-full"
-                >
-                    {children}
-                </motion.div>
+                {/* Horizontal scroll container - 整体重心下移，营造 40% 底部呼吸空间 */}
+                <div className="h-full flex items-center justify-center translate-y-[10vh]">
+                    <motion.div
+                        style={{ x, scale: cardScale }}
+                        className="flex gap-[6vw] items-center will-change-transform"
+                    >
+                        {children}
+                    </motion.div>
+                </div>
 
                 {/* Floating background letter - 进一步降低透明度以防冲突 */}
                 <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.01] pointer-events-none select-none text-foreground">

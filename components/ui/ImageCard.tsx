@@ -45,19 +45,19 @@ export function ImageCard({
                 className
             )}
         >
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden z-0">
                 <Image
                     src={imageUrl}
                     alt={title}
                     fill
                     className="object-cover transition-transform duration-[1.5s] cubic-bezier(0.2, 0, 0.2, 1) group-hover:scale-110"
-                    sizes="500px"
+                    sizes="800px" // 适当增加 sizes 以确保清晰度
                     style={{ objectPosition: focalPoint || 'center' }}
                 />
                 <div className="absolute inset-0 bg-black/5 transition-opacity duration-700 group-hover:opacity-0" />
             </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 z-10" />
 
             {floatingTexts && (
                 <div className="absolute inset-0">
