@@ -31,7 +31,7 @@ export const documents: Document[] = [
     },
     {
         id: "3",
-        title: "Dialogue Concerning the Two Chief World Systems",
+        title: "Dialogue Concerning World Systems",
         category: "Philosophy",
         description: "Comparing the Copernican system with the traditional Ptolemaic system.",
         imageUrl: "/archive/galileo.jpg",
