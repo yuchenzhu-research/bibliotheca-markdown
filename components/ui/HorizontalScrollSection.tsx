@@ -74,54 +74,53 @@ export function HorizontalScrollSection({
     return (
         <section
             ref={targetRef}
-            className={cn('relative h-[700vh] py-0', className)} // 增加到 700vh 以获得更长的定格时间
+            className={cn('relative h-[800vh] py-0', className)} // 更长的滚动区间以获得更稳的吸附感
         >
-            <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-                {/* Section header - RESTORED: Dark text colors */}
+            <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+                {/* Section header - 使用绝对定位以免挤压卡片的 Y 轴居中 */}
                 <motion.div
                     style={{ opacity: headerOpacity }}
-                    className="container mx-auto px-4 mb-8 md:mb-16 w-full"
+                    className="absolute top-[12vh] left-0 w-full z-10 pointer-events-none"
                 >
-                    <div className="flex items-end justify-between">
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-px bg-primary/40" />
-                                <span className="text-display-xs text-primary font-elegant-sans tracking-[0.3em] uppercase">
-                                    Archive Collection
-                                </span>
-                            </div>
-                            {/* RESTORED: Foreground color (dark) */}
-                            <h2 className="font-epic-serif text-5xl md:text-8xl text-foreground font-light leading-[1]">
-                                Selected <br />
-                                <span className="italic pl-12 md:pl-32">Works</span>
-                            </h2>
-                        </div>
-
-                        {showScrollIndicator && (
-                            <div className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40">
-                                <div className="flex items-center gap-4">
-                                    <span>Scroll to explore</span>
-                                    <span className="w-24 h-px bg-foreground/10" />
-                                    <span className="animate-side-to-side text-lg">→</span>
+                    <div className="container mx-auto px-4">
+                        <div className="flex items-end justify-between">
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-px bg-primary/40" />
+                                    <span className="text-display-xs text-primary font-elegant-sans tracking-[0.3em] uppercase">
+                                        Archive Collection
+                                    </span>
                                 </div>
-                                <span className="font-mono text-[10px] uppercase">/ 1687—2026</span>
+                                <h2 className="font-epic-serif text-5xl md:text-8xl text-foreground font-light leading-[1]">
+                                    Selected <br />
+                                    <span className="italic pl-12 md:pl-32">Works</span>
+                                </h2>
                             </div>
-                        )}
+
+                            {showScrollIndicator && (
+                                <div className="hidden md:flex flex-col items-end gap-3 text-xs tracking-widest text-muted-foreground/40">
+                                    <div className="flex items-center gap-4">
+                                        <span>Scroll to explore</span>
+                                        <span className="w-24 h-px bg-foreground/10" />
+                                        <span className="animate-side-to-side text-lg">→</span>
+                                    </div>
+                                    <span className="font-mono text-[10px] uppercase">/ 1687—2026</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </motion.div>
 
-                {/* Horizontal scroll container - RESTORED Layout */}
+                {/* Horizontal scroll container - 撑满屏幕高度并垂直居中 */}
                 <motion.div
                     style={{ x, scale: cardScale }}
-                    className="flex gap-12 md:gap-24 px-[5vw] items-center will-change-transform"
+                    className="flex gap-[6vw] items-center will-change-transform h-full"
                 >
                     {children}
-                    {/* Spacer for scroll completion */}
-                    <div className="flex-none w-[10vw]" />
                 </motion.div>
 
-                {/* Floating background letter - RESTORED: Extremely subtle opacity to avoid text collision */}
-                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.015] pointer-events-none select-none text-foreground">
+                {/* Floating background letter - 进一步降低透明度以防冲突 */}
+                <div className="absolute left-[5vw] top-1/2 -translate-y-1/2 -z-10 opacity-[0.01] pointer-events-none select-none text-foreground">
                     <span className="font-epic-serif text-[20rem] md:text-[40rem] leading-none">A</span>
                 </div>
             </div>
