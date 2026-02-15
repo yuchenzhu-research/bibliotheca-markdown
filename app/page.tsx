@@ -45,6 +45,7 @@ export default function Home() {
           {documents.slice(0, 3).map((doc) => (
             <div key={doc.id} className="flex-none w-[80vw] md:w-[60vw] lg:w-[45vw] max-w-4xl h-[65vh]">
               <ImageCard
+                id={doc.id}
                 title={doc.title}
                 description={doc.description}
                 year={doc.year}

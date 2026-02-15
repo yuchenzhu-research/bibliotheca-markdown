@@ -33,6 +33,7 @@ export function ArchiveGrid() {
                         className="group relative aspect-square overflow-hidden bg-card"
                     >
                         <ImageCard
+                            id={doc.id}
                             title={doc.title}
                             description={doc.description}
                             year={doc.year}
