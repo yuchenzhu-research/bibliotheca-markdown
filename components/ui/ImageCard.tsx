@@ -60,9 +60,9 @@ export function ImageCard({
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 z-10" />
 
             {floatingTexts && (
-                <div className="absolute inset-0">
+                <div className="absolute inset-0 z-20 pointer-events-none">
                     {floatingTexts.topLeft && (
-                        <div className="absolute top-8 left-8 flex items-center gap-3 z-20">
+                        <div className="absolute top-8 left-8 flex items-center gap-3">
                             <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                             <span className="font-sans text-[10px] font-medium tracking-[0.3em] text-white/90 uppercase">
                                 {floatingTexts.topLeft}
@@ -71,7 +71,7 @@ export function ImageCard({
                     )}
 
                     {floatingTexts.centerLeft && (
-                        <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-20">
+                        <div className="absolute left-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4">
                             <div className="w-px h-12 bg-white/20" />
                             <span className="font-sans text-[9px] uppercase tracking-[0.4em] text-white/40 writing-mode-vertical py-2">
                                 {floatingTexts.centerLeft}
@@ -81,7 +81,7 @@ export function ImageCard({
                     )}
 
                     {floatingTexts.bottomRight && (
-                        <div className="absolute bottom-8 right-8 z-20 flex flex-col items-end">
+                        <div className="absolute bottom-10 right-10 flex flex-col items-end">
                             <span className="font-sans text-[9px] tracking-[0.3em] text-white/50 uppercase mb-1">
                                 Ref.
                             </span>

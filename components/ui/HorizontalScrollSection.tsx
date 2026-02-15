@@ -41,10 +41,10 @@ export function HorizontalScrollSection({
     // 总宽 = 45*3 + 6*2 = 135 + 12 = 147vw
     // 结束 X = 70vw - 147vw = -77vw
 
-    // Header Opacity: 只在定格入场和离场时显示，位移期间消失
+    // Header Opacity (v7): 入场后保持常驻 (0.1 -> 1.0)
     const headerOpacity = useTransform(scrollYProgress,
-        [0, 0.1, 0.2, 0.8, 0.9, 1],
-        [1, 1, 0, 0, 1, 1]
+        [0, 0.1, 1],
+        [1, 1, 1]
     );
 
     // X 轴物理位移 (v5.1)：
@@ -91,9 +91,8 @@ export function HorizontalScrollSection({
                                         Archive Collection
                                     </span>
                                 </div>
-                                <h2 className="font-epic-serif text-5xl md:text-8xl text-foreground font-light leading-[1]">
-                                    Selected <br />
-                                    <span className="italic pl-12 md:pl-32">Works</span>
+                                <h2 className="font-epic-serif text-5xl md:text-8xl text-foreground font-light leading-none whitespace-nowrap">
+                                    Selected <span className="italic ml-4">Works</span>
                                 </h2>
                             </div>
 
@@ -115,7 +114,7 @@ export function HorizontalScrollSection({
                 <div className="h-full flex items-center justify-center translate-y-[10vh]">
                     <motion.div
                         style={{ x, scale: cardScale }}
-                        className="flex gap-[6vw] items-center will-change-transform"
+                        className="flex gap-[6vw] items-center will-change-transform flex-nowrap"
                     >
                         {children}
                     </motion.div>
