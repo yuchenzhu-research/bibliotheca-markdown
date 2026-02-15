@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface ImageCardProps {
-    id: string; // 新增 id 用于跳转
+    id: string;
     title: string;
     description?: string;
     year?: string;
@@ -22,6 +22,7 @@ interface ImageCardProps {
     aspectRatio?: 'square' | 'video' | 'portrait' | 'auto';
     focalPoint?: string;
     size?: 'default' | 'small';
+    onClick?: () => void; // 新增 onClick 属性
 }
 
 export function ImageCard({
@@ -36,6 +37,7 @@ export function ImageCard({
     aspectRatio = 'video',
     focalPoint,
     size = 'default',
+    onClick,
 }: ImageCardProps) {
     const aspectRatioClasses = {
         square: 'aspect-square',
@@ -47,13 +49,20 @@ export function ImageCard({
     const isSmall = size === 'small';
 
     return (
-        <Link
-            href={`/archive/${id}`}
+        <div
+            onClick={onClick}
+            role="button"
+            tabIndex={0}
             className={cn(
-                'group relative overflow-hidden bg-warm-paper border-elegant flex-none scroll-snap-align-start block cursor-pointer', //Added block and cursor-pointer
+                'group relative overflow-hidden bg-warm-paper border-elegant flex-none scroll-snap-align-start block cursor-pointer transition-transform duration-300 hover:scale-[1.01]',
                 aspectRatioClasses[aspectRatio],
                 className
             )}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    onClick?.();
+                }
+            }}
         >
             <div className="absolute inset-0 overflow-hidden z-0">
                 <Image
@@ -141,6 +150,6 @@ export function ImageCard({
 
             <div className="absolute bottom-12 right-1/2 translate-x-1/2 w-1 h-1 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-1000 delay-500" />
             <div className="absolute inset-4 border border-white/0 group-hover:border-white/10 transition-all duration-700 pointer-events-none" />
-        </Link>
+        </div>
     );
 }

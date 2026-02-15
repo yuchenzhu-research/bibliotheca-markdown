@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { AnimatePresence } from 'framer-motion';
 import { Hero } from '@/components/features/Hero';
 import { ArchiveGrid } from '@/components/features/ArchiveGrid';
-import { HorizontalScrollSection } from '@/components/ui/HorizontalScrollSection'; // RESTORED
+import { HorizontalScrollSection } from '@/components/ui/HorizontalScrollSection';
 import { ImageCard } from '@/components/ui/ImageCard';
+import { ArchiveDetailView } from '@/components/features/ArchiveDetailView';
 import { documents } from '@/lib/data';
 
 // Dynamically import Canvas3D with loading state
@@ -21,11 +23,24 @@ const SmoothScrollWrapper = dynamic(
 
 export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
+
+  const selectedDocument = documents.find(doc => doc.id === selectedDocId);
 
   return (
     <SmoothScrollWrapper>
       {/* RESTORED: Main background is warm papier */}
       <main className="min-h-screen bg-warm-paper selection:bg-primary/20">
+
+        {/* Detail View Overlay */}
+        <AnimatePresence>
+          {selectedDocument && (
+            <ArchiveDetailView
+              document={selectedDocument}
+              onClose={() => setSelectedDocId(null)}
+            />
+          )}
+        </AnimatePresence>
 
         {/* Layer 0: Reactive 3D Background - Transparent on top of paper */}
         <Canvas3D
@@ -59,13 +74,14 @@ export default function Home() {
                 aspectRatio="portrait" // 统一肖像比例
                 className="h-full w-full shadow-2xl border-elegant rounded-sm"
                 focalPoint={doc.focalPoint}
+                onClick={() => setSelectedDocId(doc.id)}
               />
             </div>
           ))}
         </HorizontalScrollSection>
 
         {/* Browse Archive Grid */}
-        <ArchiveGrid />
+        <ArchiveGrid onCardClick={(id) => setSelectedDocId(id)} />
 
         {/* Footer - RESTORED: Light theme footer */}
         <footer className="container mx-auto px-4 py-12 border-t border-foreground/5 text-muted-foreground/60">

@@ -1,41 +1,44 @@
 "use client";
 
-import React, { use } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
-import { documents } from '@/lib/data';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, X } from 'lucide-react';
+import { Document } from '@/lib/types';
 import { MarkdownView } from '@/components/features/MarkdownView';
 import { ImageView } from '@/components/features/ImageView';
 
-interface PageProps {
-    params: Promise<{ id: string }>;
+interface ArchiveDetailViewProps {
+    document: Document;
+    onClose: () => void;
 }
 
-export default function ArchiveDetailPage({ params }: PageProps) {
-    const { id } = use(params);
-    const document = documents.find((doc) => doc.id === id);
-
-    if (!document) {
-        notFound();
-    }
-
+export function ArchiveDetailView({ document, onClose }: ArchiveDetailViewProps) {
     return (
-        <main className="min-h-screen bg-background text-foreground selection:bg-primary/20">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-background overflow-y-auto selection:bg-primary/20"
+        >
             {/* Navigation */}
             <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none">
-                <Link
-                    href="/"
-                    className="pointer-events-auto flex items-center gap-2 group text-muted-foreground hover:text-foreground transition-colors"
+                <button
+                    onClick={onClose}
+                    className="pointer-events-auto flex items-center gap-2 group text-muted-foreground hover:text-foreground transition-colors bg-background/80 backdrop-blur-md px-4 py-2 rounded-full border border-elegant shadow-sm"
                 >
                     <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                     <span className="font-sans text-xs tracking-widest uppercase">Back to Archive</span>
-                </Link>
+                </button>
                 <div className="hidden md:block font-sans text-xs tracking-[0.2em] text-muted-foreground/30 uppercase">
                     Bibliotheca Academica / Item {document.id.padStart(3, '0')}
                 </div>
+                <button
+                    onClick={onClose}
+                    className="pointer-events-auto p-2 text-muted-foreground hover:text-foreground transition-colors md:hidden"
+                >
+                    <X className="w-6 h-6" />
+                </button>
             </nav>
 
             {/* Hero Section */}
@@ -54,9 +57,9 @@ export default function ArchiveDetailPage({ params }: PageProps) {
 
                 <div className="absolute bottom-0 left-0 w-full px-6 pb-12 md:px-12 md:pb-20">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                         className="max-w-4xl"
                     >
                         <div className="flex items-center gap-4 mb-6">
@@ -67,10 +70,10 @@ export default function ArchiveDetailPage({ params }: PageProps) {
                                 {document.year}
                             </span>
                         </div>
-                        <h1 className="font-epic-serif text-5xl md:text-7xl lg:text-8xl text-foreground font-light leading-[0.95] mb-6">
+                        <h1 className="font-epic-serif text-5xl md:text-7xl lg:text-8xl text-white font-light leading-[0.95] mb-6 drop-shadow-lg">
                             {document.title}
                         </h1>
-                        <p className="font-elegant-sans text-lg md:text-xl text-muted-foreground/80 italic font-light max-w-2xl">
+                        <p className="font-elegant-sans text-lg md:text-xl text-white/80 italic font-light max-w-2xl">
                             — {document.description}
                         </p>
                     </motion.div>
@@ -78,11 +81,17 @@ export default function ArchiveDetailPage({ params }: PageProps) {
             </header>
 
             {/* Content Section - Dual Mode */}
-            {document.type === 'markdown' ? (
-                <MarkdownView document={document} />
-            ) : (
-                <ImageView document={document} />
-            )}
-        </main>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+            >
+                {document.type === 'markdown' ? (
+                    <MarkdownView document={document} />
+                ) : (
+                    <ImageView document={document} />
+                )}
+            </motion.div>
+        </motion.div>
     );
 }

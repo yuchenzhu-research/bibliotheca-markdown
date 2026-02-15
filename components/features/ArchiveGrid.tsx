@@ -4,7 +4,11 @@ import { ArrowRight } from 'lucide-react';
 import { ImageCard } from '@/components/ui/ImageCard';
 import { documents } from '@/lib/data';
 
-export function ArchiveGrid() {
+interface ArchiveGridProps {
+    onCardClick?: (id: string) => void;
+}
+
+export function ArchiveGrid({ onCardClick }: ArchiveGridProps) {
     return (
         <section className="container mx-auto px-4 py-20">
             <div className="mb-16">
@@ -44,6 +48,7 @@ export function ArchiveGrid() {
                             size="small" // 对应小尺寸网格优化文字比例
                             className="h-full w-full border-none"
                             focalPoint={doc.focalPoint}
+                            onClick={() => onCardClick?.(doc.id)}
                         />
                     </div>
                 ))}

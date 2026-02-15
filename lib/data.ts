@@ -14,7 +14,7 @@ export const documents: Document[] = [
         focalPoint: "50% 20%",
         academicContext: "Newton's work replaced the indeterminate qualitative explanations of physics with a quantitative, mathematical approach. By unifying terrestrial and celestial mechanics under a single set of laws, he laid the framework for the Enlightenment's view of a predictable, 'clockwork' universe. This document is the cornerstone of classical physics.",
         tags: ["Classical Mechanics", "Calculus", "Enlightenment", "Alchemy"],
-        longDescription: "Philosophiæ Naturalis Principia Mathematica (Mathematical Principles of Natural Philosophy) states Newton's laws of motion, forming the foundation of classical mechanics; Newton's law of universal gravitation; and a derivation of Kepler's laws of planetary motion. It is considered one of the most important works in the history of science.",
+        longDescription: "Philosophiae Naturalis Principia Mathematica (Mathematical Principles of Natural Philosophy) states Newton's laws of motion, forming the foundation of classical mechanics; Newton's law of universal gravitation; and a derivation of Kepler's laws of planetary motion. It is considered one of the most important works in the history of science.",
         concepts: [
             { title: "Universal Gravitation", description: "Every point mass attracts every other point mass by a force acting along the line intersecting the two points." },
             { title: "Laws of Motion", description: "Three physical laws that, together, laid the foundation for classical mechanics." },
