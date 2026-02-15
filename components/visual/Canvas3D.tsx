@@ -1,94 +1,50 @@
 "use client";
 
-import { useRef, useMemo, Suspense, useEffect } from 'react';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { useTexture, useScroll } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useEffect } from 'react';
+import { Canvas, useLoader } from '@react-three/fiber';
+import { TextureLoader } from 'three';
 import PhotoParticles from './PhotoParticles';
-import { scrollProgressRef } from '../ui/SmoothScrollWrapper';
+import { useExplosionControl } from '@/hooks/useExplosionControl';
 
 interface Canvas3DProps {
-  imageUrl?: string;
-  className?: string;
-}
-
-interface SceneProps {
   imageUrl: string;
+  scrollProgress?: number; // Controlled by parent scroll
 }
 
-function Scene({ imageUrl }: SceneProps) {
-  const texture = useTexture(imageUrl);
-  const particlesRef = useRef<THREE.Points>(null);
-  const uniformsRef = useRef<any>(null);
-  const scroll = useScroll();
+function Scene({ imageUrl, scrollProgress = 0 }: Canvas3DProps) {
+  const texture = useLoader(TextureLoader, imageUrl);
+  const { mode, progress, bindScroll } = useExplosionControl();
 
-  // Configure texture
+  // Sync scroll progress to explosion hook
   useEffect(() => {
-    if (texture) {
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.wrapS = THREE.ClampToEdgeWrapping;
-      texture.wrapT = THREE.ClampToEdgeWrapping;
-    }
-  }, [texture]);
-
-  // Sync shader uniforms with scroll
-  useFrame(() => {
-    if (uniformsRef.current) {
-      // Map scroll progress to particle deconstruction
-      // For example, particles deconstruct as user scrolls
-      const targetProgress = scroll.offset * 2; // deconstructed by scroll end
-      uniformsRef.current.uProgress.value = THREE.MathUtils.lerp(
-        uniformsRef.current.uProgress.value,
-        Math.min(targetProgress, 1),
-        0.05
-      );
-
-      // Optional: Mode transition based on scroll position
-      // Linear mode first, then transition to random as you scroll further
-      const targetMode = scroll.offset > 0.5 ? 1 : 0;
-      uniformsRef.current.uMode.value = THREE.MathUtils.lerp(
-        uniformsRef.current.uMode.value,
-        targetMode,
-        0.02
-      );
-    }
-  });
+    bindScroll(scrollProgress);
+  }, [scrollProgress, bindScroll]);
 
   return (
-    <PhotoParticles
-      ref={particlesRef}
-      texture={texture}
-      width={512}
-      height={512}
-      progress={0}
-      mode={0}
-      pointSize={2.0}
-      onReady={(uniforms) => {
-        uniformsRef.current = uniforms;
-      }}
-    />
+    <>
+      <color attach="background" args={['#0e0e0e']} />
+      <ambientLight intensity={0.5} />
+
+      <PhotoParticles
+        texture={texture}
+        progress={progress} // Pass the MotionValue object directly!
+        mode={mode}
+        width={10}
+      />
+    </>
   );
 }
 
-export default function Canvas3D({ imageUrl = '/archive/euclid.jpg', className = '' }: Canvas3DProps) {
+// Wrapper to handle React context bridging
+export default function Canvas3D({ imageUrl, scrollProgress = 0 }: Canvas3DProps) {
   return (
-    <div
-      className={`fixed inset-0 -z-30 ${className}`}
-      style={{ pointerEvents: 'none' }}
-    >
+    <div className="fixed inset-0 top-0 left-0 w-full h-full -z-10 bg-black pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 500], fov: 50 }}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
+        camera={{ position: [0, 0, 10], fov: 45 }}
+        gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
       >
-        <Suspense fallback={null}>
-          <Scene imageUrl={imageUrl} />
-        </Suspense>
+        <Scene imageUrl={imageUrl} scrollProgress={scrollProgress} />
       </Canvas>
     </div>
   );

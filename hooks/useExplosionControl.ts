@@ -1,131 +1,44 @@
-import { useMemo, useRef, useCallback, useEffect } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
-import gsap from 'gsap';
+import { useState, useCallback } from 'react';
+import { useSpring } from 'framer-motion';
 
-type ExplosionMode = 'linear' | 'random' | 'blend';
+export function useExplosionControl() {
+  // Mode state: 0 = Linear, 1 = Random
+  const [mode, setMode] = useState(0);
 
-// Custom shader uniforms type
-interface ShaderUniforms {
-  uTime: { value: number };
-  uProgress: { value: number };
-  uMode: { value: number };
-  uResolution: { value: THREE.Vector2 };
-  uPointSize: { value: number };
-  uPixelRatio: { value: number };
-  uTexture: { value: THREE.Texture | null };
-  uColorIntensity: { value: number };
-  uResidual: { value: number };
-  uLinearDirection: { value: THREE.Vector3 };
-  uLinearStrength: { value: number };
-  uGlitchAmount: { value: number };
-  uNoiseScale: { value: number };
-  uNoiseStrength: { value: number };
-  uMouse: { value: THREE.Vector2 };
-  uMouseInfluence: { value: number };
-}
+  // Spring for smooth progress transition
+  // Stiffness/Damping tuned for "Snappy but Smooth" apple-feel
+  const progress = useSpring(0, { stiffness: 60, damping: 20, mass: 1 });
 
-interface UseExplosionControlProps {
-  mode?: ExplosionMode;
-  intensity?: number;
-  mouseInfluence?: boolean;
-}
+  const triggerExplosion = useCallback((type: 'linear' | 'random' = 'random') => {
+    setMode(type === 'random' ? 1 : 0);
+    // Explode out
+    progress.set(1);
 
-export function useExplosionControl({
-  mode = 'linear',
-  intensity = 1.0,
-  mouseInfluence = true,
-}: UseExplosionControlProps = {}) {
-  const { size, viewport } = useThree();
-  const uniformsRef = useRef<ShaderUniforms | null>(null);
-  const mouseRef = useRef(new THREE.Vector2(0, 0));
-  const targetModeRef = useRef(mode);
-  const currentModeRef = useRef(mode);
+    // Auto return after a duration (can be removed if manual control desired)
+    // For demo purposes, we auto-return to form.
+    const duration = type === 'random' ? 2500 : 1500;
 
-  // Smooth mode transition
-  const modeTransitionRef = useRef(0);
+    setTimeout(() => {
+      progress.set(0);
+    }, duration);
+  }, [progress]);
 
-  // Initialize uniform reference
-  const setUniforms = useCallback((uniforms: ShaderUniforms) => {
-    uniformsRef.current = uniforms;
-  }, []);
+  // Bind scroll to explosion (for scroll-driven deconstruction)
+  // Input: scroll progress (0 to 1)
+  const bindScroll = useCallback((scrollProgress: number) => {
+    // Threshold to start exploding
+    const threshold = 0.1;
+    if (scrollProgress > threshold) {
+      // Linear explosion based on scroll
+      setMode(0); // Scroll usually triggers Linear/Glitch mode
 
-  // Mouse movement handler
-  const onMouseMove = useCallback((e: MouseEvent) => {
-    if (!mouseInfluence) return;
-    // Normalize to [-1, 1]
-    mouseRef.current.x = (e.clientX / size.width) * 2 - 1;
-    mouseRef.current.y = -(e.clientY / size.height) * 2 + 1;
-  }, [size, mouseInfluence]);
-
-  // Mode switching (with transition)
-  const setMode = useCallback((newMode: ExplosionMode) => {
-    targetModeRef.current = newMode;
-  }, []);
-
-  // GSAP animation transition
-  const animateModeTransition = useCallback((toMode: ExplosionMode, duration = 1.2) => {
-    const startValue = { value: currentModeRef.current === 'linear' ? 0 : 1 };
-    const endValue = { value: toMode === 'linear' ? 0 : 1 };
-
-    gsap.to(startValue, {
-      value: endValue.value,
-      duration,
-      ease: 'power2.inOut',
-      onUpdate: () => {
-        if (uniformsRef.current) {
-          uniformsRef.current.uMode.value = startValue.value;
-        }
-        currentModeRef.current = startValue.value < 0.5 ? 'linear' : 'random';
-      },
-    });
-  }, []);
-
-  // Frame loop update
-  useFrame((state) => {
-    if (!uniformsRef.current) return;
-
-    const u = uniformsRef.current;
-
-    // Update time
-    u.uTime.value = state.clock.elapsedTime;
-
-    // Smooth mode transition
-    const targetModeValue = targetModeRef.current === 'random' ? 1 : 0;
-    modeTransitionRef.current = THREE.MathUtils.lerp(
-      modeTransitionRef.current,
-      targetModeValue,
-      0.05
-    );
-    u.uMode.value = modeTransitionRef.current;
-
-    // Mouse perturbation
-    if (mouseInfluence) {
-      mouseRef.current.x = THREE.MathUtils.lerp(mouseRef.current.x, 0, 0.02);
-      mouseRef.current.y = THREE.MathUtils.lerp(mouseRef.current.y, 0, 0.02);
-      u.uMouse.value.lerp(mouseRef.current, 0.1);
+      // Remap 0.1->1.0 to 0.0->1.0
+      const remapped = (scrollProgress - threshold) / (1.0 - threshold);
+      progress.set(Math.min(remapped, 1.0));
+    } else {
+      progress.set(0);
     }
+  }, [progress]);
 
-    // Auto intensity modulation
-    u.uNoiseStrength.value = THREE.MathUtils.lerp(
-      u.uNoiseStrength.value,
-      intensity * 3.0,
-      0.02
-    );
-  });
-
-  // Bind global mouse events
-  useMemo(() => {
-    if (typeof window !== 'undefined' && mouseInfluence) {
-      window.addEventListener('mousemove', onMouseMove);
-      return () => window.removeEventListener('mousemove', onMouseMove);
-    }
-  }, [onMouseMove, mouseInfluence]);
-
-  return {
-    setUniforms,
-    setMode,
-    animateModeTransition,
-    mode: currentModeRef.current,
-  };
+  return { mode, progress, triggerExplosion, bindScroll };
 }
