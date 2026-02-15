@@ -100,12 +100,15 @@ export default function Home() {
         </footer>
       </SmoothScrollWrapper>
 
-      {/* Detail View Overlay */}
-      <ArchiveDetailView
-        data={selectedDoc || null}
-        isOpen={!!selectedDocId}
-        onClose={() => setSelectedDocId(null)}
-      />
+      {/* Archive Detail View Overlay */}
+      <AnimatePresence>
+        {selectedDoc && (
+          <ArchiveDetailView
+            document={selectedDoc}
+            onClose={() => setSelectedDocId(null)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Entry Editor Overlay */}
       <AnimatePresence>
