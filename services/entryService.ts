@@ -20,6 +20,11 @@ let currentEnvironment: 'tauri' | 'web' | null = null;
  * Creates it if it doesn't exist
  */
 export const getRepository = (): StorageRepository => {
+  // SSR guard - no storage available on server
+  if (typeof window === 'undefined') {
+    throw new Error('Storage service is only available in browser environments');
+  }
+
   // Recreate if environment changed
   const environment = isTauri() ? 'tauri' : 'web';
 

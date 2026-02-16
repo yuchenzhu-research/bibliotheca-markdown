@@ -206,14 +206,16 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         };
 
         try {
+            console.log('Saving entry with service...');
             const result = await entryService.saveEntry(entryData);
+            console.log('Save result:', result);
 
             if (result.success) {
                 console.log('Entry saved successfully:', result.savedPath);
                 showToast(isRunningInTauri() ? 'Moment Preserved in Archive' : 'Draft Saved');
             } else {
                 console.error('Failed to save:', result.error);
-                showToast('Failed to save. Please try again.');
+                showToast(result.error ? `Failed: ${result.error}` : 'Failed to save. Please try again.');
             }
 
             // Clear autosaved draft after successful publish
@@ -222,7 +224,7 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
             }
 
         } catch (error) {
-            console.error('Publish failed:', error);
+            console.error('Publish failed with error:', error);
             showToast('Failed to save. Please try again.');
         } finally {
             setIsPublishing(false);

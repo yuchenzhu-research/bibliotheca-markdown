@@ -98,7 +98,15 @@ export class NativeStorageAdapter implements StorageRepository {
         date_modified: new Date().toISOString(),
       };
 
-      const result = await invoke<RustSaveResult>('save_entry', { payload });
+      const result = await invoke<RustSaveResult | null>('save_entry', { payload });
+
+      // Handle undefined result from invoke
+      if (!result) {
+        return {
+          success: false,
+          error: 'No response from save command',
+        };
+      }
 
       if (result.success && result.entry_id) {
         return {
@@ -113,6 +121,7 @@ export class NativeStorageAdapter implements StorageRepository {
         error: result.error || 'Unknown error',
       };
     } catch (error) {
+      console.error('Native saveEntry error:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -164,10 +173,18 @@ export class NativeStorageAdapter implements StorageRepository {
     try {
       const { invoke } = await this.initCore();
 
-      const result = await invoke<RustSaveResult>('update_entry', {
+      const result = await invoke<RustSaveResult | null>('update_entry', {
         id,
         payload: data,
       });
+
+      // Handle undefined result from invoke
+      if (!result) {
+        return {
+          success: false,
+          error: 'No response from update command',
+        };
+      }
 
       return {
         success: result.success,
@@ -176,6 +193,7 @@ export class NativeStorageAdapter implements StorageRepository {
         error: result.error,
       };
     } catch (error) {
+      console.error('Native updateEntry error:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
@@ -209,10 +227,18 @@ export class NativeStorageAdapter implements StorageRepository {
       // Convert File/Blob to base64
       const base64 = await this.fileToBase64(file);
 
-      const result = await invoke<RustImageResult>('save_image', {
+      const result = await invoke<RustImageResult | null>('save_image', {
         data: base64,
         filename: file instanceof File ? file.name : 'image.png',
       });
+
+      // Handle undefined result from invoke
+      if (!result) {
+        return {
+          success: false,
+          error: 'No response from image save command',
+        };
+      }
 
       if (result.success && result.url) {
         return { success: true, url: result.url };
@@ -223,6 +249,7 @@ export class NativeStorageAdapter implements StorageRepository {
         error: result.error || 'Failed to save image',
       };
     } catch (error) {
+      console.error('Native uploadImage error:', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error',
