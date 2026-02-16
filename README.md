@@ -59,6 +59,20 @@ Built as a **Single Page Application** for future native portability:
 -   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
 -   **Graphics**: React Three Fiber / Drei WebGL Particle System
 
+## 💾 Data Storage & Cross-Platform Support
+
+### 🖥️ Desktop Web (Windows / macOS / Linux)
+- Full features: **Browse, Create, Edit, Export & Import**
+- Your created entries are stored locally in your browser
+- **Export**: Download your data as a `.json` file for backup
+- **Import**: Restore your data from a previously exported file
+- Works completely offline - no server storage required
+
+### 📱 Mobile (iOS / Android)
+- **Read-only mode**: Browse existing archives and moments
+- File upload/export features require a desktop browser
+- Simply visit on a computer to create and manage your entries
+
 ## 🚀 Quick Start
 
 1.  Clone the repository.

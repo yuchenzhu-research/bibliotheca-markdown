@@ -29,3 +29,5 @@ chrono = { version = "0.4", features = ["serde"] }
 dirs = "6"
 tauri-plugin-fs = "2.4.5"
 tauri-plugin-os = "2.3.2"
+uuid = { version = "1", features = ["v4", "serde"] }
+base64 = "0.22"

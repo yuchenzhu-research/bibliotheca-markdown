@@ -50,5 +50,19 @@ Cor proiecti est Editor "Imago Primo".
 2.  **Editio in Loco**: Scribe directe in pagina — titulum, figuram et narrationem illic ubi apparebunt.
 3.  **Particulae**: Effectus deconstructionis particularum more Alet integratus cum modis visualibus **Linearis** et **Aleatorius**.
 
+## 💾 Servatio Data et Compatibilitas Multipla
+
+### 🖥️ Usus Interretialis Desktop (Windows / macOS / Linux)
+- Facultates completae: **Videre, Creare, Editare, Exportare et Importare**
+- Documenta creata in navegadori locali servantur
+- **Exportare**: Descende data ut fasciculum `.json` pro subsilio
+- **Importare**: Refice data ex fasciculo exportsato prius
+- Totum operatio sine conexione interretiali - servatio serveri non necessaria
+
+### 📱 Usus Mobilis (iOS / Android)
+- **Modus legendi tantum**: Vide archiva et momenta exstantia
+- Facultates fasciculi carricandi/exportandi navegadorem desktopum requirunt
+- Ad creanda et regenda documenta, visita in computatro
+
 ---
 *Est. MMXXVI · Hortus Digitalis | Bibliotheca Vitae · Ars Longa, Vita Brevis.*

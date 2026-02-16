@@ -59,6 +59,20 @@ Construido como una **Single Page Application** para futura portabilidad nativa:
 -   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
 -   **Gráficos**: React Three Fiber / Drei WebGL Particle System
 
+## 💾 Almacenamiento de Datos y Compatibilidad Multiplataforma
+
+### 🖥️ Web Escritorio (Windows / macOS / Linux)
+- Funciones completas: **Navegar, Crear, Editar, Exportar e Importar**
+- Tus entradas creadas se almacenan localmente en tu navegador
+- **Exportar**: Descarga tus datos como archivo `.json` para respaldo
+- **Importar**: Restaura tus datos desde un archivo exportado previamente
+- Funciona completamente sin conexión - no requiere almacenamiento en servidor
+
+### 📱 Móvil (iOS / Android)
+- **Modo solo lectura**: Explora archivos y momentos existentes
+- Las funciones de carga/exportación de archivos requieren un navegador de escritorio
+- Simplemente visita la web en una computadora para crear y gestionar tus entradas
+
 ## 🚀 Inicio Rápido
 
 1.  Clona el repositorio.

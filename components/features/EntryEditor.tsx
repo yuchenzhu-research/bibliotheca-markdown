@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { Toast } from '@/components/ui/Toast';
 import { useAutosave } from '@/hooks/useAutosave';
 import { useSaveShortcut } from '@/hooks/useKeyboardShortcut';
+import entryService, { isRunningInTauri } from '@/services/entryService';
+import type { Entry } from '@/services/storage-repository';
 
 // Simple Auto-Resizing Textarea Component
 const AutoResizeTextarea = ({
@@ -48,15 +50,7 @@ const AutoResizeTextarea = ({
     );
 };
 
-interface EntryData {
-    image: string | null;
-    title: string;
-    figure: string;
-    moment: string;
-    narrative: string;
-    keywords: string[];
-    dateCreated: string;
-}
+// Use the unified Entry type from storage-repository
 
 export function EntryEditor({ onClose }: { onClose?: () => void }) {
     // --- State ---
@@ -194,46 +188,32 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         if (isPublishing) return;
         setIsPublishing(true);
 
-        const entryData: EntryData = {
-            image: imageBase64,
+        const entryData: Entry = {
             title,
             figure,
             moment,
             narrative,
             keywords,
+            imageUrl: imageBase64 || undefined,
+            imageBase64: imageBase64 || undefined,
             dateCreated: new Date().toISOString(),
         };
 
         try {
-            // Check if running in Tauri (simple check or usage of isTauri helper)
-            // Ideally we check if window.__TAURI_INTERNALS__ exists or try-catch the import/invoke
-            // But standard way:
-            const isTauri = typeof window !== 'undefined' && !!(window as any).__TAURI_INTERNALS__;
+            const result = await entryService.saveEntry(entryData);
 
-            if (isTauri) {
-                const { invoke } = await import('@tauri-apps/api/core');
-
-                // Call Rust command to backup to Documents
-                const backupPath = await invoke<string | null>('backup_to_documents', {
-                    payload: entryData,
-                });
-
-                if (backupPath) {
-                    console.log('Backup saved to:', backupPath);
-                    showToast('Moment Preserved in Archive');
-                } else {
-                    // Fallback should not happen if command returns path or error, but handling null just in case
-                    localStorage.setItem('bibliotheca_last_backup', JSON.stringify(entryData));
-                    showToast('Moment Saved Locally');
-                }
+            if (result.success) {
+                console.log('Entry saved successfully:', result.savedPath);
+                showToast(isRunningInTauri() ? 'Moment Preserved in Archive' : 'Draft Saved');
             } else {
-                // Web fallback
-                localStorage.setItem('bibliotheca_last_backup', JSON.stringify(entryData));
-                showToast('Draft Saved to Browser Storage');
+                console.error('Failed to save:', result.error);
+                showToast('Failed to save. Please try again.');
             }
 
             // Clear autosaved draft after successful publish
-            localStorage.removeItem('bibliotheca_editor_narrative');
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('bibliotheca_editor_narrative');
+            }
 
         } catch (error) {
             console.error('Publish failed:', error);
@@ -248,12 +228,16 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         const savedEntry = localStorage.getItem('bibliotheca_last_backup');
         if (savedEntry) {
             try {
-                const data: Partial<EntryData> = JSON.parse(savedEntry);
+                const data: Partial<Entry> = JSON.parse(savedEntry);
                 if (data.title) setTitle(data.title);
                 if (data.figure) setFigure(data.figure);
                 if (data.moment) setMoment(data.moment);
                 if (data.narrative) setNarrative(data.narrative);
                 if (data.keywords) setKeywords(data.keywords);
+                if (data.imageUrl) {
+                    setImage(data.imageUrl);
+                    setImageBase64(data.imageBase64 || null);
+                }
             } catch (e) {
                 console.warn('Failed to restore draft:', e);
             }

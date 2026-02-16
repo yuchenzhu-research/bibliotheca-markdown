@@ -57,7 +57,21 @@ Appleの美学にインスパイアされたスティッキーな横スクロー
 -   **Core**: Next.js 15 App Router, React 19, TypeScript
 -   **Motion**: Framer Motion, GSAP, React Lenis Smooth Scroll
 -   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
--   **Graphics**: React Three Fiber / Drei WebGL Particle System
+-   **グラフィック**: React Three Fiber / Drei WebGL Particle System
+
+## 💾 データ保存とクロスプラットフォーム対応
+
+### 🖥️ デスクトップ Web（Windows / macOS / Linux）
+- 完全な機能: **閲覧、作成、編集、エクスポート、インポート**
+- 作成したエントリはブラウザにローカル保存されます
+- **エクスポート**: データを `.json` ファイルとしてバックアップダウンロード
+- **インポート**: 以前にエクスポートしたファイルからデータを復元
+- 完全オフライン動作 - サーバー保存は不要
+
+### 📱 モバイル（iOS / Android）
+- **閲覧専用モード**:既存のアーカイブや瞬間を閲覧
+- ファイルのアップロード/エクスポート機能はデスクトップブラウザが必要
+- 作成・管理はソコンでアクセスしてください
 
 ## 🚀 クイックスタート
 

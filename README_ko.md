@@ -56,8 +56,21 @@ Apple 스타일의 스티키 가로 스크롤을 통해 사용자는 역사의 �
 
 -   **Core**: Next.js 15 App Router, React 19, TypeScript
 -   **Motion**: Framer Motion, GSAP, React Lenis Smooth Scroll
--   **Visual**: Tailwind CSS v4 Oklch, Lucide Icons
--   **Graphics**: React Three Fiber / Drei WebGL Particle System
+-   **그래픽**: React Three Fiber / Drei WebGL Particle System
+
+## 💾 데이터 저장 및 크로스 플랫폼 지원
+
+### 🖥️ 데스크톱 웹 (Windows / macOS / Linux)
+- 전체 기능: **검색, 생성, 편집, 내보내기 및 가져오기**
+- 생성된 항목은 브라우저에 로컬 저장됩니다
+- **내보내기**: 데이터를 `.json` 파일로 백업 다운로드
+- **가져오기**: 이전에 내보낸 파일에서 데이터 복원
+- 완전히 오프라인 작동 - 서버 저장 불필요
+
+### 📱 모바일 (iOS / Android)
+- **읽기 전용 모드**: 기존 아카이브 및 순간 탐색
+- 파일 업로드/내보내기 기능은 데스크톱 브라우저 필요
+- 생성 및 관리는 컴퓨터에서 이용하세요
 
 ## 🚀 빠른 시작
 
