@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CustomCursor } from "@/components/ui/CustomCursor";
+import { TitleBar } from "@/components/ui/TitleBar";
 
 
 const inter = Inter({
@@ -34,6 +35,7 @@ export default function RootLayout({
           playfair.variable
         )}
       >
+        <TitleBar />
         <CustomCursor />
         {/* Layer 0: Warm Beige Background - Alet style */}
 

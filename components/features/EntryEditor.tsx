@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, ArrowRight, Save, X, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button'; // Assuming we have a button component or I'll use raw button
+import { Toast } from '@/components/ui/Toast';
+import { useAutosave } from '@/hooks/useAutosave';
+import { useSaveShortcut } from '@/hooks/useKeyboardShortcut';
 
 // Simple Auto-Resizing Textarea Component
 const AutoResizeTextarea = ({
@@ -46,6 +48,16 @@ const AutoResizeTextarea = ({
     );
 };
 
+interface EntryData {
+    image: string | null;
+    title: string;
+    figure: string;
+    moment: string;
+    narrative: string;
+    keywords: string[];
+    dateCreated: string;
+}
+
 export function EntryEditor({ onClose }: { onClose?: () => void }) {
     // --- State ---
     const [image, setImage] = useState<string | null>(null);
@@ -55,15 +67,111 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
     const [narrative, setNarrative] = useState('');
     const [keywords, setKeywords] = useState<string[]>([]);
     const [currentKeyword, setCurrentKeyword] = useState('');
+    const [toastVisible, setToastVisible] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const [isPublishing, setIsPublishing] = useState(false);
+    const [imageBase64, setImageBase64] = useState<string | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    // --- Handlers ---
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // --- Autosave for Narrative ---
+    const { setValue: setNarrativeAuto, lastSaved, saveEntry, loadEntry } = useAutosave(narrative, {
+        storageKey: 'editor_narrative',
+        delay: 1500,
+        onSave: (data) => {
+            console.log('Narrative autosaved at', new Date().toISOString());
+        },
+    });
+
+    // Full Entry Autosave Effect
+    useEffect(() => {
+        const currentEntry = {
+            image,
+            title,
+            figure,
+            moment,
+            narrative,
+            keywords,
+            dateCreated: new Date().toISOString(),
+        };
+
+        const timer = setTimeout(() => {
+            if (title || narrative) {
+                saveEntry(currentEntry);
+            }
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, [image, title, figure, moment, narrative, keywords, saveEntry]);
+
+    useEffect(() => {
+        // Try to load full entry draft first
+        const savedEntry = loadEntry() as any;
+        if (savedEntry) {
+            if (savedEntry.title) setTitle(savedEntry.title);
+            if (savedEntry.figure) setFigure(savedEntry.figure);
+            if (savedEntry.moment) setMoment(savedEntry.moment);
+            if (savedEntry.narrative) {
+                setNarrative(savedEntry.narrative);
+                setNarrativeAuto(savedEntry.narrative);
+            }
+            if (savedEntry.keywords) setKeywords(savedEntry.keywords);
+            if (savedEntry.image) setImage(savedEntry.image);
+        } else {
+            // Fallback to legacy narrative only
+            if (typeof window !== 'undefined') {
+                const saved = localStorage.getItem('bibliotheca_editor_narrative');
+                if (saved) {
+                    setNarrativeAuto(saved);
+                }
+            }
+        }
+    }, [loadEntry, setNarrativeAuto]);
+
+    // --- Toast Helper ---
+    const showToast = useCallback((message: string) => {
+        setToastMessage(message);
+        setToastVisible(true);
+    }, []);
+
+    // --- Image to Base64 for backup ---
+    const imageToBase64 = useCallback(async (imageUrl: string): Promise<string | null> => {
+        try {
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result as string);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        } catch {
+            console.warn('Failed to convert image to base64');
+            return null;
+        }
+    }, []);
+
+    // --- Save Shortcut ---
+    useSaveShortcut(() => {
+        handlePublish();
+    }, true);
+
+    // --- File Handlers ---
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             const url = URL.createObjectURL(file);
             setImage(url);
+
+            // Convert to base64 for local backup
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const base64 = await new Promise<string | null>((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result as string);
+                reader.onerror = () => resolve(null);
+                reader.readAsDataURL(blob);
+            });
+            setImageBase64(base64);
         }
     };
 
@@ -81,9 +189,13 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         setKeywords(keywords.filter(t => t !== tag));
     };
 
-    const handlePublish = () => {
-        const entryData = {
-            image,
+    // --- Publish Handler ---
+    const handlePublish = async () => {
+        if (isPublishing) return;
+        setIsPublishing(true);
+
+        const entryData: EntryData = {
+            image: imageBase64,
             title,
             figure,
             moment,
@@ -91,15 +203,68 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
             keywords,
             dateCreated: new Date().toISOString(),
         };
-        console.log("Publishing Entry:", entryData);
-        alert("Entry Published to Console (Simulated)!");
+
+        try {
+            // Check if running in Tauri (simple check or usage of isTauri helper)
+            // Ideally we check if window.__TAURI_INTERNALS__ exists or try-catch the import/invoke
+            // But standard way:
+            const isTauri = typeof window !== 'undefined' && !!(window as any).__TAURI_INTERNALS__;
+
+            if (isTauri) {
+                const { invoke } = await import('@tauri-apps/api/core');
+
+                // Call Rust command to backup to Documents
+                const backupPath = await invoke<string | null>('backup_to_documents', {
+                    payload: entryData,
+                });
+
+                if (backupPath) {
+                    console.log('Backup saved to:', backupPath);
+                    showToast('Moment Preserved in Archive');
+                } else {
+                    // Fallback should not happen if command returns path or error, but handling null just in case
+                    localStorage.setItem('bibliotheca_last_backup', JSON.stringify(entryData));
+                    showToast('Moment Saved Locally');
+                }
+            } else {
+                // Web fallback
+                localStorage.setItem('bibliotheca_last_backup', JSON.stringify(entryData));
+                showToast('Draft Saved to Browser Storage');
+            }
+
+            // Clear autosaved draft after successful publish
+            localStorage.removeItem('bibliotheca_editor_narrative');
+
+        } catch (error) {
+            console.error('Publish failed:', error);
+            showToast('Failed to save. Please try again.');
+        } finally {
+            setIsPublishing(false);
+        }
     };
+
+    // --- Restore Draft on Mount ---
+    useEffect(() => {
+        const savedEntry = localStorage.getItem('bibliotheca_last_backup');
+        if (savedEntry) {
+            try {
+                const data: Partial<EntryData> = JSON.parse(savedEntry);
+                if (data.title) setTitle(data.title);
+                if (data.figure) setFigure(data.figure);
+                if (data.moment) setMoment(data.moment);
+                if (data.narrative) setNarrative(data.narrative);
+                if (data.keywords) setKeywords(data.keywords);
+            } catch (e) {
+                console.warn('Failed to restore draft:', e);
+            }
+        }
+    }, []);
 
     // --- Phase 1: Image Uploader (Visual Anchor) ---
     if (!image) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-warm-paper p-6 relative">
-                {/* Global Close Button for Overlay */}
+                {/* Close Button */}
                 {onClose && (
                     <button
                         onClick={onClose}
@@ -142,6 +307,13 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                     <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-primary/40 -translate-x-1 translate-y-1" />
                     <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary/40 translate-x-1 translate-y-1" />
                 </motion.div>
+
+                {/* Toast */}
+                <Toast
+                    message={toastMessage}
+                    visible={toastVisible}
+                    onClose={() => setToastVisible(false)}
+                />
             </div>
         );
     }
@@ -159,6 +331,7 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                     <X className="w-5 h-5" />
                 </button>
             )}
+
             {/* Hero Section (Editable Title) */}
             <header className="relative h-[60vh] md:h-[70vh] w-full overflow-hidden group">
                 {/* Background Image */}
@@ -264,6 +437,17 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                             <Plus className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50 pointer-events-none" />
                         </div>
                     </div>
+
+                    {/* Autosave Status */}
+                    {lastSaved && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-xs text-muted-foreground/50"
+                        >
+                            Draft autosaved {lastSaved.toLocaleTimeString()}
+                        </motion.div>
+                    )}
                 </aside>
 
                 {/* Main Body */}
@@ -291,7 +475,10 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                         <div className="w-full">
                             <AutoResizeTextarea
                                 value={narrative}
-                                onChange={setNarrative}
+                                onChange={(val) => {
+                                    setNarrative(val);
+                                    setNarrativeAuto(val);
+                                }}
                                 placeholder="Tell the story of this artifact. Why does it matter? What is the deeper narrative here?..."
                                 className="font-elegant-sans text-lg text-foreground/80 font-light leading-relaxed placeholder:text-muted-foreground/20 min-h-[200px]"
                             />
@@ -300,7 +487,7 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                 </article>
             </div>
 
-            {/* Floating Publish Button */}
+            {/* Floating Publish Button with Shortcut Hint */}
             <motion.div
                 initial={{ y: 100 }}
                 animate={{ y: 0 }}
@@ -308,13 +495,31 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
             >
                 <button
                     onClick={handlePublish}
-                    className="flex items-center gap-3 px-6 py-4 bg-primary text-primary-foreground rounded-full shadow-2xl hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 group font-sans tracking-widest uppercase text-sm"
+                    disabled={isPublishing}
+                    className="flex items-center gap-3 px-6 py-4 bg-primary text-primary-foreground rounded-full shadow-2xl hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 group font-sans tracking-widest uppercase text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     <Save className="w-4 h-4" />
-                    Publish to Archive
+                    {isPublishing ? 'Preserving...' : 'Publish to Archive'}
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
+
+                {/* Keyboard shortcut hint */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="absolute -bottom-8 right-0 text-[10px] text-muted-foreground/40 font-sans tracking-widest"
+                >
+                    Cmd+S or Ctrl+S to save
+                </motion.div>
             </motion.div>
+
+            {/* Toast */}
+            <Toast
+                message={toastMessage}
+                visible={toastVisible}
+                onClose={() => setToastVisible(false)}
+            />
         </div>
     );
 }

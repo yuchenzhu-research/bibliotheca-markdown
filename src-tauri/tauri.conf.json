@@ -4,10 +4,11 @@
     "security": {
       "csp": null
     },
+    "macOSPrivateApi": true,
     "windows": [
       {
         "center": true,
-        "decorations": true,
+        "decorations": false,
         "fullscreen": false,
         "height": 800,
         "minHeight": 600,
@@ -23,7 +24,7 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:3000",
+    "devUrl": "http://localhost:4321",
     "frontendDist": "../out"
   },
   "bundle": {
