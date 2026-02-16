@@ -3,7 +3,7 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, X } from 'lucide-react';
+import { ArrowLeft, X, Trash2 } from 'lucide-react';
 import { Document } from '@/lib/types';
 import { MarkdownView } from '@/components/features/MarkdownView';
 import { ImageView } from '@/components/features/ImageView';
@@ -11,9 +11,10 @@ import { ImageView } from '@/components/features/ImageView';
 interface ArchiveDetailViewProps {
     document: Document; // Keep interface as is for now or rename it too
     onClose: () => void;
+    onDelete?: (id: string) => void;
 }
 
-export function ArchiveDetailView({ document: data, onClose }: ArchiveDetailViewProps) {
+export function ArchiveDetailView({ document: data, onClose, onDelete }: ArchiveDetailViewProps) {
     // Body scroll locking when overlay is active
     useEffect(() => {
         const originalStyle = window.getComputedStyle(window.document.body).overflow;
@@ -44,12 +45,26 @@ export function ArchiveDetailView({ document: data, onClose }: ArchiveDetailView
                 <div className="hidden md:block font-sans text-xs tracking-[0.2em] text-muted-foreground/30 uppercase">
                     Bibliotheca Vitae / Item {data.id.padStart(3, '0')}
                 </div>
-                <button
-                    onClick={onClose}
-                    className="pointer-events-auto p-2 text-muted-foreground hover:text-foreground transition-colors md:hidden"
-                >
-                    <X className="w-6 h-6" />
-                </button>
+
+                <div className="flex items-center gap-2 pointer-events-auto">
+                    {/* Delete Button - Only for user entries (detected via onDelete presence or ID pattern) */}
+                    {onDelete && data.id.startsWith('user-') && (
+                        <button
+                            onClick={() => onDelete(data.id)}
+                            className="p-2 text-destructive/60 hover:text-destructive hover:bg-destructive/10 rounded-full transition-colors mr-2"
+                            title="Delete Entry"
+                        >
+                            <Trash2 className="w-5 h-5" />
+                        </button>
+                    )}
+
+                    <button
+                        onClick={onClose}
+                        className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                        <X className="w-6 h-6" />
+                    </button>
+                </div>
             </nav>
 
             {/* Hero Section */}

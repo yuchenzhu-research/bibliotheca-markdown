@@ -11,7 +11,10 @@ interface TitleBarProps {
 import { getCurrentWindow } from '@tauri-apps/api/window';
 
 export function TitleBar({ title = "Bibliotheca Vitae" }: TitleBarProps) {
-  const isMac = typeof window !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  const isMac = typeof window !== 'undefined' &&
+    navigator.platform.toUpperCase().indexOf('MAC') >= 0 &&
+    typeof window !== 'undefined' &&
+    '__TAURI__' in window;
 
   const handleMinimize = () => {
     getCurrentWindow().minimize();

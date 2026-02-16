@@ -13,7 +13,8 @@ import { DataManagement } from '@/components/ui/DataManagement';
 import { FilterBar, type Category } from '@/components/ui/FilterBar';
 import { documents } from '@/lib/data';
 import type { Document } from '@/lib/types';
-import { getEntries, isRunningInWeb } from '@/services/entryService';
+import { getEntries, deleteEntry, isRunningInWeb } from '@/services/entryService';
+import { SettingsPanel } from '@/components/features/SettingsPanel';
 import type { Entry } from '@/services/storage-repository';
 
 // Dynamically import Canvas3D with loading state
@@ -53,6 +54,36 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState<Category>('all');
   const [isLoading, setIsLoading] = useState(true);
+
+  // Custom Settings
+  const [dimmingIntensity, setDimmingIntensity] = useState(0.3);
+
+  // Load preferences
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('bv_dimming_intensity');
+      if (saved) {
+        setDimmingIntensity(parseFloat(saved));
+      }
+    }
+  }, []);
+
+  // Save preferences
+  const handleIntensityChange = (val: number) => {
+    setDimmingIntensity(val);
+    localStorage.setItem('bv_dimming_intensity', val.toString());
+  };
+
+  // Handle entry deletion
+  const handleDeleteEntry = async (id: string) => {
+    // Strip 'user-' prefix to get real storage ID
+    const realId = id.replace(/^user-/, '');
+    if (confirm('Are you sure you want to delete this moment? This cannot be undone.')) {
+      await deleteEntry(realId);
+      await refreshUserEntries();
+      setSelectedDocId(null);
+    }
+  };
 
   // Load user entries on mount
   useEffect(() => {
@@ -149,6 +180,18 @@ export default function Home() {
         <Canvas3D
           imageUrl="/archive/newton.jpg"
           scrollProgress={scrollProgress}
+        />
+
+        {/* Dynamic Dimming Overlay - Controlled by User Settings */}
+        <div
+          className="fixed inset-0 pointer-events-none bg-background transition-opacity duration-100 ease-linear"
+          style={{ opacity: scrollProgress * dimmingIntensity, zIndex: -1 }}
+        />
+
+        {/* Global Settings Panel */}
+        <SettingsPanel
+          dimmingIntensity={dimmingIntensity}
+          onIntensityChange={handleIntensityChange}
         />
 
         {/* Hero Section */}
@@ -303,7 +346,7 @@ export default function Home() {
                     size="small"
                     className="h-full w-full border-none"
                     focalPoint={doc.focalPoint}
-                    onClick={() => {}}
+                    onClick={() => { }}
                   />
                   {doc.id.startsWith('user-') && (
                     <span className="absolute top-2 left-2 px-2 py-0.5 bg-white/80 backdrop-blur-sm rounded text-[10px] uppercase tracking-wider text-foreground z-10">
@@ -358,6 +401,7 @@ export default function Home() {
           <ArchiveDetailView
             document={selectedDoc}
             onClose={() => setSelectedDocId(null)}
+            onDelete={handleDeleteEntry}
           />
         )}
       </AnimatePresence>
