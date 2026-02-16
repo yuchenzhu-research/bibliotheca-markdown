@@ -208,6 +208,14 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         try {
             console.log('Saving entry with service...');
             const result = await entryService.saveEntry(entryData);
+
+            // Defensive check - ensure result is valid
+            if (!result) {
+                console.error('Save returned undefined result');
+                showToast('Failed to save. Please try again.');
+                return;
+            }
+
             console.log('Save result:', result);
 
             if (result.success) {

@@ -154,13 +154,47 @@ export const getStorageLocation = async (): Promise<string> => {
 };
 
 // ============================================================================
-// Default Export (Factory Instance)
+// Default Export (Lazy Factory with Proxy)
 // ============================================================================
 
 /**
- * Default export - a ready-to-use singleton repository instance
+ * Default export - a lazy-loading proxy that safely handles SSR scenarios
+ * Uses a Proxy to intercept method calls and lazy-initialize the repository
  */
-const entryService: StorageRepository = getRepository();
+const createLazyEntryService = (): StorageRepository => {
+  let repository: StorageRepository | null = null;
+
+  const ensureRepository = (): StorageRepository => {
+    // SSR check
+    if (typeof window === 'undefined') {
+      throw new Error('Storage service is only available in browser environments');
+    }
+    if (!repository) {
+      const environment = isTauri() ? 'tauri' : 'web';
+      repository = environment === 'tauri'
+        ? new NativeStorageAdapter()
+        : new WebStorageAdapter();
+    }
+    return repository;
+  };
+
+  return new Proxy({} as StorageRepository, {
+    get(_target, prop) {
+      const repo = ensureRepository();
+      const value = (repo as any)[prop];
+      if (typeof value === 'function') {
+        // Return a function that first gets the repo, then calls the method
+        return (...args: any[]) => {
+          const targetRepo = ensureRepository();
+          return (targetRepo as any)[prop](...args);
+        };
+      }
+      return value;
+    },
+  });
+};
+
+const entryService: StorageRepository = createLazyEntryService();
 
 export default entryService;
 

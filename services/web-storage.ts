@@ -72,14 +72,18 @@ const loadEntries = (): Entry[] => {
 
 /**
  * Save entries to localStorage
+ * @returns true if successful, false if storage is full or unavailable
  */
-const saveEntries = (entries: Entry[]): void => {
-  if (!isBrowser()) return;
+const saveEntries = (entries: Entry[]): boolean => {
+  if (!isBrowser()) return false;
 
   try {
     localStorage.setItem(STORAGE_KEYS.ENTRIES, JSON.stringify(entries));
+    return true;
   } catch (error) {
+    // QuotaExceededError or other storage errors
     console.error('Failed to save entries to localStorage:', error);
+    return false;
   }
 };
 
@@ -118,14 +122,25 @@ export class WebStorageAdapter implements StorageRepository {
     try {
       const entries = loadEntries();
       entries.push(savedEntry);
-      saveEntries(entries);
+      const saved = saveEntries(entries);
+
+      if (!saved) {
+        return {
+          success: false,
+          error: 'Storage full or unavailable. Please clear some space and try again.',
+        };
+      }
 
       // Also save as last backup for quick access
       if (isBrowser()) {
         const backupKey = this.prefix
           ? `${this.prefix}_${STORAGE_KEYS.LAST_BACKUP}`
           : STORAGE_KEYS.LAST_BACKUP;
-        localStorage.setItem(backupKey, JSON.stringify(savedEntry));
+        try {
+          localStorage.setItem(backupKey, JSON.stringify(savedEntry));
+        } catch {
+          // Ignore backup save errors
+        }
       }
 
       return {

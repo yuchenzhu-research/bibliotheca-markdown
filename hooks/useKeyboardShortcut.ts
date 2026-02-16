@@ -67,7 +67,7 @@ export function useSaveShortcut(callback: ShortcutHandler, enabled = true) {
     typeof navigator !== 'undefined' &&
     navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
-  const modifiers = isMac ? ['meta'] : ['ctrl'];
+  const modifiers: ('ctrl' | 'alt' | 'shift' | 'meta')[] = isMac ? ['meta'] : ['ctrl'];
 
   useKeyboardShortcut({
     key: 's',
@@ -85,7 +85,7 @@ export function useSaveAsShortcut(callback: ShortcutHandler, enabled = true) {
     typeof navigator !== 'undefined' &&
     navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
-  const modifiers = isMac ? ['meta', 'shift'] : ['ctrl', 'shift'];
+  const modifiers: ('ctrl' | 'alt' | 'shift' | 'meta')[] = isMac ? ['meta', 'shift'] : ['ctrl', 'shift'];
 
   useKeyboardShortcut({
     key: 's',
