@@ -1,16 +1,24 @@
-"use client";
-
+import { useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ImageCard } from '@/components/ui/ImageCard';
 import { documents } from '@/lib/data';
 
 interface ArchiveGridProps {
     onCardClick?: (id: string) => void;
+    showAll?: boolean;
 }
 
-export function ArchiveGrid({ onCardClick }: ArchiveGridProps) {
+export function ArchiveGrid({ onCardClick, showAll = false }: ArchiveGridProps) {
+    // Scroll to archive grid
+    const scrollToArchive = useCallback(() => {
+        const element = document.getElementById('archive-grid');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, []);
+
     return (
-        <section className="container mx-auto px-4 py-20">
+        <section id="archive-grid" className="container mx-auto px-4 py-20">
             <div className="mb-16">
                 <div className="flex items-end justify-between">
                     <div>
@@ -21,7 +29,10 @@ export function ArchiveGrid({ onCardClick }: ArchiveGridProps) {
                             Browse Archive
                         </h2>
                     </div>
-                    <button className="hidden md:flex items-center gap-3 px-6 py-3 border border-foreground/20 hover:border-foreground/40 transition-colors duration-300">
+                    <button
+                        onClick={scrollToArchive}
+                        className="hidden md:flex items-center gap-3 px-6 py-3 border border-foreground/20 hover:border-foreground/40 transition-colors duration-300"
+                    >
                         <span className="font-sans text-sm tracking-widest uppercase">
                             View All
                         </span>
@@ -31,7 +42,7 @@ export function ArchiveGrid({ onCardClick }: ArchiveGridProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/5 border border-foreground/5">
-                {documents.slice(0, 6).map((doc) => (
+                {(showAll ? documents : documents.slice(0, 6)).map((doc) => (
                     <div
                         key={doc.id}
                         className="group relative aspect-square overflow-hidden bg-card"
@@ -45,7 +56,7 @@ export function ArchiveGrid({ onCardClick }: ArchiveGridProps) {
                             imageUrl={doc.imageUrl}
                             floatingTexts={{ topLeft: doc.category }}
                             aspectRatio="square"
-                            size="small" // 对应小尺寸网格优化文字比例
+                            size="small"
                             className="h-full w-full border-none"
                             focalPoint={doc.focalPoint}
                             onClick={() => onCardClick?.(doc.id)}

@@ -10,6 +10,7 @@ import { ImageCard } from '@/components/ui/ImageCard';
 import { ArchiveDetailView } from '@/components/features/ArchiveDetailView';
 import { EntryEditor } from '@/components/features/EntryEditor';
 import { DataManagement } from '@/components/ui/DataManagement';
+import { FilterBar, type Category } from '@/components/ui/FilterBar';
 import { documents } from '@/lib/data';
 import type { Document } from '@/lib/types';
 import { getEntries, isRunningInWeb } from '@/services/entryService';
@@ -30,7 +31,7 @@ const SmoothScrollWrapper = dynamic(
 const entryToDocument = (entry: Entry, index: number): Document => ({
   id: entry.id || `user-${index}`,
   title: entry.title,
-  category: 'Art' as const, // User entries mapped to 'Art' category
+  category: 'Art' as const,
   description: entry.narrative?.substring(0, 100) + '...' || 'Your personal moment',
   imageUrl: entry.imageUrl || '/placeholder.jpg',
   year: new Date(entry.dateCreated).getFullYear().toString(),
@@ -49,6 +50,8 @@ export default function Home() {
   const [selectedDocId, setSelectedDocId] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userEntries, setUserEntries] = useState<Entry[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [category, setCategory] = useState<Category>('all');
   const [isLoading, setIsLoading] = useState(true);
 
   // Load user entries on mount
@@ -69,7 +72,6 @@ export default function Home() {
 
   // Combine static and user entries
   const allDocuments = useMemo(() => {
-    // Mark user entries with 'user-' prefix in ID
     const userDocs = userEntries.map((entry, i) => ({
       ...entryToDocument(entry, i),
       id: `user-${entry.id || i}`,
@@ -77,6 +79,35 @@ export default function Home() {
     }));
     return [...documents, ...userDocs];
   }, [userEntries]);
+
+  // Filter documents based on search and category
+  const filteredDocuments = useMemo(() => {
+    return allDocuments.filter((doc) => {
+      // Category filter
+      if (category !== 'all' && doc.category !== category) {
+        return false;
+      }
+
+      // Search filter
+      if (searchQuery.trim()) {
+        const query = searchQuery.toLowerCase();
+        const matchesTitle = doc.title.toLowerCase().includes(query);
+        const matchesAuthor = doc.author.toLowerCase().includes(query);
+        const matchesDescription = doc.description.toLowerCase().includes(query);
+        const matchesTags = doc.tags?.some(tag => tag.toLowerCase().includes(query));
+
+        // For user entries, also check keywords ((doc as any).keywords)
+        const docKeywords = (doc as unknown as { keywords?: string[] }).keywords;
+        const matchesKeywords = docKeywords?.some(kw => kw.toLowerCase().includes(query));
+
+        if (!matchesTitle && !matchesAuthor && !matchesDescription && !matchesTags && !matchesKeywords) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+  }, [allDocuments, category, searchQuery]);
 
   const selectedDoc = allDocuments.find(doc => doc.id === selectedDocId);
 
@@ -109,6 +140,9 @@ export default function Home() {
     }
   };
 
+  // Show featured docs (first 3) regardless of filter
+  const featuredDocs = documents.slice(0, 3);
+
   return (
     <main className="relative min-h-screen">
       <SmoothScrollWrapper>
@@ -120,9 +154,9 @@ export default function Home() {
         {/* Hero Section */}
         <Hero onAppendClick={() => setIsEditing(true)} />
 
-        {/* Horizontal Scroll Section - Static Featured Docs */}
+        {/* Horizontal Scroll Section - Featured */}
         <HorizontalScrollSection onScrollProgress={setScrollProgress}>
-          {documents.slice(0, 3).map((doc) => (
+          {featuredDocs.map((doc) => (
             <div key={doc.id} className="flex-none w-[80vw] md:w-[60vw] lg:w-[45vw] max-w-4xl h-[65vh]">
               <ImageCard
                 id={doc.id}
@@ -145,7 +179,7 @@ export default function Home() {
           ))}
         </HorizontalScrollSection>
 
-        {/* My Moments Section - User Entries */}
+        {/* My Moments Section - User Entries (show if any) */}
         {userEntries.length > 0 && (
           <section className="container mx-auto px-4 py-20">
             <div className="mb-12">
@@ -158,7 +192,6 @@ export default function Home() {
                     My Moments
                   </h2>
                 </div>
-                {/* Data Management Dropdown */}
                 <DataManagement onDataChanged={refreshUserEntries} />
               </div>
             </div>
@@ -206,8 +239,95 @@ export default function Home() {
           </section>
         )}
 
-        {/* Browse Archive Grid - All Documents */}
-        <ArchiveGrid onCardClick={(id) => setSelectedDocId(id)} />
+        {/* Browsable Archive Section - With Search & Filter */}
+        <section className="container mx-auto px-4 py-20">
+          <div className="mb-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+              <div>
+                <span className="text-decorative text-muted-foreground/60 block mb-3">
+                  Complete Collection
+                </span>
+                <h2 className="font-epic-serif text-4xl md:text-5xl text-foreground font-light">
+                  Browse Archive
+                </h2>
+              </div>
+
+              {/* Search & Filter Bar */}
+              <FilterBar
+                searchValue={searchQuery}
+                onSearchChange={setSearchQuery}
+                categoryValue={category}
+                onCategoryChange={setCategory}
+              />
+            </div>
+          </div>
+
+          {/* Filter Status */}
+          {(searchQuery || category !== 'all') && (
+            <div className="mb-6 flex items-center gap-4">
+              <span className="text-sm text-muted-foreground">
+                Showing {filteredDocuments.length} of {allDocuments.length} entries
+              </span>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setCategory('all');
+                }}
+                className="text-sm text-primary hover:text-primary/80 transition-colors"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+
+          {/* Archive Grid with Filters */}
+          {filteredDocuments.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredDocuments.map((doc) => (
+                <motion.div
+                  key={doc.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="aspect-square overflow-hidden rounded-lg cursor-pointer group relative"
+                  onClick={() => setSelectedDocId(doc.id)}
+                >
+                  <ImageCard
+                    id={doc.id}
+                    title={doc.title}
+                    description={doc.description}
+                    year={doc.year}
+                    author={doc.author}
+                    imageUrl={doc.imageUrl}
+                    floatingTexts={{ topLeft: doc.category }}
+                    aspectRatio="square"
+                    size="small"
+                    className="h-full w-full border-none"
+                    focalPoint={doc.focalPoint}
+                    onClick={() => {}}
+                  />
+                  {doc.id.startsWith('user-') && (
+                    <span className="absolute top-2 left-2 px-2 py-0.5 bg-white/80 backdrop-blur-sm rounded text-[10px] uppercase tracking-wider text-foreground z-10">
+                      Personal
+                    </span>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <p className="text-muted-foreground mb-4">No entries match your search.</p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setCategory('all');
+                }}
+                className="text-primary hover:text-primary/80 transition-colors"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+        </section>
 
         {/* Footer */}
         <footer className="container mx-auto px-4 py-12 border-t border-foreground/5 text-muted-foreground/60">

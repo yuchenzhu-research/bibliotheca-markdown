@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, ArrowRight, Save, X, Plus } from 'lucide-react';
+import { Upload, ArrowRight, Save, X, Plus, Trash2, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Toast } from '@/components/ui/Toast';
 import { useAutosave } from '@/hooks/useAutosave';
@@ -169,6 +169,12 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
         }
     };
 
+    // --- Remove Image ---
+    const handleRemoveImage = () => {
+        setImage(null);
+        setImageBase64(null);
+    };
+
     const handleKeywordKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && currentKeyword.trim()) {
             e.preventDefault();
@@ -328,14 +334,25 @@ export function EntryEditor({ onClose }: { onClose?: () => void }) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
 
-                    {/* Re-upload button overlaid */}
-                    <button
-                        onClick={() => fileInputRef.current?.click()}
-                        className="absolute top-6 right-6 p-2 bg-black/20 hover:bg-black/40 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity"
-                        title="Change Image"
-                    >
-                        <Upload className="w-4 h-4" />
-                    </button>
+                    {/* Image Actions Overlay */}
+                    <div className="absolute top-6 right-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {/* Re-upload button */}
+                        <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="p-2 bg-black/40 hover:bg-black/60 text-white rounded-full backdrop-blur-md transition-colors"
+                            title="Change Image"
+                        >
+                            <RotateCcw className="w-4 h-4" />
+                        </button>
+                        {/* Remove image button */}
+                        <button
+                            onClick={handleRemoveImage}
+                            className="p-2 bg-red-500/60 hover:bg-red-500/80 text-white rounded-full backdrop-blur-md transition-colors"
+                            title="Remove Image"
+                        >
+                            <Trash2 className="w-4 h-4" />
+                        </button>
+                    </div>
                     <input
                         ref={fileInputRef}
                         type="file"
